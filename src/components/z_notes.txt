@@ -1,0 +1,14 @@
+|— App
+        |— Nav/Search Bar
+        |— Monument Container
+                |— Monument Card
+                        |— Favorite
+        | — Monument Detail
+        |— User Profile
+               |—Travelogue Container
+               |— Monument Card Container                 
+        |— Travelogue
+               |—Comments
+               |—Likes
+
+To do: 
