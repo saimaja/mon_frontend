@@ -3,8 +3,8 @@ import './App.css'
 import mapboxgl from 'mapbox-gl'
 import MonumentContainer from './components/MonumentContainer'
 import MonumentDetail from './components/MonumentDetail'
-import SideBar from './components/SideBar'
-import { Grid } from 'semantic-ui-react'
+import NavBar from './components/NavBar'
+import { Container, Row } from 'react-bootstrap';
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FpbWFqYSIsImEiOiJja2NwZ3A3MXcwZ3Z2MnNsZTE1OXR0MWk1In0.EffvATu2f0N_tMT17bK7Zw';
 
@@ -19,8 +19,9 @@ export default class App extends Component {
     userName: null,
     map_long: -108,
     map_lat: 40,
-    zoom: 3.2, 
-    geojson: {type: 'FeatureCollection', 
+    zoom: 3.2,
+    geojson: {
+      type: 'FeatureCollection',
       features: [{
         type: 'Feature',
         geometry: {
@@ -31,7 +32,9 @@ export default class App extends Component {
           title: '',
           description: ''
         }
-      }]}
+      },
+      ]
+    }
   }
 
   componentDidMount() {
@@ -39,14 +42,14 @@ export default class App extends Component {
   }
 
   componentDidUpdate() {
-   this.fetchMap()
+    this.fetchMap()
   }
 
   fetchMonuments = () => {
     fetch('http://localhost:3000/monuments')
       .then(resp => resp.json())
-      .then(monuments => 
-        {let mapMon = monuments.map( mon => {
+      .then(monuments => {
+        let mapMon = monuments.map(mon => {
           return {
             type: 'Feature',
             geometry: {
@@ -59,17 +62,21 @@ export default class App extends Component {
             }
           }
         })
-        this.setState({...this.state, monuments: monuments, geojson: {...this.state.geojson, features: mapMon}})
-        }
-      )
+        this.setState({ ...this.state, monuments: monuments, geojson: { ...this.state.geojson, features: mapMon }})
+      }
+    )
   }
 
-//   makeMapData = (arr) => {
-//     let coordinates = arr.map(a => [a.longitude, a.latitude])
-//     let title = arr.map(a => a.name)
-//     let description = arr.map(a => a.honorees)
-    
-// }
+  changeSearchField = (e) => {
+    this.setState({ searchField: e.target.value })
+  }
+
+  filteredMon = () => {
+    this.state.monuments.filter(mon => mon.name.toLowerCase().includes(this.changeSearchField.toLowerCase()))
+
+  }
+
+
   fetchMap = () => {
     const map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -91,8 +98,6 @@ export default class App extends Component {
     });
   }
 
-  
-
 
   render() {
 
@@ -100,14 +105,12 @@ export default class App extends Component {
 
       <div>
         <div className='mapContainer' ref={el => this.mapContainer = el} />
-        {/* <MonumentContainer monuments={this.state.monuments}/> */}
+        <NavBar search={this.changeSearchField} />
+        <MonumentContainer
+          search={this.state.searchField}
+          monuments={this.state.monuments}
+          geojson={this.state.geojson} />
       </div>
-
-      // <Grid>
-      //   <Grid.Column style={{ marginLeft: '20px' }}>
-      //             <MonumentContainer style={{ width: '85%' }} monuments={this.state.monuments} />
-      //   </Grid.Column>
-      // </Grid>
     )
   }
 }
