@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Card, Icon, Image } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 
-export default class MonumentCard extends Component {
+class MonumentCard extends Component {
     render() {
         return (
             <Card>
@@ -25,3 +26,5 @@ export default class MonumentCard extends Component {
         )
     }
 }
+
+export default withRouter(MonumentCard)

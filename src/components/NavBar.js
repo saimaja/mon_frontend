@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Input, Menu } from 'semantic-ui-react'
+import { withRouter, Link } from 'react-router-dom';
 
-export default class NavBar extends Component {
+class NavBar extends Component {
 
   state = { 
     activeItem: 'home' 
@@ -11,6 +12,10 @@ export default class NavBar extends Component {
   
 
   render() {
+    if(this.props.location.pathname === '/login' || this.props.location.pathname === '/register') {
+      return <span></span>
+    } else {
+
     return (
       <Menu secondary>
         <Menu.Item
@@ -41,5 +46,8 @@ export default class NavBar extends Component {
       </Menu>
 
     )
+    }
   }
 }
+
+export default withRouter(NavBar)

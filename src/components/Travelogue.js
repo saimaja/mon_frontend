@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 
-class MonumentDetail extends Component {
+class Travelogue extends Component {
     render() {
         return (
             <div>
@@ -11,4 +11,4 @@ class MonumentDetail extends Component {
     }
 }
 
-export default withRouter(MonumentDetail)
+export default withRouter(Travelogue)

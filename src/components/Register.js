@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
 
-class MonumentDetail extends Component {
+export default class Register extends Component {
     render() {
         return (
             <div>
@@ -10,5 +9,3 @@ class MonumentDetail extends Component {
         )
     }
 }
-
-export default withRouter(MonumentDetail)
