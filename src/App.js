@@ -9,7 +9,7 @@ import Register from './components/Register'
 import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { Grid, Loader } from 'semantic-ui-react'
+import { Container, Divider, Grid, Loader } from 'semantic-ui-react'
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FpbWFqYSIsImEiOiJja2NwZ3A3MXcwZ3Z2MnNsZTE1OXR0MWk1In0.EffvATu2f0N_tMT17bK7Zw';
 
@@ -77,9 +77,9 @@ export default class App extends Component {
       )
   }
 
-  // changeSearchField = (e) => {
-  //   this.setState({ searchField: e.target.value })
-  // }
+  changeSearchField = (e) => {
+    this.setState({ searchField: e.target.value })
+  }
 
   // filteredMon = () => {
   //   this.state.monuments.filter(mon => mon.name.toLowerCase().includes(this.changeSearchField.toLowerCase()))
@@ -146,7 +146,15 @@ export default class App extends Component {
 
     return (
 
+      
       <Router>
+
+        <NavBar 
+            search={this.changeSearchField}
+            userName={this.state.userName}
+            logout={this.logoutUser}
+           />
+        
         <Route path='/' render={() => {
           if(this.state.currentUser) {
             return <Redirect to='/monuments'/>
@@ -161,55 +169,31 @@ export default class App extends Component {
 
         <Route exact path='/monuments' render={() => <MonumentContainer monuments={this.state.monuments}/>}/>
 
-        
-{/*         
-        <Grid style={{ marginTop: '10px', marginRight: '500px' }} columns={2}>
-          <Grid.Column style={{ width: '15%' }}>
-            <NavBar 
-            search={this.changeSearchField}
-            userName={this.state.userName}
-            logout={this.logoutUser}
-           />
-          </Grid.Column>
+        <Switch>
+       
+          <Route exact path='/monuments' render={() =>
+            this.state.monuments.length === 0 ?
+            
+              <div>
+                  <Loader active inline='centered'  />
+                  <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
+              </div>
+         
+              :
+             
+                  <MonumentContainer style={{ width: '85%'}} monuments={this.state.monuments} />
+           
+           } />
 
-          {!this.state.admin ?
-            <Switch>
-              {/* <Route exact path='/cart' render={() =>
-          <Cart refreshIndex={this.refreshIndex} />}
-          /> */}
-              {/* <Route exact path='/monuments' render={() =>
-                this.state.monuments.length === 0 ?
-
-                  <Grid.Column style={{ marginLeft: '20px' }}>
-                    <Loader active inline='centered' />
-                    <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
-                  </Grid.Column>
-
-                  :
-
-                  <Grid.Column style={{ marginLeft: '20px' }}>
-                    <MonumentContainer style={{ width: '85%' }} monuments={this.state.monuments} />
-                  </Grid.Column>
-              } />
-
-              <Route exact path='/monuments/:id' render={(props) =>
-
-                <Grid.Column>
-                  <MonumentDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
-                </Grid.Column>
-              } />
-            </Switch> :
-            <Switch>
-              <Route to='/dashboard' render={() =>
-                <Grid.Column>
-                  <Dashboard
-                    userName={this.state.userName}
-                  />
-                </Grid.Column>
-              } />
-            </Switch>}
-        </Grid>  */}
-      {/* */}
+          <Route exact path='/monuments/:id' render={(props) =>
+    
+            
+                <MonumentDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
+              
+            } />
+            
+        </Switch>
+      
       </Router>
 
     )

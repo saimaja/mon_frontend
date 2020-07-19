@@ -20,17 +20,17 @@ class NavBar extends Component {
       <Menu secondary>
         <Menu.Item
           name='home'
-          // active={activeItem === 'home'}
+          active={this.state.activeItem === 'home'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
           name='about'
-          // active={activeItem === 'messages'}
+          active={this.state.activeItem === 'messages'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
-          name='profile'
-          // active={activeItem === 'friends'}
+          name= {this.props.userName}
+          active={this.state.activeItem === 'profile'}
           onClick={this.handleItemClick}
         />
         <Menu.Menu position='right'>
@@ -38,9 +38,9 @@ class NavBar extends Component {
             <Input icon='search' type='text' placeholder='Search...' onChange={this.props.search} />
           </Menu.Item>
           <Menu.Item
-            name='logout'
-            // active={activeItem === 'logout'}
-            onClick={this.handleItemClick}
+            name= 'logout'
+            active={this.state.activeItem === 'logout'}
+            onClick={this.props.logout}
           />
         </Menu.Menu>
       </Menu>

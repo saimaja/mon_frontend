@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MonumentCard from './MonumentCard'
-import { Grid } from 'semantic-ui-react'
+import { Container, Divider, Segment, Grid } from 'semantic-ui-react'
 
 export default class MonumentContainer extends Component {
     render() {
@@ -9,12 +9,15 @@ export default class MonumentContainer extends Component {
         //     mon => mon.name.toLowerCase().includes(this.props.searchField.toLowerCase()) 
         //   )
         return (
-            <div>
-                <Grid columns={4} relaxed style={{ paddingRight: 0 }}>
+            
+                <Container>
+                <Divider hidden/>
+                <Grid className='card-padding' relaxed columns={3} divided>
                     {this.props.monuments.map(monument =>
-                        <Grid.Column mobile={16} tablet={8} computer={4}><MonumentCard key={monument.id} monument={monument} /></Grid.Column>)}
+                        <Grid.Column><MonumentCard key={monument.id} monument={monument} /></Grid.Column>)}
                 </Grid>
-            </div>
+                </Container>
+           
         )
 
 
