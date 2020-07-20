@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 
-class UserProfile extends Component {
+export default class UserProfile extends Component {
     render() {
         return (
             <div>
@@ -11,4 +11,4 @@ class UserProfile extends Component {
     }
 }
 
-export default withRouter(UserProfile)
+// export default withRouter(UserProfile)
