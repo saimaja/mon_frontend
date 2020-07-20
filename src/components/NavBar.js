@@ -28,11 +28,12 @@ class NavBar extends Component {
           active={this.state.activeItem === 'messages'}
           onClick={this.handleItemClick}
         />
+        {this.props.currentUser ? 
         <Menu.Item
           name= {this.props.userName}
           active={this.state.activeItem === 'profile'}
           onClick={this.handleItemClick}
-        />
+        /> : null }
         <Menu.Menu position='right'>
           <Menu.Item>
             <Input icon='search' type='text' placeholder='Search...' onChange={this.props.search} />

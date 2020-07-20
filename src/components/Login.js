@@ -33,7 +33,7 @@ export default class Login extends Component {
                         <Form.Button basic color='ui grey inverted button' type='submit' content='Login'/>
                         </Form.Group>  
                     </Form>
-                    <div class='link-text'>
+                    <div >
                     Don't have an account? <Link to='/register'>Register here.</Link>
                     </div>
                 

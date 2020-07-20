@@ -121,15 +121,15 @@ export default class App extends Component {
       .then(res => res.json())
       .then(data => {
         if (!data.error) {
-        localStorage.setItem('id', data.id)
-        localStorage.setItem('admin', data.admin)
-        localStorage.setItem('name', data.name)
-        this.setState({ currentUser: parseInt(data.id), userName: data.name, admin: data.admin})
+          localStorage.setItem('id', data.id)
+          localStorage.setItem('admin', data.admin)
+          localStorage.setItem('name', data.name)
+          this.setState({ currentUser: parseInt(data.id), userName: data.name, admin: data.admin })
 
-        this.fetchMonuments()
-      } else {
-        alert(data.message)
-      }
+          this.fetchMonuments()
+        } else {
+          alert(data.message)
+        }
       })
   }
 
@@ -146,54 +146,58 @@ export default class App extends Component {
 
     return (
 
-      
+
       <Router>
 
-        <NavBar 
-            search={this.changeSearchField}
-            userName={this.state.userName}
-            logout={this.logoutUser}
-           />
-        
-        <Route path='/' render={() => {
-          if(this.state.currentUser) {
-            return <Redirect to='/monuments'/>
-          } else {
-            return <Redirect to='/login'/>
-          }
-        }}/>
+        <NavBar
+          search={this.changeSearchField}
+          userName={this.state.userName}
+          logout={this.logoutUser}
+          currentUser={this.state.currentUser}
+        />
 
-        <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
+        <Route path='/' render={() => {
+          if (this.state.currentUser) {
+            return <Redirect to='/monuments' />
+          } else {
+            return <Redirect to='/login' />
+          }
+        }} />
+
+        <Route exact path='/login' render={() =>
+          <Login formSubmit={this.loginUser} user={this.loginUser}
+
+          />} />
 
         <Route exact path='/register' render={() => <Register />} />
 
-        <Route exact path='/monuments' render={() => <MonumentContainer monuments={this.state.monuments}/>}/>
+
 
         <Switch>
-       
+
           <Route exact path='/monuments' render={() =>
             this.state.monuments.length === 0 ?
-            
+
               <div>
-                  <Loader active inline='centered'  />
-                  <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
+                <Loader active inline='centered' />
+                <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
               </div>
-         
+
               :
-             
-                  <MonumentContainer style={{ width: '85%'}} monuments={this.state.monuments} />
-           
-           } />
+
+              <MonumentContainer monuments={this.state.monuments} search={this.state.searchField} />
+
+          } />
 
           <Route exact path='/monuments/:id' render={(props) =>
-    
-            
-                <MonumentDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
-              
-            } />
-            
+
+
+            <MonumentDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
+
+          } />
+
         </Switch>
-      
+
       </Router>
 
     )
