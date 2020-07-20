@@ -159,7 +159,7 @@ export default class App extends Component {
 
 
   render() {
-
+ 
     return (
 
 
@@ -188,9 +188,10 @@ export default class App extends Component {
           remove={this.removedMon}
         />
              
+            {/* <Login formSubmit={this.loginUser} user={this.loginUser} />  */}
            </div>
          
-      //  <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
+       
 
       //   <Route exact path='/register' render={() => <Register />} />
       //  <Switch>

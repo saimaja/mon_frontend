@@ -34,7 +34,7 @@ export default class Login extends Component {
                         </Form.Group>  
                     </Form>
                     <div >
-                    Don't have an account? <Link to='/register'>Register here.</Link>
+                    {/* Don't have an account? <Link to='/register'>Register here.</Link> */}
                     </div>
                 
                 </div>
