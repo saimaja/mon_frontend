@@ -8,7 +8,6 @@ import Login from './components/Login'
 import Travelogue from './components/Travelogue'
 import Home from './components/Home'
 import Register from './components/Register'
-import GeneralContainer from './GeneralContainer'
 // import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -200,15 +199,15 @@ export default class App extends Component {
                 <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
               </div>
               :
-              <GeneralContainer component={MonumentContainer} monuments={this.filtered()} search={this.state.searchField} />
+              <MonumentContainer monuments={this.state.monuments} search={this.state.searchField} />
           } />
 
           <Route exact path='/home' render={() =>
-            this.state.currentUser ? <GeneralContainer component={Home} currentUser={this.state.currentUser} />
+            this.state.currentUser ? <Home currentUser={this.state.currentUser} />
               : <Redirect to='/login' />} />
 
           <Route exact path='/user/:id' render={() =>
-            this.state.currentUser ? <GeneralContainer component={UserProfile} currentUser={this.state.currentUser} userName={this.state.userName} admin={this.state.admin} />
+            this.state.currentUser ? <UserProfile currentUser={this.state.currentUser} userName={this.state.userName} admin={this.state.admin} />
               : <Redirect to='/login' />} />
 
         </Switch>
