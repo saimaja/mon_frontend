@@ -6,6 +6,7 @@ import MonumentDetail from './components/MonumentDetail'
 import NavBar from './components/NavBar'
 import Login from './components/Login'
 import Register from './components/Register'
+import GeneralContainer from './GeneralContainer'
 import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -164,7 +165,7 @@ export default class App extends Component {
 
 
       <Router>
-
+       
         <NavBar
           search={this.changeSearchField}
           userName={this.state.userName}
@@ -172,7 +173,7 @@ export default class App extends Component {
           currentUser={this.state.currentUser}
           remove={this.removedMon}
         />
-
+      
         <Route path='/' render={() => {
           if (this.state.currentUser) {
             return <Redirect to='/monuments' />
@@ -181,37 +182,35 @@ export default class App extends Component {
           }
         }} />
 
-      {/* <Route exact path='/home' render={() =>  
+          {/* <Route exact path='/home' render={() =>  
            <div ref={el => this.mapContainer = el} className="mapContainer" />
            }/> */}
-         
-       <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
+        <Switch>
+          <Route exact path='/login' render={() => <GeneralContainer component ={Login} formSubmit={this.loginUser} user={this.loginUser} />
+        }/>
 
-        <Route exact path='/register' render={() => <Register />} />
-       <Switch>
+          <Route exact path='/register' render={() => 
+          this.state.currentUser ? <GeneralContainer component={Register} /> : <Redirect to='/login'/> 
+          }/>
 
           <Route exact path='/monuments' render={() =>
             this.state.monuments.length === 0 ?
-
               <div>
                 <Loader active inline='centered' />
                 <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
               </div>
-
               :
-
-              <MonumentContainer monuments={this.filtered()} search={this.state.searchField} />
-
+              <GeneralContainer component={MonumentContainer} monuments={this.filtered()} search={this.state.searchField} />
           } />
 
           <Route exact path='/monuments/:id' render={(props) =>
-            <MonumentDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
-
-          } />
+            this.state.currentUser ? <GeneralContainer component={MonumentDetail} currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id}/>
+            : <Redirect to='/login'/>}/>
 
         </Switch>
-
+        
       </Router>
+     
 
     )
   }
