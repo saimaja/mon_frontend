@@ -34,7 +34,7 @@ class NavBar extends Component {
           />
           {this.props.currentUser ?
             <Menu.Item
-              name={this.props.userName}
+              name={this.props.name}
               active={this.state.activeItem === 'profile'}
               onClick={this.handleItemClick}
             /> : null}

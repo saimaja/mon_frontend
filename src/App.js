@@ -26,6 +26,7 @@ export default class App extends Component {
     searchField: '',
     currentUser: null,
     admin: false,
+    name: '',
     userName: null,
     map_long: -108,
     map_lat: 40,
@@ -50,7 +51,7 @@ export default class App extends Component {
 
   componentDidMount() {
     if (localStorage.getItem('id') && localStorage.getItem('admin')) {
-      this.setState({ currentUser: parseInt(localStorage.getItem('id')), admin: localStorage.getItem('admin') === 'true' ? true : false, userName: localStorage.getItem('username') })
+      this.setState({ currentUser: parseInt(localStorage.getItem('id')), admin: localStorage.getItem('admin') === 'true' ? true : false, userName: localStorage.getItem('username'), name: localStorage.getItem('name') })
       this.fetchMonuments()
     }
   }
@@ -143,7 +144,7 @@ export default class App extends Component {
           localStorage.setItem('admin', data.admin)
           localStorage.setItem('name', data.name)
           localStorage.setItem('username', data.username)
-          this.setState({ currentUser: parseInt(data.id), userName: data.username, admin: data.admin })
+          this.setState({ currentUser: parseInt(data.id), userName: data.username, admin: data.admin, name: data.name })
 
           this.fetchMonuments()
         } else {
@@ -173,6 +174,7 @@ export default class App extends Component {
           logout={this.logoutUser}
           currentUser={this.state.currentUser}
           remove={this.removedMon}
+          name={this.state.name}
         />
 
         <Route path='/' render={() => {
