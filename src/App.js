@@ -142,7 +142,8 @@ export default class App extends Component {
           localStorage.setItem('id', data.id)
           localStorage.setItem('admin', data.admin)
           localStorage.setItem('name', data.name)
-          this.setState({ currentUser: parseInt(data.id), userName: data.name, admin: data.admin })
+          localStorage.setItem('username', data.username)
+          this.setState({ currentUser: parseInt(data.id), userName: data.username, admin: data.admin })
 
           this.fetchMonuments()
         } else {
@@ -157,7 +158,6 @@ export default class App extends Component {
     localStorage.removeItem('name')
     this.setState({ currentUser: null, admin: false, userName: null })
   }
-
 
 
   render() {
@@ -183,10 +183,6 @@ export default class App extends Component {
           }
         }} />
 
-        {/* <Route exact path='/home' render={() =>  
-           <div ref={el => this.mapContainer = el} className="mapContainer" />
-           }/> */}
-
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />
         } />
 
@@ -195,7 +191,7 @@ export default class App extends Component {
         } />
 
         <Switch>
-        <Route exact path='/monuments' render={() =>
+          <Route exact path='/monuments' render={() =>
             this.state.monuments.length === 0 ?
               <div>
                 <Loader active inline='centered' />
@@ -203,13 +199,7 @@ export default class App extends Component {
               </div>
               :
               <GeneralContainer component={MonumentContainer} monuments={this.filtered()} search={this.state.searchField} />
-          } /> 
-
-         
-          {/* 
-          <Route path='/monuments/:id' render={() =>
-            this.state.currentUser ? <GeneralContainer component={MonumentDetail} currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
-              : <Redirect to='/login' />} /> */}
+          } />
 
           <Route exact path='/home' render={() =>
             this.state.currentUser ? <GeneralContainer component={Home} currentUser={this.state.currentUser} />
@@ -218,12 +208,6 @@ export default class App extends Component {
           <Route exact path='/user/:id' render={() =>
             this.state.currentUser ? <GeneralContainer component={UserProfile} currentUser={this.state.currentUser} userName={this.state.userName} admin={this.state.admin} />
               : <Redirect to='/login' />} />
-
-          {/* <Route exact path='/travelogue' render={() =>
-            this.state.currentUser ? <GeneralContainer component={Travelogue} />
-              : <Redirect to='/login' />} /> */}
-
-
 
         </Switch>
 
