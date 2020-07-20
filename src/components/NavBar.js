@@ -16,9 +16,9 @@ class NavBar extends Component {
 
 
   render() {
-    if (this.props.location.pathname === '/login' || this.props.location.pathname === '/register') {
-      return <span></span>
-    } else {
+    // if (this.props.location.pathname === '/login' || this.props.location.pathname === '/register') {
+    //   return <span></span>
+    // } else {
 
       return (
         <Menu secondary>
@@ -70,6 +70,6 @@ class NavBar extends Component {
       )
     }
   }
-}
+// }
 
-export default withRouter(NavBar)
+export default NavBar
