@@ -1,52 +1,73 @@
 import React, { Component } from 'react'
-import { Input, Menu } from 'semantic-ui-react'
-import { withRouter, Link } from 'react-router-dom';
+import './component.css'
+import { Input, Menu, Dropdown } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom';
+import logo from '../images/mon.png'
+
+
 
 class NavBar extends Component {
 
-  state = { 
-    activeItem: 'home' 
+  state = {
+    activeItem: 'home'
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-  
+
 
   render() {
-    if(this.props.location.pathname === '/login' || this.props.location.pathname === '/register') {
+    if (this.props.location.pathname === '/login' || this.props.location.pathname === '/register') {
       return <span></span>
     } else {
 
-    return (
-      <Menu secondary>
-        <Menu.Item
-          name='home'
-          active={this.state.activeItem === 'home'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name='about'
-          active={this.state.activeItem === 'messages'}
-          onClick={this.handleItemClick}
-        />
-        {this.props.currentUser ? 
-        <Menu.Item
-          name= {this.props.userName}
-          active={this.state.activeItem === 'profile'}
-          onClick={this.handleItemClick}
-        /> : null }
-        <Menu.Menu position='right'>
-          <Menu.Item>
-            <Input icon='search' type='text' placeholder='Search...' onChange={this.props.search} />
-          </Menu.Item>
+      return (
+        <Menu secondary>
           <Menu.Item
-            name= 'logout'
-            active={this.state.activeItem === 'logout'}
-            onClick={this.props.logout}
-          />
-        </Menu.Menu>
-      </Menu>
+            onClick={() => this.props.history.push('/monuments')}>
+            <img src={logo} />
+          </Menu.Item>
 
-    )
+          <Menu.Item
+            name='about'
+            active={this.state.activeItem === 'messages'}
+            onClick={this.handleItemClick}
+          />
+          {this.props.currentUser ?
+            <Menu.Item
+              name={this.props.userName}
+              active={this.state.activeItem === 'profile'}
+              onClick={this.handleItemClick}
+            /> : null}
+
+          <Menu.Menu position= 'right'>
+          <Dropdown item text='Filter' >
+            <Dropdown.Menu >
+              <Dropdown.Item text='Removed' onClick= {() => this.props.remove}/>
+              <Dropdown.Item text='Renamed' />
+            </Dropdown.Menu>
+          </Dropdown>
+
+
+            <Menu.Item>
+              <Input icon='search' type='text' placeholder='Search by Name' onChange={this.props.search} />
+            </Menu.Item>
+            {this.props.currentUser ?
+
+              // <Dropdown
+              // trigger={trigger}
+              // options={options}
+              // pointing='top left'
+              // icon={null}
+              // />/>
+              <Menu.Item
+                name='logout'
+                active={this.state.activeItem === 'logout'}
+                onClick={this.props.logout}
+              /> : 'login'}
+          </Menu.Menu>
+        </Menu>
+
+      )
     }
   }
 }

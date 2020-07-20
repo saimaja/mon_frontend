@@ -18,6 +18,9 @@ export default class App extends Component {
 
   state = {
     monuments: [],
+    filterRemoved: [],
+    filterRenamed: [],
+    filteredYear: [],
     searchField: '',
     currentUser: null,
     admin: false,
@@ -81,10 +84,23 @@ export default class App extends Component {
     this.setState({ searchField: e.target.value })
   }
 
-  // filteredMon = () => {
-  //   this.state.monuments.filter(mon => mon.name.toLowerCase().includes(this.changeSearchField.toLowerCase()))
+  removedMon = (e) => {
+    console.log('removing')
+    // this.setState({filterRemoved: e.target.value})
+  }
 
-  // }
+  filtered = () => {
+    let filtered
+    if (this.state.filterRemoved.length === 0) {
+      filtered = this.state.monuments
+    } else {
+      filtered = this.state.monuments.filter(mon => this.state.filterRemoved.includes(mon.name))
+    }
+    if (this.state.filterRenamed.length > 0) {
+      filtered = filtered.filter(mon => this.state.filterRenamed.includes(mon.name.includes('renamed').toLowerCase()))
+    }
+    return filtered
+  }
 
 
   // fetchMap = () => {
@@ -154,6 +170,7 @@ export default class App extends Component {
           userName={this.state.userName}
           logout={this.logoutUser}
           currentUser={this.state.currentUser}
+          remove={this.removedMon}
         />
 
         <Route path='/' render={() => {
@@ -164,16 +181,14 @@ export default class App extends Component {
           }
         }} />
 
-        <Route exact path='/login' render={() =>
-          <Login formSubmit={this.loginUser} user={this.loginUser}
-
-          />} />
+      {/* <Route exact path='/home' render={() =>  
+           <div ref={el => this.mapContainer = el} className="mapContainer" />
+           }/> */}
+         
+       <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />} />
 
         <Route exact path='/register' render={() => <Register />} />
-
-
-
-        <Switch>
+       <Switch>
 
           <Route exact path='/monuments' render={() =>
             this.state.monuments.length === 0 ?
@@ -185,13 +200,11 @@ export default class App extends Component {
 
               :
 
-              <MonumentContainer monuments={this.state.monuments} search={this.state.searchField} />
+              <MonumentContainer monuments={this.filtered()} search={this.state.searchField} />
 
           } />
 
           <Route exact path='/monuments/:id' render={(props) =>
-
-
             <MonumentDetail currentUser={this.state.currentUser} style={{ width: '75%' }} id={props.match.params.id} />
 
           } />
