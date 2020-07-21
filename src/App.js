@@ -19,9 +19,6 @@ export default class App extends Component {
 
   state = {
     monuments: [],
-    filterRemoved: [],
-    filterRenamed: [],
-    filteredYear: [],
     searchField: '',
     currentUser: null,
     admin: false,
@@ -51,7 +48,14 @@ export default class App extends Component {
 
   removedMon = (e) => {
     console.log('removing')
-    // this.setState({filterRemoved: e.target.value})
+    let removed = this.state.monuments.filter(mon => mon.year_removed)
+    this.setState({monuments: removed})
+  }
+
+  renamedMon =(e) => {
+    console.log('renamed')
+    let renamed = this.state.monuments.filter(mon => mon.name.includes('rename'))
+    this.setState({monuments: renamed})
   }
 
   filtered = () => {
@@ -120,6 +124,7 @@ export default class App extends Component {
           currentUser={this.state.currentUser}
           remove={this.removedMon}
           name={this.state.name}
+          rename={this.renamedMon}
         />
 
         <Route path='/' render={() => {
@@ -150,7 +155,7 @@ export default class App extends Component {
                 <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
               </div>
               :
-              <MonumentContainer monuments={this.state.monuments} search={this.state.searchField} />
+              <MonumentContainer currentUser={this.state.currentUser} monuments={this.state.monuments} search={this.state.searchField} />
           } />
 
           {/* <Route exact path='/map' render={() =>
@@ -158,7 +163,7 @@ export default class App extends Component {
               : <Redirect to='/login' />} /> */}
 
           <Route exact path='/users/:id' render={() =>
-            this.state.currentUser ? <UserProfile currentUser={this.state.currentUser} userName={this.state.userName} admin={this.state.admin} />
+            this.state.currentUser ? <UserProfile currentUser={this.state.currentUser} userName={this.state.userName} admin={this.state.admin} name={this.state.name} />
               : <Redirect to='/login' />} />
 
         </Switch>
