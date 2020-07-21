@@ -6,7 +6,8 @@ import MonumentContainer from './components/MonumentContainer'
 import NavBar from './components/NavBar'
 import Login from './components/Login'
 import Travelogue from './components/Travelogue'
-import Home from './components/Home'
+import Map from './components/Map'
+import About from './components/About'
 import Register from './components/Register'
 // import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
@@ -191,6 +192,10 @@ export default class App extends Component {
           this.state.currentUser ? <Register /> : <Redirect to='/login' />
         } />
 
+        <Route exact path='/about' render={() =>
+          this.state.currentUser ? <About /> : <Redirect to='/login' />
+        } />
+
         <Switch>
           <Route exact path='/monuments' render={() =>
             this.state.monuments.length === 0 ?
@@ -202,8 +207,8 @@ export default class App extends Component {
               <MonumentContainer monuments={this.state.monuments} search={this.state.searchField} />
           } />
 
-          <Route exact path='/home' render={() =>
-            this.state.currentUser ? <Home currentUser={this.state.currentUser} />
+          <Route exact path='/map' render={() =>
+            this.state.currentUser ? <Map currentUser={this.state.currentUser} monuments={this.state.monuments}/>
               : <Redirect to='/login' />} />
 
           <Route exact path='/user/:id' render={() =>

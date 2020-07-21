@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MonumentCard from './MonumentCard'
-import { Container, Divider, Grid, Loader } from 'semantic-ui-react'
+import { Container, Divider, Grid, Segment } from 'semantic-ui-react'
+import './component.css'
 
 export default class MonumentContainer extends Component {
     render() {
@@ -13,7 +14,8 @@ export default class MonumentContainer extends Component {
                 <Container>
                     <Divider hidden />
                     <br />
-                    <span>Results returned: {containerMon.length} </span>
+                    <span>Results: {containerMon.length}</span>
+                   
                         <Grid className='card-padding' relaxed columns={4} divided>
                             {containerMon.map(monument =>
                                 <Grid.Column><MonumentCard key={monument.id} monument={monument} /></Grid.Column>)}

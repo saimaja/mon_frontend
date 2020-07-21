@@ -6,3 +6,7 @@
     font-family: Arial, Helvetica, sans-serif;
     color: grey;
 }
+
+.ui.segment.centered {
+    align-content: 'center';
+}
