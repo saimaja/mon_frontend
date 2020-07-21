@@ -21,7 +21,7 @@ class NavBar extends Component {
     } else {
 
       return (
-        <Menu secondary>
+        <Menu secondary style={{paddingTop: '5px'}}>
           <Menu.Item
             onClick={() => this.props.history.push('/monuments')}>
             <img src={logo} />

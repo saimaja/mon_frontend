@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './App.css'
-// import mapboxgl from 'mapbox-gl'
 import MonumentContainer from './components/MonumentContainer'
 // import MonumentDetail from './components/MonumentDetail'
 import NavBar from './components/NavBar'
@@ -14,7 +13,7 @@ import UserProfile from './components/UserProfile'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Loader } from 'semantic-ui-react'
 
-// mapboxgl.accessToken = 'pk.eyJ1Ijoic2FpbWFqYSIsImEiOiJja2NwZ3A3MXcwZ3Z2MnNsZTE1OXR0MWk1In0.EffvATu2f0N_tMT17bK7Zw';
+
 
 export default class App extends Component {
 
@@ -28,25 +27,6 @@ export default class App extends Component {
     admin: false,
     name: '',
     userName: null,
-    // map_long: -108,
-    // map_lat: 40,
-    // zoom: 3.2,
-    // geojson: {
-    //   type: 'FeatureCollection',
-    //   features: [{
-    //     type: 'Feature',
-    //     geometry: {
-    //       type: 'Point',
-    //       coordinates: []
-    //     },
-    //     properties: {
-    //       title: '',
-    //       description: ''
-
-    //     }
-    //   },
-    //   ]
-    // }
   }
 
   componentDidMount() {
@@ -55,10 +35,6 @@ export default class App extends Component {
       this.fetchMonuments()
     }
   }
-
-  // componentDidUpdate() {
-  //   this.fetchMap()
-  // }
 
   fetchMonuments = () => {
     fetch('http://localhost:3000/monuments')
@@ -90,28 +66,6 @@ export default class App extends Component {
     }
     return filtered
   }
-
-
-  // fetchMap = () => {
-  //   const map = new mapboxgl.Map({
-  //     container: this.mapContainer,
-  //     style: 'mapbox://styles/mapbox/light-v10',
-  //     center: [this.state.map_long, this.state.map_lat],
-  //     zoom: this.state.zoom
-  //   });
-  //   const geojson = this.state.geojson;
-  //   geojson.features.forEach(function (marker) {
-  //     // create a HTML element for each feature
-  //     let el = document.createElement('div');
-  //     el.className = 'marker';
-  //     // make a marker for each feature and add to the map
-  //     new mapboxgl.Marker(el)
-  //       .setLngLat(marker.geometry.coordinates)
-  //       .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-  //       .setHTML('<h3>' + marker.properties.title + '</h3><p>' + marker.properties.description + '</p>'))
-  //       .addTo(map);
-  //   });
-  // }
 
   loginUser = (e, username, password) => {
     e.preventDefault()
@@ -153,7 +107,12 @@ export default class App extends Component {
 
 
       <Router>
-
+        <div>
+        <Route exact path='/map' render={() =>
+            this.state.currentUser ? <Map currentUser={this.state.currentUser} monuments={this.state.monuments}/>
+              : <Redirect to='/login' />} />
+        </div>
+        
         <NavBar
           search={this.changeSearchField}
           userName={this.state.userName}
@@ -194,9 +153,9 @@ export default class App extends Component {
               <MonumentContainer monuments={this.state.monuments} search={this.state.searchField} />
           } />
 
-          <Route exact path='/map' render={() =>
+          {/* <Route exact path='/map' render={() =>
             this.state.currentUser ? <Map currentUser={this.state.currentUser} monuments={this.state.monuments}/>
-              : <Redirect to='/login' />} />
+              : <Redirect to='/login' />} /> */}
 
           <Route exact path='/users/:id' render={() =>
             this.state.currentUser ? <UserProfile currentUser={this.state.currentUser} userName={this.state.userName} admin={this.state.admin} />
