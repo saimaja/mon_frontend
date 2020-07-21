@@ -2,11 +2,6 @@
     margin-top: '50px';
 }
 
-.card-font {
-    font-family: Arial, Helvetica, sans-serif;
-    color: grey;
-}
-
-.ui.segment.centered {
-    align-content: 'center';
-}
+.ui.secondary.menu > .no-padding {
+    padding: 0 !important;
+ }

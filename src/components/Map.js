@@ -36,7 +36,7 @@ export default class Map extends Component {
     componentDidUpdate() {
       this.fetchMap()
     }
-
+    
     fetchMonuments = () => {
         fetch('http://localhost:3000/monuments')
             .then(resp => resp.json())

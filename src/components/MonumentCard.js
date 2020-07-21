@@ -31,7 +31,7 @@ class MonumentCard extends Component {
                     {this.props.monument.city}, {this.props.monument.state}
                     </Card.Content> */}
                     <Card.Content extra>
-                        <Button basic color ='standard' fluid>Add</Button>
+                        <Button basic color ='black' fluid>Add</Button>
                     </Card.Content>
                 </Card>
             </Card.Group>

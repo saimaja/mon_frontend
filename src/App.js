@@ -109,7 +109,7 @@ export default class App extends Component {
       <Router>
         <div>
         <Route exact path='/map' render={() =>
-            this.state.currentUser ? <Map currentUser={this.state.currentUser} monuments={this.state.monuments}/>
+            this.state.currentUser ? <Map currentUser={this.state.currentUser} monuments={this.state.monuments} search={this.state.searchField}/>
               : <Redirect to='/login' />} />
         </div>
         
