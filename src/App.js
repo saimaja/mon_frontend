@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import mapboxgl from 'mapbox-gl'
+// import mapboxgl from 'mapbox-gl'
 import MonumentContainer from './components/MonumentContainer'
 // import MonumentDetail from './components/MonumentDetail'
 import NavBar from './components/NavBar'
@@ -14,7 +14,7 @@ import UserProfile from './components/UserProfile'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Loader } from 'semantic-ui-react'
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2FpbWFqYSIsImEiOiJja2NwZ3A3MXcwZ3Z2MnNsZTE1OXR0MWk1In0.EffvATu2f0N_tMT17bK7Zw';
+// mapboxgl.accessToken = 'pk.eyJ1Ijoic2FpbWFqYSIsImEiOiJja2NwZ3A3MXcwZ3Z2MnNsZTE1OXR0MWk1In0.EffvATu2f0N_tMT17bK7Zw';
 
 export default class App extends Component {
 
@@ -28,25 +28,25 @@ export default class App extends Component {
     admin: false,
     name: '',
     userName: null,
-    map_long: -108,
-    map_lat: 40,
-    zoom: 3.2,
-    geojson: {
-      type: 'FeatureCollection',
-      features: [{
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: []
-        },
-        properties: {
-          title: '',
-          description: ''
+    // map_long: -108,
+    // map_lat: 40,
+    // zoom: 3.2,
+    // geojson: {
+    //   type: 'FeatureCollection',
+    //   features: [{
+    //     type: 'Feature',
+    //     geometry: {
+    //       type: 'Point',
+    //       coordinates: []
+    //     },
+    //     properties: {
+    //       title: '',
+    //       description: ''
 
-        }
-      },
-      ]
-    }
+    //     }
+    //   },
+    //   ]
+    // }
   }
 
   componentDidMount() {
@@ -64,23 +64,9 @@ export default class App extends Component {
     fetch('http://localhost:3000/monuments')
       .then(resp => resp.json())
       .then(monuments => {
-        let mapMon = monuments.map(mon => {
-          return {
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [mon.longitude, mon.latitude]
-            },
-            properties: {
-              title: mon.name,
-              description: mon.honorees
-
-            }
-          }
-        })
-        this.setState({ ...this.state, monuments: monuments, geojson: { ...this.state.geojson, features: mapMon } })
+        this.setState({ monuments: monuments })
       }
-      )
+    )
   }
 
   changeSearchField = (e) => {
@@ -185,6 +171,7 @@ export default class App extends Component {
           }
         }} />
 
+
         <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />
         } />
 
@@ -211,7 +198,7 @@ export default class App extends Component {
             this.state.currentUser ? <Map currentUser={this.state.currentUser} monuments={this.state.monuments}/>
               : <Redirect to='/login' />} />
 
-          <Route exact path='/user/:id' render={() =>
+          <Route exact path='/users/:id' render={() =>
             this.state.currentUser ? <UserProfile currentUser={this.state.currentUser} userName={this.state.userName} admin={this.state.admin} />
               : <Redirect to='/login' />} />
 
