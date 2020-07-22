@@ -48,8 +48,9 @@ class NavBar extends Component {
           <Menu.Menu position= 'right'>
           <Dropdown item text='Filter' >
             <Dropdown.Menu >
-              <Dropdown.Item text='Removed' onClick= {(e) => this.props.remove()}/>
-              <Dropdown.Item text='Renamed' onClick= {(e) => this.props.rename()}/>
+              <Dropdown.Item text='None' onClick={(e) => this.props.changeFilter('none')}/>
+              <Dropdown.Item text='Removed' onClick= {(e) => this.props.changeFilter('removed')}/>
+              <Dropdown.Item text='Renamed' onClick= {(e) => this.props.changeFilter('renamed')}/>
             </Dropdown.Menu>
           </Dropdown>
 

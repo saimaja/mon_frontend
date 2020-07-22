@@ -19,6 +19,7 @@ export default class App extends Component {
 
   state = {
     monuments: [],
+    filter: 'none',
     searchField: '',
     currentUser: null,
     admin: false,
@@ -46,29 +47,30 @@ export default class App extends Component {
     this.setState({ searchField: e.target.value })
   }
 
-  removedMon = (e) => {
+  removedMon = () => {
     console.log('removing')
-    let removed = this.state.monuments.filter(mon => mon.year_removed)
-    this.setState({monuments: removed})
+    return this.state.monuments.filter(mon => mon.year_removed)
+    
   }
 
-  renamedMon =(e) => {
+  renamedMon = () => {
     console.log('renamed')
-    let renamed = this.state.monuments.filter(mon => mon.name.includes('rename'))
-    this.setState({monuments: renamed})
+    return this.state.monuments.filter(mon => mon.name.includes('rename'))
+   
   }
 
-  filtered = () => {
-    let filtered
-    if (this.state.filterRemoved.length === 0) {
-      filtered = this.state.monuments
-    } else {
-      filtered = this.state.monuments.filter(mon => this.state.filterRemoved.includes(mon.name))
+  filter = () => {
+    if(this.state.filter === 'none') {
+      return this.state.monuments
+    } else if (this.state.filter === 'removed') {
+      return this.removedMon() 
+    } else if (this.state.filter === 'renamed') {
+      return this.renamedMon()
     }
-    if (this.state.filterRenamed.length > 0) {
-      filtered = filtered.filter(mon => this.state.filterRenamed.includes(mon.name.includes('renamed').toLowerCase()))
-    }
-    return filtered
+  }
+
+  changeFilter=(filter)=> {
+    this.setState({filter: filter})
   }
 
   loginUser = (e, username, password) => {
@@ -122,9 +124,9 @@ export default class App extends Component {
           userName={this.state.userName}
           logout={this.logoutUser}
           currentUser={this.state.currentUser}
-          remove={this.removedMon}
           name={this.state.name}
-          rename={this.renamedMon}
+          changeFilter={this.changeFilter}
+          
         />
 
         <Route path='/' render={() => {
@@ -155,7 +157,7 @@ export default class App extends Component {
                 <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
               </div>
               :
-              <MonumentContainer currentUser={this.state.currentUser} monuments={this.state.monuments} search={this.state.searchField} />
+              <MonumentContainer currentUser={this.state.currentUser} monuments={this.filter()} search={this.state.searchField} />
           } />
 
           {/* <Route exact path='/map' render={() =>

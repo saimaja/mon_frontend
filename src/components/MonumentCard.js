@@ -9,20 +9,13 @@ import './component.css'
 class MonumentCard extends Component {
 
 
-    // toggleAdd = (e) => {
-
-    // }
-
-   
-
-
     render() {
         return (
            
                 <Card.Group >
                 <Card style={{height: '265px'}} >
                   <Card.Content>
-                    <Card.Header>{this.props.monument.name ? this.props.monument.name.substring(0, 42) + '..' : null}</Card.Header>
+                    <Card.Header>{this.props.monument.name ? this.props.monument.name.substring(0, 42) : null}</Card.Header>
                  
                     <Card.Meta>
                         {this.props.monument.year_dedicated ? 

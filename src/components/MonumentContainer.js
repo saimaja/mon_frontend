@@ -39,7 +39,10 @@ export default class MonumentContainer extends Component {
     }
 
     removeMonument = (e, id) => {
-        fetch(`http://localhost:3000/favorites/${id}`, {
+        if(this.state.added.find(mon => mon.monument_id === id)){
+            let removed = this.state.added.find(mon => mon.monument_id === id).id
+       
+        fetch(`http://localhost:3000/favorites/${removed}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',
@@ -48,10 +51,11 @@ export default class MonumentContainer extends Component {
         }).then(resp => resp.json())
             .then(data => { 
                 
-                let filteredArr = this.state.added.filter(mon =>  mon.id === data.id )
+                let filteredArr = this.state.added.filter(mon =>  mon.id !== data.id )
                 this.setState({ added: filteredArr}) 
             })
         }
+    }
 
     isAdded=(id)=> {
         return this.state.added.map(mon => mon.monument_id).includes(id)
