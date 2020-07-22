@@ -49,7 +49,6 @@ export default class App extends Component {
 
   removedMon = () => {
     return this.state.monuments.filter(mon => mon.year_removed)
-    
   }
 
   renamedMon = () => {

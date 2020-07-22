@@ -5,3 +5,7 @@
 .ui.secondary.menu > .no-padding {
     padding: 0 !important;
  }
+
+.ui.grid > .left-margin {
+    margin-left: 1rem !important;
+ }
