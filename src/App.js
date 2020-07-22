@@ -48,13 +48,11 @@ export default class App extends Component {
   }
 
   removedMon = () => {
-    console.log('removing')
     return this.state.monuments.filter(mon => mon.year_removed)
     
   }
 
   renamedMon = () => {
-    console.log('renamed')
     return this.state.monuments.filter(mon => mon.name.includes('rename'))
    
   }
@@ -115,7 +113,10 @@ export default class App extends Component {
       <Router>
         <div>
         <Route exact path='/map' render={() =>
-            this.state.currentUser ? <Map currentUser={this.state.currentUser} monuments={this.state.monuments} search={this.state.searchField}/>
+            this.state.currentUser ? 
+            <Map currentUser={this.state.currentUser} 
+            monuments={this.state.monuments} 
+            search={this.state.searchField}/>
               : <Redirect to='/login' />} />
         </div>
         
@@ -138,7 +139,9 @@ export default class App extends Component {
         }} />
 
 
-        <Route exact path='/login' render={() => <Login formSubmit={this.loginUser} user={this.loginUser} />
+        <Route exact path='/login' render={() => 
+        <Login formSubmit={this.loginUser} 
+        user={this.loginUser} />
         } />
 
         <Route exact path='/register' render={() =>
@@ -157,7 +160,10 @@ export default class App extends Component {
                 <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
               </div>
               :
-              <MonumentContainer currentUser={this.state.currentUser} monuments={this.filter()} search={this.state.searchField} />
+              <MonumentContainer 
+              currentUser={this.state.currentUser} 
+              monuments={this.filter()} 
+              search={this.state.searchField} />
           } />
 
           {/* <Route exact path='/map' render={() =>
@@ -165,7 +171,13 @@ export default class App extends Component {
               : <Redirect to='/login' />} /> */}
 
           <Route exact path='/users/:id' render={() =>
-            this.state.currentUser ? <UserProfile currentUser={this.state.currentUser} userName={this.state.userName} admin={this.state.admin} name={this.state.name} />
+            this.state.currentUser ? 
+            <UserProfile 
+            currentUser={this.state.currentUser} 
+            userName={this.state.userName} 
+            admin={this.state.admin} 
+            name={this.state.name}
+            monuments={this.state.monuments} />
               : <Redirect to='/login' />} />
 
         </Switch>

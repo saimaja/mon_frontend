@@ -44,15 +44,16 @@ class NavBar extends Component {
               active={this.state.activeItem === 'profile'}
               onClick={() => this.props.history.push('/map')}
             />
-
+          
           <Menu.Menu position= 'right'>
+          {this.props.location.pathname === '/map' || this.props.location.pathname === '/monuments' ? 
           <Dropdown item text='Filter' >
             <Dropdown.Menu >
               <Dropdown.Item text='None' onClick={(e) => this.props.changeFilter('none')}/>
               <Dropdown.Item text='Removed' onClick= {(e) => this.props.changeFilter('removed')}/>
               <Dropdown.Item text='Renamed' onClick= {(e) => this.props.changeFilter('renamed')}/>
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> : <span></span>}
 
 
             <Menu.Item>

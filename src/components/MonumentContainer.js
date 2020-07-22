@@ -10,16 +10,17 @@ export default class MonumentContainer extends Component {
         added: [],
     }
 
-    componentDidMount(){
+    componentDidMount() {
         fetch(`http://localhost:3000/users/${this.props.currentUser}`)
-        .then(resp => resp.json())
-        .then(data => {
-            this.setState({added: data.favorites})}) 
+            .then(resp => resp.json())
+            .then(data => {
+                this.setState({ added: data.favorites })
+            })
     }
 
     addMonument = (e, id) => {
         // console.log(this.props.currentUser, id)
-   
+
         fetch('http://localhost:3000/favorites', {
             method: 'POST',
             headers: {
@@ -31,36 +32,36 @@ export default class MonumentContainer extends Component {
                 monument_id: id
             })
         }).then(resp => resp.json())
-        .then(data =>  {
-            // let addedMon = {...this.state.added, data}
-            this.setState({added: [...this.state.added, data]})
-         } 
-        )
+            .then(data => {
+                // let addedMon = {...this.state.added, data}
+                this.setState({ added: [...this.state.added, data] })
+            }
+            )
     }
 
     removeMonument = (e, id) => {
-        if(this.state.added.find(mon => mon.monument_id === id)){
+        if (this.state.added.find(mon => mon.monument_id === id)) {
             let removed = this.state.added.find(mon => mon.monument_id === id).id
-       
-        fetch(`http://localhost:3000/favorites/${removed}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json',
-                Accept: 'application/json'
-            }
-        }).then(resp => resp.json())
-            .then(data => { 
-                
-                let filteredArr = this.state.added.filter(mon =>  mon.id !== data.id )
-                this.setState({ added: filteredArr}) 
-            })
+
+            fetch(`http://localhost:3000/favorites/${removed}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json',
+                    Accept: 'application/json'
+                }
+            }).then(resp => resp.json())
+                .then(data => {
+
+                    let filteredArr = this.state.added.filter(mon => mon.id !== data.id)
+                    this.setState({ added: filteredArr })
+                })
         }
     }
 
-    isAdded=(id)=> {
+    isAdded = (id) => {
         return this.state.added.map(mon => mon.monument_id).includes(id)
     }
-    
+
     render() {
         let containerMon = this.props.monuments.filter(
             mon => mon.name.toLowerCase().includes(this.props.search.toLowerCase())
@@ -72,20 +73,21 @@ export default class MonumentContainer extends Component {
                     <Divider hidden />
                     <br />
                     <span>Results: {containerMon.length}</span>
-                   
-                        <Grid className='card-padding' relaxed columns={4} divided>
-                            {containerMon.map(monument =>
-                                <Grid.Column><MonumentCard 
-                                key={monument.id} 
-                                monument={monument} 
-                                currentUser={this.props.currentUser} 
-                                isAdded={this.isAdded(monument.id)} 
-                                addMon={this.addMonument}
-                                removeMon={this.removeMonument}
+
+                    <Grid className='card-padding' relaxed columns={4} divided>
+                        {containerMon.map(monument =>
+                            <Grid.Column>
+                                <MonumentCard
+                                    key={monument.id}
+                                    monument={monument}
+                                    currentUser={this.props.currentUser}
+                                    isAdded={this.isAdded(monument.id)}
+                                    addMon={this.addMonument}
+                                    removeMon={this.removeMonument}
                                 />
-                                </Grid.Column>)}
-                        </Grid>
-               
+                            </Grid.Column>)}
+                    </Grid>
+
                 </Container>
             )
         }
