@@ -13,11 +13,11 @@ class MonumentCard extends Component {
         return (
            
                 <Card.Group >
-                <Card style={{height: '265px'}} >
+                <Card style={{height: '265px'}} className='Change' >
                   <Card.Content onClick={() => this.props.history.push(`/monuments/${this.props.monument.id}`) }>
                     {this.props.monument.name.split('').length > 42 ?
-                    <Card.Header > {this.props.monument.name.substring(0, 42) + '...'}</Card.Header> : 
-                    <Card.Header > {this.props.monument.name}</Card.Header>}
+                    <Card.Header> {this.props.monument.name.substring(0, 42) + '...'}</Card.Header> : 
+                    <Card.Header> {this.props.monument.name}</Card.Header>}
                     <Card.Meta>
                         {this.props.monument.year_dedicated ? 
                         <span className = 'date'>Year Dedicated: {this.props.monument.year_dedicated}</span>  
@@ -37,10 +37,10 @@ class MonumentCard extends Component {
                         {this.props.isAdded ? 
                         <Button 
                         onClick={(e) => {this.props.removeMon(e, this.props.monument.id)}}
-                        basic color ='black' fluid>Remove</Button> :
+                        basic fluid>Remove</Button> :
                          <Button 
                         onClick={(e) => {this.props.addMon(e, this.props.monument.id)}}
-                        basic color ='black' fluid>Add</Button>}
+                        basic fluid>Add</Button>}
                     
                     </Card.Content>
                 </Card>

@@ -25,3 +25,12 @@
   .page-item{
     color: #58768d;
   }
+
+
+  .ui.segment.Change:hover {
+    background-color: black !important;
+  }
+
+  .ui.card.Change:hover {
+    background-color: rgb(213, 202, 233);
+  }

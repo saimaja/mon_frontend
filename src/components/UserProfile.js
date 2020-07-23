@@ -49,7 +49,7 @@ class UserProfile extends Component {
                     <Grid.Column width={0}>
                     </Grid.Column>
                     <Grid.Column width={8} >
-                        <Segment >
+                        <Segment className = 'Change'>
                             <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
                         </Segment>
                     </Grid.Column>
@@ -65,7 +65,7 @@ class UserProfile extends Component {
                                                 <Button onClick={(e) => this.removeFavorite(e, fav.id)}
                                                     basic color='black'>Remove</Button>
                                             </List.Content>
-                                            <Image avatar src={logo} />
+                                           <Image avatar src={logo} />
                                             <List.Content>
                                                 <Link to={`/monuments/${fav.id}`}>
                                                     {fav.name.split('').length > 35 ?
@@ -83,7 +83,7 @@ class UserProfile extends Component {
                                 <List celled divided verticalAlign='middle'>
                                     {this.state.travelogues.map(logs =>
                                         <List.Item>
-                                            <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
+                                           <Link to={`/travelogues/${logs.id}`}> <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} /></Link>
                                             <List.Content>
                                                 <Link to={`/travelogues/${logs.id}`}>
                                                     {logs.title.split('').length > 35 ?
