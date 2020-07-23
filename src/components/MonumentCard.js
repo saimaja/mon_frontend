@@ -14,8 +14,8 @@ class MonumentCard extends Component {
            
                 <Card.Group >
                 <Card style={{height: '265px'}} >
-                  <Card.Content>
-                    <Card.Header>{this.props.monument.name ? this.props.monument.name.substring(0, 42) : null}</Card.Header>
+                  <Card.Content onClick={() => this.props.history.push(`/monuments/${this.props.monument.id}`) }>
+                    <Card.Header >{this.props.monument.name ? this.props.monument.name.substring(0, 42) : null}</Card.Header>
                  
                     <Card.Meta>
                         {this.props.monument.year_dedicated ? 
