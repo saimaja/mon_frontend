@@ -4,7 +4,7 @@ import './component.css'
 export default function Pagination({ monumentsPerPage, totalMonuments, currentPage, paginate }) {
     const totalPages = Math.ceil(totalMonuments/monumentsPerPage);
     const pageNumbers = [];
-    for(let i = 1; i <= totalPages; i++) {
+    for(let i = 1; i < Math.min(totalPages, 10); i++) {
         pageNumbers.push(i);
     }
     if (currentPage > totalPages || currentPage < 1) {

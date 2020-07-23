@@ -55,7 +55,7 @@ class UserProfile extends Component {
                     </Grid.Column>
                     <Grid.Column>
 
-                        <Segment>
+                        <Segment style={{ overflow: 'auto', maxHeight: 250 }}>
                             {this.state.favoriteMons.length === 0 ?
                                 <List><List.Content><List.Header><b>You have no monuments added</b></List.Header></List.Content></List> :
                                 <List celled divided verticalAlign='middle'>
@@ -68,14 +68,16 @@ class UserProfile extends Component {
                                             <Image avatar src={logo} />
                                             <List.Content>
                                                 <Link to={`/monuments/${fav.id}`}>
-                                                    <List.Header>{fav.name}</List.Header>
+                                                    {fav.name.split('').length > 35 ?
+                                                        <List.Header>{fav.name.substring(0, 35) + '...'}</List.Header> :
+                                                        <List.Header>{fav.name}</List.Header>}
                                                 </Link>
                                                 {fav.symbol_type}
                                             </List.Content>
                                         </List.Item>)}
                                 </List>}
                         </Segment>
-                        <Segment>
+                        <Segment style={{ overflow: 'auto', maxHeight: 250 }}>
                             {this.state.travelogues.length === 0 ?
                                 <List><List.Content><List.Header><b>You have no blogs yet</b></List.Header></List.Content></List> :
                                 <List celled divided verticalAlign='middle'>
@@ -84,9 +86,11 @@ class UserProfile extends Component {
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
                                             <List.Content>
                                                 <Link to={`/travelogues/${logs.id}`}>
-                                                    <List.Header>{logs.title}</List.Header>
+                                                    {logs.title.split('').length > 35 ?
+                                                        <List.Header>{logs.title.substring(0, 35) + '...'}</List.Header> :
+                                                        <List.Header>{logs.title}</List.Header>}
                                                 </Link>
-                                                {logs.blog.substring(0, 60)}
+                                                {logs.blog.split('').length > 60 ? <List.Content>{logs.blog.substring(0, 60) + '...'} </List.Content> : <List.Content> {logs.blog} </List.Content>}
                                             </List.Content>
                                         </List.Item>)}
                                 </List>}
