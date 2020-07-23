@@ -55,18 +55,13 @@ class NavBar extends Component {
             </Dropdown.Menu>
           </Dropdown> : <span></span>}
 
-
+          {this.props.location.pathname === '/map' || this.props.location.pathname === '/monuments' ?
             <Menu.Item>
               <Input icon='search' type='text' placeholder='Search by Name' onChange={this.props.search} />
-            </Menu.Item>
+            </Menu.Item> : <span></span>}
+            
+            
             {this.props.currentUser ?
-
-              // <Dropdown
-              // trigger={trigger}
-              // options={options}
-              // pointing='top left'
-              // icon={null}
-              // />/>
               <Menu.Item
                 name='logout'
                 active={this.state.activeItem === 'logout'}
