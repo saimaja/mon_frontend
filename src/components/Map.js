@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import mapboxgl from 'mapbox-gl'
-import { Loader } from 'semantic-ui-react'
+// import { Loader } from 'semantic-ui-react'
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FpbWFqYSIsImEiOiJja2NwZ3A3MXcwZ3Z2MnNsZTE1OXR0MWk1In0.EffvATu2f0N_tMT17bK7Zw';
 

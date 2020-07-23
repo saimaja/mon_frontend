@@ -4,7 +4,7 @@ import { Button, Image, List, Grid, Segment } from 'semantic-ui-react'
 import logo from '../images/fadedmon.png'
 import './component.css'
 
-export default class UserProfile extends Component {
+class UserProfile extends Component {
 
     state = {
         travelogues: [],
@@ -65,54 +65,36 @@ export default class UserProfile extends Component {
                                                 basic color='black'>Remove</Button>
                                             </List.Content>
                                             <Image avatar src={logo} />
-
                                             <List.Content>
+                                                <Link to={`/monuments/${fav.id}`}>
                                                 <List.Header>{fav.name}</List.Header>
+                                                </Link>
                                                 {fav.symbol_type}
                                             </List.Content>
                                         </List.Item>)}
                                 </List> : 'You have no monuments listed'}
                         </Segment>
-                        <Segment>2</Segment>
+                        <Segment>
+                        {this.state.travelogues ?
+                                <List celled divided verticalAlign='middle'>
+                                    {this.state.travelogues.map(logs =>
+                                        <List.Item>
+                                            <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
+                                            <List.Content>
+                                                <Link to={`/travelogues/${logs.id}`}>
+                                                <List.Header>{logs.title}</List.Header>
+                                                </Link>
+                                                {logs.blog.substring(0, 42)}
+                                            </List.Content>
+                                        </List.Item>)}
+                                </List> : 'You have no blogs yet'}
+                        </Segment>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
-                    {/* <Grid.Column>
-                        <Segment>1</Segment>
-                        <Segment>2</Segment>
-                    </Grid.Column>
-                    <Grid.Column width={6}>
-                        <Segment>
-                            <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-                        </Segment>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Segment>1</Segment>
-                        <Segment>2</Segment>
-                    </Grid.Column> */}
                 </Grid.Row>
             </Grid>
-
-
-
-            //     <List divided verticalAlign='middle'>
-            //     <List.Item>
-            //       <List.Content floated='right'>
-            //         <Button>Remove</Button>
-            //       </List.Content>
-            //       <Image avatar src={logo} />
-            //       {this.state.favorites.map(fav => 
-            //       <List.Content>{fav.name}</List.Content>)}
-            //     </List.Item>
-            //   </List>
-
-            // <div>
-
-            //     <span>This is {this.props.name}'s page</span>
-            //    <span> Favorite monuments: {this.state.favorites.map(fav => <p>{fav.name}</p>)}</span>
-            // </div>
-        )
-    }
+        )}
 }
 
-// export default withRouter(UserProfile)
+export default withRouter(UserProfile)

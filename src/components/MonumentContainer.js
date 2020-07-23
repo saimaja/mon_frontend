@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MonumentCard from './MonumentCard'
-import { Container, Divider, Grid, Segment } from 'semantic-ui-react'
+import { Container, Divider, Grid } from 'semantic-ui-react'
 import './component.css'
 
 

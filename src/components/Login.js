@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form, Input } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 // import logo from '../images/bp2.jpg'
 
