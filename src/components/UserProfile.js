@@ -8,7 +8,7 @@ class UserProfile extends Component {
 
     state = {
         travelogues: [],
-        favoriteMons: [], 
+        favoriteMons: [],
         favoriteID: []
     }
 
@@ -56,45 +56,48 @@ class UserProfile extends Component {
                     <Grid.Column>
 
                         <Segment>
-                            {this.state.favoriteMons ?
+                            {this.state.favoriteMons.length === 0 ?
+                                <List><List.Content><List.Header><b>You have no monuments added</b></List.Header></List.Content></List> :
                                 <List celled divided verticalAlign='middle'>
                                     {this.state.favoriteMons.map(fav =>
                                         <List.Item>
                                             <List.Content floated='right'>
                                                 <Button onClick={(e) => this.removeFavorite(e, fav.id)}
-                                                basic color='black'>Remove</Button>
+                                                    basic color='black'>Remove</Button>
                                             </List.Content>
                                             <Image avatar src={logo} />
                                             <List.Content>
                                                 <Link to={`/monuments/${fav.id}`}>
-                                                <List.Header>{fav.name}</List.Header>
+                                                    <List.Header>{fav.name}</List.Header>
                                                 </Link>
                                                 {fav.symbol_type}
                                             </List.Content>
                                         </List.Item>)}
-                                </List> : 'You have no monuments listed'}
+                                </List>}
                         </Segment>
                         <Segment>
-                        {this.state.travelogues ?
+                            {this.state.travelogues.length === 0 ?
+                                <List><List.Content><List.Header><b>You have no blogs yet</b></List.Header></List.Content></List> :
                                 <List celled divided verticalAlign='middle'>
                                     {this.state.travelogues.map(logs =>
                                         <List.Item>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
                                             <List.Content>
                                                 <Link to={`/travelogues/${logs.id}`}>
-                                                <List.Header>{logs.title}</List.Header>
+                                                    <List.Header>{logs.title}</List.Header>
                                                 </Link>
-                                                {logs.blog.substring(0, 42)}
+                                                {logs.blog.substring(0, 60)}
                                             </List.Content>
                                         </List.Item>)}
-                                </List> : 'You have no blogs yet'}
+                                </List>}
                         </Segment>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
                 </Grid.Row>
             </Grid>
-        )}
+        )
+    }
 }
 
 export default withRouter(UserProfile)
