@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import MonumentCard from './MonumentCard'
 import { Container, Divider, Grid } from 'semantic-ui-react'
+import Pagination from './Pagination'
 import './component.css'
 
 
 export default class MonumentContainer extends Component {
 
     state = {
+        monumentsPerPage: 20,
+        currentPage: 1,
         added: [],
+    }
+
+    paginate = (pageNumber) => {
+        this.setState({ currentPage: pageNumber })
     }
 
     componentDidMount() {
@@ -66,6 +73,11 @@ export default class MonumentContainer extends Component {
         let containerMon = this.props.monuments.filter(
             mon => mon.name.toLowerCase().includes(this.props.search.toLowerCase())
         )
+
+        const indexOfLastMonument = this.state.currentPage * this.state.monumentsPerPage;
+        const indexOfFirstMonument = indexOfLastMonument - this.state.monumentsPerPage;
+        const currentMonuments = containerMon.slice(indexOfFirstMonument, indexOfLastMonument)
+
         if (this.props.monuments.length > 0) {
             return (
 
@@ -75,7 +87,7 @@ export default class MonumentContainer extends Component {
                     <span>Results: {containerMon.length}</span>
 
                     <Grid className='card-padding' relaxed columns={4} divided>
-                        {containerMon.map(monument =>
+                        {currentMonuments.map(monument =>
                             <Grid.Column>
                                 <MonumentCard
                                     key={monument.id}
@@ -87,6 +99,12 @@ export default class MonumentContainer extends Component {
                                 />
                             </Grid.Column>)}
                     </Grid>
+                    <br />
+                    <Pagination
+                        monumentsPerPage={this.state.monumentsPerPage}
+                        totalMonuments={this.props.monuments.length}
+                        currentPage={this.state.currentPage}
+                        paginate={this.paginate} />
 
                 </Container>
             )
