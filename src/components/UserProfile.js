@@ -8,39 +8,40 @@ export default class UserProfile extends Component {
 
     state = {
         travelogues: [],
-        favorites: []
+        favoriteMons: [], 
+        favoriteID: []
     }
 
     componentDidMount() {
         fetch(`http://localhost:3000/users/${this.props.currentUser}`)
             .then(resp => resp.json())
             .then(data => {
-                console.log(data.monuments, data.travelogues)
-                this.setState({ favorites: data.monuments, travelogues: data.travelogues })
+                console.log(data.monuments, data.travelogues, data.favorites)
+                this.setState({ favoriteMons: data.monuments, travelogues: data.travelogues, favoriteID: data.favorites })
             })
     }
 
-    removeMonument = (e, id) => {
-        if (this.state.favorites.find(mon => mon.monument_id === id)) {
-            let removed = this.state.favorites.find(mon => mon.monument_id === id).id
+    removeFavorite = (e, monID) => {
+        let favID = this.state.favoriteID.find(fav => fav.monument_id === monID).id
+        console.log('removing')
+        fetch(`http://localhost:3000/favorites/${favID}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json',
+                Accept: 'application/json'
+            }
+        }).then(resp => resp.json())
+            .then(data => {
+                console.log('this is the data', data)
 
-            fetch(`http://localhost:3000/favorites/${removed}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-type': 'application/json',
-                    Accept: 'application/json'
-                }
-            }).then(resp => resp.json())
-                .then(data => {
-
-                    let filteredArr = this.state.favorites.filter(mon => mon.id !== data.id)
-                    this.setState({ favorites: filteredArr })
-                })
-        }
+                let filteredArr = this.state.favoriteID.filter(fav => fav.id !== data.id)
+                let filteredMons = this.state.favoriteMons.filter(fav => fav.id !== data.monument_id)
+                this.setState({ favoriteID: filteredArr, favoriteMons: filteredMons })
+            })
     }
 
     render() {
-     
+
         return (
 
             <Grid columns='equal'>
@@ -53,23 +54,24 @@ export default class UserProfile extends Component {
                         </Segment>
                     </Grid.Column>
                     <Grid.Column>
-                   
+
                         <Segment>
-                            {this.state.favorites ? 
-                            <List celled divided verticalAlign='middle'>
-                            {this.state.favorites.map(fav =>
-                                <List.Item>
-                                    <List.Content floated='right'>
-                                        <Button basic color = 'black'>Remove</Button>
-                                    </List.Content>
-                                        <Image avatar src={logo} />
-                                   
-                                        <List.Content>
-                                        <List.Header>{fav.name}</List.Header>
-                                        {fav.symbol_type}
-                                        </List.Content>
-                                </List.Item>)}
-                            </List> : 'You have no monuments listed'}
+                            {this.state.favoriteMons ?
+                                <List celled divided verticalAlign='middle'>
+                                    {this.state.favoriteMons.map(fav =>
+                                        <List.Item>
+                                            <List.Content floated='right'>
+                                                <Button onClick={(e) => this.removeFavorite(e, fav.id)}
+                                                basic color='black'>Remove</Button>
+                                            </List.Content>
+                                            <Image avatar src={logo} />
+
+                                            <List.Content>
+                                                <List.Header>{fav.name}</List.Header>
+                                                {fav.symbol_type}
+                                            </List.Content>
+                                        </List.Item>)}
+                                </List> : 'You have no monuments listed'}
                         </Segment>
                         <Segment>2</Segment>
                     </Grid.Column>
