@@ -180,6 +180,7 @@ export default class App extends Component {
                 monuments={this.state.monuments} />
               : <Redirect to='/login' />} />
 
+           
           <Route exact path='/monuments/:id' render={() =>
             this.state.currentUser ?
               <MonumentDetail
