@@ -26,6 +26,9 @@
     color: #58768d;
   }
 
+  .edit.outline.icon.Edit:hover {
+    color: rgb(156, 154, 154) !important;
+  }
 
   .delete.icon.Delete:hover {
     color: rgb(112, 18, 18) !important;

@@ -7,6 +7,8 @@ import Login from './components/Login'
 import Map from './components/Map'
 import About from './components/About'
 import Register from './components/Register'
+import MonumentDetail from './components/MonumentDetail'
+import Travelogue from './components/Travelogue'
 // import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -39,7 +41,7 @@ export default class App extends Component {
       .then(monuments => {
         this.setState({ monuments: monuments })
       }
-    )
+      )
   }
 
   changeSearchField = (e) => {
@@ -52,21 +54,21 @@ export default class App extends Component {
 
   renamedMon = () => {
     return this.state.monuments.filter(mon => mon.name.includes('rename'))
-   
+
   }
 
   filter = () => {
-    if(this.state.filter === 'none') {
+    if (this.state.filter === 'none') {
       return this.state.monuments
     } else if (this.state.filter === 'removed') {
-      return this.removedMon() 
+      return this.removedMon()
     } else if (this.state.filter === 'renamed') {
       return this.renamedMon()
     }
   }
 
-  changeFilter=(filter)=> {
-    this.setState({filter: filter})
+  changeFilter = (filter) => {
+    this.setState({ filter: filter })
   }
 
   loginUser = (e, username, password) => {
@@ -110,14 +112,14 @@ export default class App extends Component {
 
       <Router>
         <div>
-        <Route exact path='/map' render={() =>
-            this.state.currentUser ? 
-            <Map currentUser={this.state.currentUser} 
-            monuments={this.state.monuments} 
-            search={this.state.searchField}/>
+          <Route exact path='/map' render={() =>
+            this.state.currentUser ?
+              <Map currentUser={this.state.currentUser}
+                monuments={this.state.monuments}
+                search={this.state.searchField} />
               : <Redirect to='/login' />} />
         </div>
-        
+
         <NavBar
           search={this.changeSearchField}
           userName={this.state.userName}
@@ -125,7 +127,7 @@ export default class App extends Component {
           currentUser={this.state.currentUser}
           name={this.state.name}
           changeFilter={this.changeFilter}
-          
+
         />
 
         <Route path='/' render={() => {
@@ -137,9 +139,9 @@ export default class App extends Component {
         }} />
 
 
-        <Route exact path='/login' render={() => 
-        <Login formSubmit={this.loginUser} 
-        user={this.loginUser} />
+        <Route exact path='/login' render={() =>
+          <Login formSubmit={this.loginUser}
+            user={this.loginUser} />
         } />
 
         <Route exact path='/register' render={() =>
@@ -158,10 +160,10 @@ export default class App extends Component {
                 <div style={{ textAlign: 'center', color: '#a8a7b9' }}>Loading</div>
               </div>
               :
-              <MonumentContainer 
-              currentUser={this.state.currentUser} 
-              monuments={this.filter()} 
-              search={this.state.searchField} />
+              <MonumentContainer
+                currentUser={this.state.currentUser}
+                monuments={this.filter()}
+                search={this.state.searchField} />
           } />
 
           {/* <Route exact path='/map' render={() =>
@@ -169,13 +171,29 @@ export default class App extends Component {
               : <Redirect to='/login' />} /> */}
 
           <Route exact path='/users/:id' render={() =>
-            this.state.currentUser ? 
-            <UserProfile 
-            currentUser={this.state.currentUser} 
-            userName={this.state.userName} 
-            admin={this.state.admin} 
-            name={this.state.name}
-            monuments={this.state.monuments} />
+            this.state.currentUser ?
+              <UserProfile
+                currentUser={this.state.currentUser}
+                userName={this.state.userName}
+                admin={this.state.admin}
+                name={this.state.name}
+                monuments={this.state.monuments} />
+              : <Redirect to='/login' />} />
+
+          <Route exact path='/monuments/:id' render={() =>
+            this.state.currentUser ?
+              <MonumentDetail
+                currentUser={this.state.currentUser}
+                name={this.state.name}
+                monuments={this.state.monuments} />
+              : <Redirect to='/login' />} />
+
+          <Route exact path='/travelogues/:id' render={() =>
+            this.state.currentUser ?
+              <Travelogue
+                currentUser={this.state.currentUser}
+                name={this.state.name}
+                monuments={this.state.monuments} />
               : <Redirect to='/login' />} />
 
         </Switch>

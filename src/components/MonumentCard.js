@@ -11,7 +11,8 @@ class MonumentCard extends Component {
 
     render() {
         return (
-           
+        
+
                 <Card.Group >
                 <Card style={{height: '265px'}} className='Change' >
                   <Card.Content onClick={() => this.props.history.push(`/monuments/${this.props.monument.id}`) }>
@@ -45,6 +46,7 @@ class MonumentCard extends Component {
                     </Card.Content>
                 </Card>
             </Card.Group>
+           
         )
     }
 }

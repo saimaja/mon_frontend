@@ -123,8 +123,7 @@ class UserProfile extends Component {
                                                 {/* <Button onClick={(e) => this.removeFavorite(e, fav.id)}
                                                     basic color='black'>Remove</Button> */}
                                                 <Icon
-                                                    className='Delete'
-
+                                                    className='Edit'
                                                     name='edit outline' />
                                             </List.Content>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
@@ -140,8 +139,6 @@ class UserProfile extends Component {
                                 </List>}
                         </Segment>
                     </Grid.Column>
-                </Grid.Row>
-                <Grid.Row>
                 </Grid.Row>
             </Grid>
         )
