@@ -89,8 +89,6 @@ class UserProfile extends Component {
                                     {this.state.favoriteMons.map(fav =>
                                         <List.Item>
                                             <List.Content floated='right'>
-                                                {/* <Button onClick={(e) => this.removeFavorite(e, fav.id)}
-                                                    basic color='black'>Remove</Button> */}
                                                 <Icon
                                                     className='Delete'
                                                     onClick={(e) => this.removeFavorite(e, fav.id)}
@@ -111,6 +109,9 @@ class UserProfile extends Component {
 
                         <Header as='h5' attached='top'>
                             Travelogues
+                            <Button
+                                floated='right'
+                                icon='add square' />
                         </Header>
                         <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
                             {this.state.travelogues.length === 0 ?
