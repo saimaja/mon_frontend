@@ -186,6 +186,7 @@ export default class App extends Component {
               <MonumentDetail
                 currentUser={this.state.currentUser}
                 name={this.state.name}
+                admin={this.state.admin}
                 monuments={this.state.monuments} />
               : <Redirect to='/login' />} />
 

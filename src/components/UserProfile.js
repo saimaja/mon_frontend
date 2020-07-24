@@ -11,7 +11,9 @@ class UserProfile extends Component {
         travelogues: [],
         favoriteMons: [],
         favoriteID: [],
-        bio: ''
+        bio: '', 
+        user_location: '', 
+        interests: ''
     }
 
     componentDidMount() {
@@ -19,7 +21,7 @@ class UserProfile extends Component {
             .then(resp => resp.json())
             .then(data => {
                 console.log(data.monuments, data.travelogues, data.favorites)
-                this.setState({ favoriteMons: data.monuments, travelogues: data.travelogues, favoriteID: data.favorites, bio: data.bio })
+                this.setState({ favoriteMons: data.monuments, travelogues: data.travelogues, favoriteID: data.favorites, about: data.about, user_location: data.location, interests: data.interests })
             })
     }
 
@@ -63,15 +65,15 @@ class UserProfile extends Component {
                                 <Table.Body>
                                     <Table.Row>
                                         <Table.Cell width={2}>About</Table.Cell>
-                                        <Table.Cell>{this.state.bio}</Table.Cell>
+                                        <Table.Cell>{this.state.about}</Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Location</Table.Cell>
-                                        <Table.Cell>Washington, DC</Table.Cell>
+                                        <Table.Cell>{this.state.user_location}</Table.Cell>
                                     </Table.Row>
                                     <Table.Row>
                                         <Table.Cell>Interests</Table.Cell>
-                                        <Table.Cell>Flags, Monuments, Coding</Table.Cell>
+                                        <Table.Cell>{this.state.interests}</Table.Cell>
                                     </Table.Row>
                                 </Table.Body>
                             </Table>
