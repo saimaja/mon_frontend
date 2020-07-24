@@ -27,10 +27,14 @@
   }
 
 
-  .ui.segment.Change:hover {
-    background-color: black !important;
+  .delete.icon.Delete:hover {
+    color: rgb(112, 18, 18) !important;
+  }
+
+  .header.Title:hover {
+    color: rgb(156, 154, 154) !important;
   }
 
   .ui.card.Change:hover {
-    background-color: rgb(213, 202, 233);
+    background-color: #a29da5;
   }
