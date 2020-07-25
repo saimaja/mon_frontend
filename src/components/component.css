@@ -31,7 +31,7 @@
   }
 
   .delete.icon.Delete:hover {
-    color: rgb(112, 18, 18) !important;
+    color: rgb(177, 23, 23) !important;
   }
 
   .header.Title:hover {
@@ -39,5 +39,10 @@
   }
 
   .ui.card.Change:hover {
-    background-color: #a29da5;
+    background-color: rgb(226, 222, 230);
+  }
+
+  .ui.scrolling.modal.transition.visible.active > .relative {
+    position: relative !important;
+
   }

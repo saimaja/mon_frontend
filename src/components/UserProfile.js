@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
+import { Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
 import logo from '../images/fadedmon.png'
 import './component.css'
 import user from '../images/user.png'
@@ -11,8 +11,8 @@ class UserProfile extends Component {
         travelogues: [],
         favoriteMons: [],
         favoriteID: [],
-        bio: '', 
-        user_location: '', 
+        bio: '',
+        user_location: '',
         interests: ''
     }
 
@@ -20,7 +20,6 @@ class UserProfile extends Component {
         fetch(`http://localhost:3000/users/${this.props.currentUser}`)
             .then(resp => resp.json())
             .then(data => {
-                console.log(data.monuments, data.travelogues, data.favorites)
                 this.setState({ favoriteMons: data.monuments, travelogues: data.travelogues, favoriteID: data.favorites, about: data.about, user_location: data.location, interests: data.interests })
             })
     }
@@ -36,7 +35,6 @@ class UserProfile extends Component {
             }
         }).then(resp => resp.json())
             .then(data => {
-                console.log('this is the data', data)
 
                 let filteredArr = this.state.favoriteID.filter(fav => fav.id !== data.id)
                 let filteredMons = this.state.favoriteMons.filter(fav => fav.id !== data.monument_id)
@@ -54,7 +52,8 @@ class UserProfile extends Component {
                     </Grid.Column>
                     <Grid.Column width={8} >
                         <Segment >
-                            <Button icon='edit outline' floated='right' />
+                            {this.props.currentUser ?
+                                <Button icon='edit outline' floated='right' /> : null}
                             <Image src={user} size='small' circular />
                             <Divider horizontal>
                                 <Header as='h3'>
@@ -124,19 +123,49 @@ class UserProfile extends Component {
                                             <List.Content floated='right'>
                                                 {/* <Button onClick={(e) => this.removeFavorite(e, fav.id)}
                                                     basic color='black'>Remove</Button> */}
-                                                <Icon
-                                                    className='Edit'
-                                                    name='edit outline' />
+                                                {this.props.currentUser ?
+                                                    <Icon
+                                                        className='Edit'
+                                                        name='edit outline' /> : null}
                                             </List.Content>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
-                                            <List.Content>
-                                                <Link to={`/travelogues/${logs.id}`}>
+
+                                            <Modal style={{ position: 'relative', paddingTop: '50px', backgroundColor: '#c8d3d4'}} trigger={
+                                                <List.Content>
+                                                    {/* <Link to={`/travelogues/${logs.id}`}> */}
+
                                                     {logs.title.split('').length > 45 ?
                                                         <List.Header className='Title'>{logs.title.substring(0, 45) + '...'}</List.Header> :
                                                         <List.Header className='Title'>{logs.title}</List.Header>}
-                                                </Link>
-                                                {logs.blog.split('').length > 45 ? <List.Content>{logs.blog.substring(0, 45) + '...'} </List.Content> : <List.Content> {logs.blog} </List.Content>}
-                                            </List.Content>
+                                                    {/* </Link> */}
+                                                    {logs.blog.split('').length > 45 ? <List.Content>{logs.blog.substring(0, 45) + '...'} </List.Content> : <List.Content> {logs.blog} </List.Content>}
+                                                </List.Content>}>
+                                                <Grid columns='equal'>
+
+                                                    <Grid.Row stretched >
+                                                        <Divider hidden></Divider>
+                                                        <Grid.Column width={3}>
+                                                        </Grid.Column>
+                                                        <Grid.Column width={10} >
+                                                            <Segment >
+
+                                                                {/* {this.props.admin ?
+                              <Button icon='edit outline' floated='right' /> : null} */}
+                                                                {/* <Image src={mon} size='small' circular /> */}
+                                                                <Divider horizontal>
+                                                                    <Header as='h3'>
+                                                                        {logs.title}
+                                                                        <Header.Subheader>by {this.props.name}</Header.Subheader>
+                                                                    </Header>
+                                                                </Divider>
+                                                            </Segment>
+                                                            <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
+                                                                <span style={{color: 'black'}}>{logs.blog}</span>
+                                                            </Segment>
+                                                        </Grid.Column>
+                                                    </Grid.Row>
+                                                </Grid>
+                                            </Modal>
                                         </List.Item>)}
                                 </List>}
                         </Segment>
