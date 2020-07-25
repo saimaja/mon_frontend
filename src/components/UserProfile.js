@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
+import { Input, Select, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
 import logo from '../images/fadedmon.png'
 import './component.css'
 import user from '../images/user.png'
@@ -41,6 +41,8 @@ class UserProfile extends Component {
                 this.setState({ favoriteID: filteredArr, favoriteMons: filteredMons })
             })
     }
+
+    handleChange = (e, { value }) => this.setState({ value })
 
     render() {
 
@@ -110,9 +112,57 @@ class UserProfile extends Component {
 
                         <Header as='h5' attached='top'>
                             Travelogues
-                            <Button
-                                floated='right'
-                                icon='add square' />
+                            <Modal as={Form}
+                                style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
+                                trigger={<Button
+                                    floated='right'
+                                    icon='add square' />}>
+                                <Grid columns='equal'>
+
+                                    <Grid.Row stretched >
+
+                                        <Grid.Column width={3}>
+                                        </Grid.Column>
+                                        <Grid.Column width={13} >
+                                            <Segment >
+
+                                                {/* {this.props.admin ?
+<Button icon='edit outline' floated='right' /> : null} */}
+                                                {/* <Image src={mon} size='small' circular /> */}
+                                                <Divider horizontal>
+                                                    <Header as='h3'>
+                                                        What Do You Want to Write About?
+                    <Header.Subheader>by {this.props.name}</Header.Subheader>
+                                                    </Header>
+                                                </Divider>
+                                            </Segment>
+                                            <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
+                                                <Form>
+                                                    <Form.Group widths='equal'>
+
+                                                        <Form.Field
+                                                            control={Select}
+                                                            label='Tag Monuments'
+
+                                                            placeholder='Monuments'
+                                                        />
+                                                    </Form.Group>
+                                                    <br />
+                                                    <br />
+                                                    <Form.Field
+                                                        control={TextArea}
+                                                        label='Travelogue'
+                                                        placeholder='Start writing...'
+                                                    />
+
+                                                    <Form.Field control={Button}>Submit</Form.Field>
+                                                </Form>
+                                            </Segment>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+
+                            </Modal>
                         </Header>
                         <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
                             {this.state.travelogues.length === 0 ?
@@ -124,13 +174,14 @@ class UserProfile extends Component {
                                                 {/* <Button onClick={(e) => this.removeFavorite(e, fav.id)}
                                                     basic color='black'>Remove</Button> */}
                                                 {this.props.currentUser ?
+
                                                     <Icon
                                                         className='Edit'
                                                         name='edit outline' /> : null}
                                             </List.Content>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
 
-                                            <Modal style={{ position: 'relative', paddingTop: '50px', backgroundColor: '#c8d3d4'}} trigger={
+                                            <Modal style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }} trigger={
                                                 <List.Content>
                                                     {/* <Link to={`/travelogues/${logs.id}`}> */}
 
@@ -143,10 +194,10 @@ class UserProfile extends Component {
                                                 <Grid columns='equal'>
 
                                                     <Grid.Row stretched >
-                                                        <Divider hidden></Divider>
+
                                                         <Grid.Column width={3}>
                                                         </Grid.Column>
-                                                        <Grid.Column width={10} >
+                                                        <Grid.Column width={13} >
                                                             <Segment >
 
                                                                 {/* {this.props.admin ?
@@ -160,7 +211,7 @@ class UserProfile extends Component {
                                                                 </Divider>
                                                             </Segment>
                                                             <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
-                                                                <span style={{color: 'black'}}>{logs.blog}</span>
+                                                                <span style={{ color: 'black' }}>{logs.blog}</span>
                                                             </Segment>
                                                         </Grid.Column>
                                                     </Grid.Row>
