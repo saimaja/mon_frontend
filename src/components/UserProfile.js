@@ -131,8 +131,7 @@ class UserProfile extends Component {
                                                 {/* <Image src={mon} size='small' circular /> */}
                                                 <Divider horizontal>
                                                     <Header as='h3'>
-                                                        What Do You Want to Write About?
-                    <Header.Subheader>by {this.props.name}</Header.Subheader>
+                                                        {this.props.name.split(' ')[0]}, what do you want to write about?
                                                     </Header>
                                                 </Divider>
                                             </Segment>
@@ -143,10 +142,11 @@ class UserProfile extends Component {
                                                         <Form.Field
                                                             control={Select}
                                                             label='Tag Monuments'
-
                                                             placeholder='Monuments'
                                                         />
+                                                        
                                                     </Form.Group>
+                                                    <Form.Input fluid label='Title' placeholder='Title' />
                                                     <br />
                                                     <br />
                                                     <Form.Field
