@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { Input, Select, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
+import { Dropdown, Select, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
 import logo from '../images/fadedmon.png'
 import './component.css'
 import user from '../images/user.png'
@@ -42,9 +42,13 @@ class UserProfile extends Component {
             })
     }
 
+
+
     handleChange = (e, { value }) => this.setState({ value })
 
     render() {
+
+
 
         return (
 
@@ -137,18 +141,26 @@ class UserProfile extends Component {
                                             </Segment>
                                             <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
                                                 <Form>
-                                                    <Form.Group widths='equal'>
-
-                                                        <Form.Field
-                                                            control={Select}
-                                                            label='Tag Monuments'
-                                                            placeholder='Monuments'
-                                                        />
+                                                    {/* <Form.Group widths='equal'> */}
+                                                    
+                                                        <Dropdown
+                                                            placeholder='Tag Monuments' fluid selection>
                                                         
-                                                    </Form.Group>
+                                                            <Dropdown.Menu>
+                                                            {this.state.favoriteMons.map(mon =>
+                                                                <Dropdown.Item text={mon.name} />)}
+                                                            </Dropdown.Menu>
+
+
+                                                        </Dropdown>
+
+
+
+                                                    {/* </Form.Group> */}
+                                                    <br />
+                                                    <br />
                                                     <Form.Input fluid label='Title' placeholder='Title' />
-                                                    <br />
-                                                    <br />
+                                                    
                                                     <Form.Field
                                                         control={TextArea}
                                                         label='Travelogue'
