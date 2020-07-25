@@ -1,9 +1,30 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { Dropdown, Select, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
+import { Dropdown, Accordion, Checkbox, Select, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
 import logo from '../images/fadedmon.png'
 import './component.css'
 import user from '../images/user.png'
+
+// let options = [
+//     { key: 'angular', text: 'Angular', value: 'angular' },
+//     { key: 'css', text: 'CSS', value: 'css' },
+//     { key: 'design', text: 'Graphic Design', value: 'design' },
+//     { key: 'ember', text: 'Ember', value: 'ember' },
+//     { key: 'html', text: 'HTML', value: 'html' },
+//     { key: 'ia', text: 'Information Architecture', value: 'ia' },
+//     { key: 'javascript', text: 'Javascript', value: 'javascript' },
+//     { key: 'mech', text: 'Mechanical Engineering', value: 'mech' },
+//     { key: 'meteor', text: 'Meteor', value: 'meteor' },
+//     { key: 'node', text: 'NodeJS', value: 'node' },
+//     { key: 'plumbing', text: 'Plumbing', value: 'plumbing' },
+//     { key: 'python', text: 'Python', value: 'python' },
+//     { key: 'rails', text: 'Rails', value: 'rails' },
+//     { key: 'react', text: 'React', value: 'react' },
+//     { key: 'repair', text: 'Kitchen Repair', value: 'repair' },
+//     { key: 'ruby', text: 'Ruby', value: 'ruby' },
+//     { key: 'ui', text: 'UI Design', value: 'ui' },
+//     { key: 'ux', text: 'User Experience', value: 'ux' },
+//   ]
 
 class UserProfile extends Component {
 
@@ -13,16 +34,36 @@ class UserProfile extends Component {
         favoriteID: [],
         bio: '',
         user_location: '',
-        interests: ''
+        interests: '',
+        activeIndexes: [], 
+        options: [
+            {
+                key: 0, text: '', value: ''
+            }
+        ]
     }
+
+    
 
     componentDidMount() {
         fetch(`http://localhost:3000/users/${this.props.currentUser}`)
             .then(resp => resp.json())
             .then(data => {
-                this.setState({ favoriteMons: data.monuments, travelogues: data.travelogues, favoriteID: data.favorites, about: data.about, user_location: data.location, interests: data.interests })
+                this.setState({ 
+                    favoriteMons: data.monuments, 
+                    travelogues: data.travelogues, 
+                    favoriteID: data.favorites, 
+                    about: data.about, 
+                    user_location: data.location, 
+                    interests: data.interests })
             })
     }
+
+    // options = () => {
+       
+    //     let fav = this.state.favoriteMons.map(fav => fav)
+    //     this.setState({options: {key: fav.id, text: fav.name, value: fav.name}})
+    // }
 
     removeFavorite = (e, monID) => {
         let favID = this.state.favoriteID.find(fav => fav.monument_id === monID).id
@@ -43,12 +84,25 @@ class UserProfile extends Component {
     }
 
 
+    handleClick = (e, titleProps) => {
+        const { index } = titleProps;
+        const { activeIndexes } = this.state;
+        const newIndex = activeIndexes;
 
-    handleChange = (e, { value }) => this.setState({ value })
+        const currentIndexPosition = activeIndexes.indexOf(index);
+        if (currentIndexPosition > -1) {
+            newIndex.splice(currentIndexPosition, 1);
+        } else {
+            newIndex.push(index);
+        }
+
+        this.setState({ activeIndexes: newIndex });
+    };
+
 
     render() {
 
-
+        const { activeIndexes } = this.state;
 
         return (
 
@@ -129,21 +183,42 @@ class UserProfile extends Component {
                                         </Grid.Column>
                                         <Grid.Column width={13} >
                                             <Segment >
-
-                                                {/* {this.props.admin ?
-<Button icon='edit outline' floated='right' /> : null} */}
-                                                {/* <Image src={mon} size='small' circular /> */}
                                                 <Divider horizontal>
                                                     <Header as='h3'>
-                                                        {this.props.name.split(' ')[0]}, what do you want to write about?
+                                                        {this.props.name.split(' ')[0]}, what do you want to write?
                                                     </Header>
                                                 </Divider>
                                             </Segment>
                                             <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
                                                 <Form>
                                                     {/* <Form.Group widths='equal'> */}
-                                                    
-                                                        <Dropdown
+                                                   
+
+                                                    <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.state.favoriteMons.map(fav => 
+                                                        [{key: fav.id, value: fav.name, text: fav.name}])} />
+
+                                                    {/* <Dropdown
+                                                        placeholder='Tag Monuments'
+                                                        fluid selection>
+
+                                                        {<Dropdown.Menu>
+                                                            <Form>
+                                                                {this.state.favoriteMons.map(fav => {
+                                                                    return <Form.Field key={fav.id}>
+                                                                        <Checkbox
+                                                                            label={fav.name}
+                                                                        //   onChange={this.props.toggleCategory}
+                                                                        //   checked={this.props.checkedCats[`${fav.name}`]}
+                                                                        />
+                                                                    </Form.Field>
+                                                                }
+                                                                )}
+                                                            </Form>
+                                                        </Dropdown.Menu>}
+                                                    </Dropdown> */}
+
+
+                                                    {/* <Dropdown
                                                             placeholder='Tag Monuments' fluid selection>
                                                         
                                                             <Dropdown.Menu>
@@ -152,16 +227,16 @@ class UserProfile extends Component {
                                                             </Dropdown.Menu>
 
 
-                                                        </Dropdown>
+                                                        </Dropdown> */}
 
 
 
                                                     {/* </Form.Group> */}
                                                     <br />
                                                     <br />
-                                                    <Form.Input fluid label='Title' placeholder='Title' />
-                                                    
-                                                    <Form.Field
+                                                    <Form.Input required fluid label='Title' placeholder='Title' />
+
+                                                    <Form.Field required
                                                         control={TextArea}
                                                         label='Travelogue'
                                                         placeholder='Start writing...'
