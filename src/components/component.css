@@ -46,3 +46,7 @@
     position: relative !important;
 
   }
+
+.ui.header > .center {
+  padding-left: '200px';
+}

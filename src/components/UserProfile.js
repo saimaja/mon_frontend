@@ -76,7 +76,6 @@ class UserProfile extends Component {
     }
 
 
-
     handleSubmit = (e) => {
         e.preventDefault()
         let { title, blog, user_id } = this.state.travelogues
@@ -239,10 +238,32 @@ class UserProfile extends Component {
 
 
                                                 {this.props.currentUser ?
-                                                    <Icon
-                                                        className='Delete'
-                                                        onClick={(e) => this.removeTravelogue(e, logs.id)}
-                                                        name='delete' /> : null}
+                                                    <Modal
+                                                        style={{ position: 'relative', paddingTop: '100px' }}
+                                                        basic size='small'
+
+                                                        trigger={<Icon
+                                                            className='Delete'
+
+                                                            name='delete' />}
+
+                                                    >
+                                                        <Header content='Delete Post' />
+                                                        <Modal.Content>
+                                                            <p>
+                                                                Are you sure you want to delete this post?
+                                                            </p>
+                                                        </Modal.Content>
+
+                                                        <Modal.Actions>
+                                                            <Button
+                                                                onClick={(e) => this.removeTravelogue(e, logs.id)}
+                                                                color='green' inverted>
+                                                                <Icon name='checkmark' /> Yes
+                                                  </Button>
+                                                        </Modal.Actions>
+                                                    </Modal>
+                                                    : null}
                                             </List.Content>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
 
