@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { Dropdown, Accordion, Checkbox, Select, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
+import { Dropdown, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
 import logo from '../images/fadedmon.png'
 import './component.css'
 import user from '../images/user.png'
@@ -60,7 +60,7 @@ class UserProfile extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         let {title, blog, user_id} = this.state.travelogues
-        let {monument_id, travelogue_id} = this.state.favoriteID
+        // let {monument_id, travelogue_id} = this.state.favoriteID
         fetch('http://localhost:3000/travelogues', {
             method: 'POST',
             headers: {
@@ -83,8 +83,6 @@ class UserProfile extends Component {
     }
 
     render() {
-
-        const { activeIndexes } = this.state;
 
         return (
 

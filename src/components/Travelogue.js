@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { withRouter, Link } from 'react-router-dom'
-import { Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
+import {  Grid, Segment, Divider, Header } from 'semantic-ui-react'
 import './component.css'
-import mon from '../images/fadedmon.png'
+// import mon from '../images/fadedmon.png'
 
 class Travelogue extends Component {
 
