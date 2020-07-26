@@ -20,19 +20,19 @@ class UserProfile extends Component {
             }
         ]
     }
-    
+
     componentDidMount() {
         fetch(`http://localhost:3000/users/${this.props.currentUser}`)
             .then(resp => resp.json())
             .then(data => {
-                this.setState({ 
-                    favoriteMons: data.monuments, 
-                    travelogues: data.travelogues, 
-                    favoriteID: data.favorites, 
-                    about: data.about, 
-                    user_location: data.location, 
+                this.setState({
+                    favoriteMons: data.monuments,
+                    travelogues: data.travelogues,
+                    favoriteID: data.favorites,
+                    about: data.about,
+                    user_location: data.location,
                     interests: data.interests,
-                    options: data.monuments.map(fav =>  {return {key: fav.id, text: fav.name, value: fav.name}})
+                    options: data.monuments.map(fav => { return { key: fav.id, text: fav.name, value: fav.name } })
                 })
             })
     }
@@ -56,10 +56,30 @@ class UserProfile extends Component {
             })
     }
 
+    removeTravelogue = (e, id) => {
+        // console.log('removing')
+        fetch(`http://localhost:3000/travelogues/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/json',
+                Accept: 'application/json'
+            }
+        }).then(resp => resp.json())
+            .then(data => {
+                let filteredArr = this.state.travelogues.filter(trav => trav.id !== data.id)
+                this.setState({ travelogues: filteredArr })
+            })
+    }
+
+    editTravelogue = (e, id) => {
+        console.log('updating')
+    }
+
+
 
     handleSubmit = (e) => {
         e.preventDefault()
-        let {title, blog, user_id} = this.state.travelogues
+        let { title, blog, user_id } = this.state.travelogues
         // let {monument_id, travelogue_id} = this.state.favoriteID
         fetch('http://localhost:3000/travelogues', {
             method: 'POST',
@@ -68,18 +88,18 @@ class UserProfile extends Component {
                 Accepts: 'application/json'
             },
             body: JSON.stringify({
-                title: title, 
-                blog: blog, 
+                title: title,
+                blog: blog,
                 user_id: user_id
             })
         }).then(resp => resp.json())
-        .then(data => console.log(data))
+            .then(data => console.log(data))
     }
 
     handleChange = (e) => {
         let name = e.target.name
         let value = e.target.value
-        this.setState({[name]: value})
+        this.setState({ [name]: value })
     }
 
     render() {
@@ -120,7 +140,7 @@ class UserProfile extends Component {
                     </Grid.Column>
                     <Grid.Column>
 
-                        <Header as='h5' attached='top'>
+                        <Header as='h5' attached='top' style={{ maxHeight: 50 }}>
                             Featured Monuments
                         </Header>
                         <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
@@ -148,13 +168,14 @@ class UserProfile extends Component {
                                 </List>}
                         </Segment>
 
-                        <Header as='h5' attached='top'>
+                        <Header as='h5' attached='top' style={{ maxHeight: 50 }}>
                             Travelogues
                             <Modal as={Form}
                                 style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
                                 trigger={<Button
+                                    size='mini'
                                     floated='right'
-                                    icon='add square' />}>
+                                    basic>Create</Button>}>
                                 <Grid columns='equal'>
 
                                     <Grid.Row stretched >
@@ -172,15 +193,15 @@ class UserProfile extends Component {
                                             <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
                                                 <Form onSubmit={this.handleSubmit}>
                                                     {/* <Form.Group widths='equal'> */}
-                                                   
+
                                                     <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.state.options} />
                                                     <br />
                                                     <br />
-                                                    <Form.Input required fluid 
-                                                    label='Title' 
-                                                    placeholder='Title' 
-                                                    name='title'
-                                                    value={this.state.travelogues.title}
+                                                    <Form.Input required fluid
+                                                        label='Title'
+                                                        placeholder='Title'
+                                                        name='title'
+                                                        value={this.state.travelogues.title}
                                                     // onChange={this.handleChange}
                                                     />
 
@@ -209,24 +230,29 @@ class UserProfile extends Component {
                                     {this.state.travelogues.map(logs =>
                                         <List.Item>
                                             <List.Content floated='right'>
-                                                {/* <Button onClick={(e) => this.removeFavorite(e, fav.id)}
-                                                    basic color='black'>Remove</Button> */}
-                                                {this.props.currentUser ?
 
+                                                {this.props.currentUser ?
                                                     <Icon
                                                         className='Edit'
-                                                        name='edit outline' /> : null}
+                                                        name='edit outline'
+                                                        onClick={(e) => { this.editTravelogue(e) }} /> : null}
+
+
+                                                {this.props.currentUser ?
+                                                    <Icon
+                                                        className='Delete'
+                                                        onClick={(e) => this.removeTravelogue(e, logs.id)}
+                                                        name='delete' /> : null}
                                             </List.Content>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
 
                                             <Modal style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }} trigger={
                                                 <List.Content>
-                                                    {/* <Link to={`/travelogues/${logs.id}`}> */}
 
                                                     {logs.title.split('').length > 45 ?
                                                         <List.Header className='Title'>{logs.title.substring(0, 45) + '...'}</List.Header> :
                                                         <List.Header className='Title'>{logs.title}</List.Header>}
-                                                    {/* </Link> */}
+
                                                     {logs.blog.split('').length > 45 ? <List.Content>{logs.blog.substring(0, 45) + '...'} </List.Content> : <List.Content> {logs.blog} </List.Content>}
                                                 </List.Content>}>
                                                 <Grid columns='equal'>
@@ -234,13 +260,13 @@ class UserProfile extends Component {
                                                     <Grid.Row stretched >
 
                                                         <Grid.Column width={3}>
+
+
+
                                                         </Grid.Column>
                                                         <Grid.Column width={13} >
                                                             <Segment >
 
-                                                                {/* {this.props.admin ?
-                              <Button icon='edit outline' floated='right' /> : null} */}
-                                                                {/* <Image src={mon} size='small' circular /> */}
                                                                 <Divider horizontal>
                                                                     <Header as='h3'>
                                                                         {logs.title}
