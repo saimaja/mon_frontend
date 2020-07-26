@@ -5,27 +5,6 @@ import logo from '../images/fadedmon.png'
 import './component.css'
 import user from '../images/user.png'
 
-// let options = [
-//     { key: 'angular', text: 'Angular', value: 'angular' },
-//     { key: 'css', text: 'CSS', value: 'css' },
-//     { key: 'design', text: 'Graphic Design', value: 'design' },
-//     { key: 'ember', text: 'Ember', value: 'ember' },
-//     { key: 'html', text: 'HTML', value: 'html' },
-//     { key: 'ia', text: 'Information Architecture', value: 'ia' },
-//     { key: 'javascript', text: 'Javascript', value: 'javascript' },
-//     { key: 'mech', text: 'Mechanical Engineering', value: 'mech' },
-//     { key: 'meteor', text: 'Meteor', value: 'meteor' },
-//     { key: 'node', text: 'NodeJS', value: 'node' },
-//     { key: 'plumbing', text: 'Plumbing', value: 'plumbing' },
-//     { key: 'python', text: 'Python', value: 'python' },
-//     { key: 'rails', text: 'Rails', value: 'rails' },
-//     { key: 'react', text: 'React', value: 'react' },
-//     { key: 'repair', text: 'Kitchen Repair', value: 'repair' },
-//     { key: 'ruby', text: 'Ruby', value: 'ruby' },
-//     { key: 'ui', text: 'UI Design', value: 'ui' },
-//     { key: 'ux', text: 'User Experience', value: 'ux' },
-//   ]
-
 class UserProfile extends Component {
 
     state = {
@@ -35,16 +14,13 @@ class UserProfile extends Component {
         bio: '',
         user_location: '',
         interests: '',
-        activeIndexes: [], 
         options: [
             {
                 key: 0, text: '', value: ''
             }
         ]
     }
-
     
-
     componentDidMount() {
         fetch(`http://localhost:3000/users/${this.props.currentUser}`)
             .then(resp => resp.json())
@@ -55,15 +31,12 @@ class UserProfile extends Component {
                     favoriteID: data.favorites, 
                     about: data.about, 
                     user_location: data.location, 
-                    interests: data.interests })
+                    interests: data.interests,
+                    options: data.monuments.map(fav =>  {return {key: fav.id, text: fav.name, value: fav.name}})
+                })
             })
     }
 
-    // options = () => {
-       
-    //     let fav = this.state.favoriteMons.map(fav => fav)
-    //     this.setState({options: {key: fav.id, text: fav.name, value: fav.name}})
-    // }
 
     removeFavorite = (e, monID) => {
         let favID = this.state.favoriteID.find(fav => fav.monument_id === monID).id
@@ -84,21 +57,30 @@ class UserProfile extends Component {
     }
 
 
-    handleClick = (e, titleProps) => {
-        const { index } = titleProps;
-        const { activeIndexes } = this.state;
-        const newIndex = activeIndexes;
+    handleSubmit = (e) => {
+        e.preventDefault()
+        let {title, blog, user_id} = this.state.travelogues
+        let {monument_id, travelogue_id} = this.state.favoriteID
+        fetch('http://localhost:3000/travelogues', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accepts: 'application/json'
+            },
+            body: JSON.stringify({
+                title: title, 
+                blog: blog, 
+                user_id: user_id
+            })
+        }).then(resp => resp.json())
+        .then(data => console.log(data))
+    }
 
-        const currentIndexPosition = activeIndexes.indexOf(index);
-        if (currentIndexPosition > -1) {
-            newIndex.splice(currentIndexPosition, 1);
-        } else {
-            newIndex.push(index);
-        }
-
-        this.setState({ activeIndexes: newIndex });
-    };
-
+    handleChange = (e) => {
+        let name = e.target.name
+        let value = e.target.value
+        this.setState({[name]: value})
+    }
 
     render() {
 
@@ -190,55 +172,26 @@ class UserProfile extends Component {
                                                 </Divider>
                                             </Segment>
                                             <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
-                                                <Form>
+                                                <Form onSubmit={this.handleSubmit}>
                                                     {/* <Form.Group widths='equal'> */}
                                                    
-
-                                                    <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.state.favoriteMons.map(fav => 
-                                                        [{key: fav.id, value: fav.name, text: fav.name}])} />
-
-                                                    {/* <Dropdown
-                                                        placeholder='Tag Monuments'
-                                                        fluid selection>
-
-                                                        {<Dropdown.Menu>
-                                                            <Form>
-                                                                {this.state.favoriteMons.map(fav => {
-                                                                    return <Form.Field key={fav.id}>
-                                                                        <Checkbox
-                                                                            label={fav.name}
-                                                                        //   onChange={this.props.toggleCategory}
-                                                                        //   checked={this.props.checkedCats[`${fav.name}`]}
-                                                                        />
-                                                                    </Form.Field>
-                                                                }
-                                                                )}
-                                                            </Form>
-                                                        </Dropdown.Menu>}
-                                                    </Dropdown> */}
-
-
-                                                    {/* <Dropdown
-                                                            placeholder='Tag Monuments' fluid selection>
-                                                        
-                                                            <Dropdown.Menu>
-                                                            {this.state.favoriteMons.map(mon =>
-                                                                <Dropdown.Item text={mon.name} />)}
-                                                            </Dropdown.Menu>
-
-
-                                                        </Dropdown> */}
-
-
-
-                                                    {/* </Form.Group> */}
+                                                    <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.state.options} />
                                                     <br />
                                                     <br />
-                                                    <Form.Input required fluid label='Title' placeholder='Title' />
+                                                    <Form.Input required fluid 
+                                                    label='Title' 
+                                                    placeholder='Title' 
+                                                    name='title'
+                                                    value={this.state.travelogues.title}
+                                                    // onChange={this.handleChange}
+                                                    />
 
                                                     <Form.Field required
+                                                        name='travelogue'
                                                         control={TextArea}
                                                         label='Travelogue'
+                                                        value={this.state.travelogues.title}
+                                                        // onChange={this.handleChange}
                                                         placeholder='Start writing...'
                                                     />
 
