@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
+import TravelogueForm from './TravelogueForm'
 import { Dropdown, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
 import logo from '../images/fadedmon.png'
 import './component.css'
@@ -97,20 +98,18 @@ class UserProfile extends Component {
                 user_id: this.props.currentUser
             })
         }).then(resp => resp.json())
-            .then(data => 
-                this.setState({travelogues: [...this.state.travelogues, data], modal: false, newTravel: {title: '', blog: ''}}))
-        
+            .then(data =>
+                this.setState({ travelogues: [...this.state.travelogues, data], modal: false, newTravel: { title: '', blog: '' } }))
+
     }
 
 
 
     handleChange = (e) => {
-     
-
         let name = e.target.name
         let value = e.target.value
-        
-        this.setState({newTravel: {...this.state.newTravel, [name]: value}})
+
+        this.setState({ newTravel: { ...this.state.newTravel, [name]: value } })
         // this.setState({ newTravel: {...this.state.newTravel}, [name]: value })
     }
 
@@ -119,9 +118,9 @@ class UserProfile extends Component {
         return (
 
             <Grid columns='equal'>
-                <Grid.Row style={{marginTop: '20px'}} stretched >
+                <Grid.Row style={{ marginTop: '20px' }} stretched >
                     <Grid.Column width={8} >
-                        <Segment style={{marginLeft: '50px'}}>
+                        <Segment style={{ marginLeft: '50px' }}>
                             {this.props.currentUser ?
                                 <Button icon='edit outline' floated='right' /> : null}
                             <Image src={user} size='small' circular />
@@ -182,14 +181,21 @@ class UserProfile extends Component {
                             Travelogues
                             <Modal as={Form}
                                 open={this.state.modal}
-                                onClose={() => this.setState({modal: false})}
+                                onClose={() => this.setState({ modal: false })}
                                 style={{ overflow: 'auto', position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
                                 trigger={<Button
-                                onClick={() => this.setState({modal: true})}
+                                    onClick={() => this.setState({ modal: true })}
                                     size='mini'
                                     floated='right'
                                     basic>Create</Button>}>
-                                <Grid columns='equal'>
+                                        <TravelogueForm 
+                                        handleChange = {this.handleChange}
+                                        handleChange = {this.handleSubmit}
+                                        newTravel = {this.state.newTravel}
+                                        name = {this.props.name}
+                                        options = {this.state.options}
+                                        />
+                                {/* <Grid columns='equal'>
 
                                     <Grid.Row stretched >
 
@@ -205,7 +211,7 @@ class UserProfile extends Component {
                                             </Segment>
                                             <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
                                                 <Form onSubmit={this.handleSubmit}>
-                                                    {/* <Form.Group widths='equal'> */}
+                                                
 
                                                     <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.state.options} />
                                                     <br />
@@ -232,7 +238,7 @@ class UserProfile extends Component {
                                             </Segment>
                                         </Grid.Column>
                                     </Grid.Row>
-                                </Grid>
+                                </Grid> */}
 
                             </Modal>
                         </Header>
