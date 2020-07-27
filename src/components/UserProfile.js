@@ -119,11 +119,9 @@ class UserProfile extends Component {
         return (
 
             <Grid columns='equal'>
-                <Grid.Row stretched >
-                    <Grid.Column width={0}>
-                    </Grid.Column>
+                <Grid.Row style={{marginTop: '20px'}} stretched >
                     <Grid.Column width={8} >
-                        <Segment >
+                        <Segment style={{marginLeft: '50px'}}>
                             {this.props.currentUser ?
                                 <Button icon='edit outline' floated='right' /> : null}
                             <Image src={user} size='small' circular />
@@ -185,7 +183,7 @@ class UserProfile extends Component {
                             <Modal as={Form}
                                 open={this.state.modal}
                                 onClose={() => this.setState({modal: false})}
-                                style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
+                                style={{ overflow: 'auto', position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
                                 trigger={<Button
                                 onClick={() => this.setState({modal: true})}
                                     size='mini'
@@ -283,7 +281,7 @@ class UserProfile extends Component {
                                             </List.Content>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
 
-                                            <Modal style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }} trigger={
+                                            <Modal style={{ overflow: 'auto', position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }} trigger={
                                                 <List.Content>
 
                                                     {logs.title.split('').length > 45 ?

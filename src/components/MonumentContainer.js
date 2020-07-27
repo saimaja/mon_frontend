@@ -93,7 +93,7 @@ export default class MonumentContainer extends Component {
                 <Container>
                     <Divider hidden />
                     <br />
-                    <Segment secondary raised compact style={{margin: 'auto', marginBottom: '25px', marginTop: '-10px'}}>{results}</Segment>
+                    <Segment secondary raised compact style={{margin: 'auto', marginBottom: '25px', marginTop: '-20px'}}>{results}</Segment>
                     
 
                     <Grid className='card-padding' relaxed columns={4} divided>
