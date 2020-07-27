@@ -81,7 +81,7 @@ class UserProfile extends Component {
     }
 
 
-    handleSubmit = (e) => {
+    handleSubmitTravel = (e) => {
         e.preventDefault()
         let { title, blog } = this.state.newTravel
         // let {monument_id, travelogue_id} = this.state.favoriteID
@@ -97,20 +97,20 @@ class UserProfile extends Component {
                 user_id: this.props.currentUser
             })
         }).then(resp => resp.json())
-            .then(data => 
-                this.setState({travelogues: [...this.state.travelogues, data], modal: false, newTravel: {title: '', blog: ''}}))
-        
+            .then(data =>
+                this.setState({ travelogues: [...this.state.travelogues, data], modal: false, newTravel: { title: '', blog: '' } }))
+
     }
 
 
 
-    handleChange = (e) => {
-     
+    handleChangeTravel = (e) => {
+
 
         let name = e.target.name
         let value = e.target.value
-        
-        this.setState({newTravel: {...this.state.newTravel, [name]: value}})
+
+        this.setState({ newTravel: { ...this.state.newTravel, [name]: value } })
         // this.setState({ newTravel: {...this.state.newTravel}, [name]: value })
     }
 
@@ -184,10 +184,10 @@ class UserProfile extends Component {
                             Travelogues
                             <Modal as={Form}
                                 open={this.state.modal}
-                                onClose={() => this.setState({modal: false})}
+                                onClose={() => this.setState({ modal: false })}
                                 style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
                                 trigger={<Button
-                                onClick={() => this.setState({modal: true})}
+                                    onClick={() => this.setState({ modal: true })}
                                     size='mini'
                                     floated='right'
                                     basic>Create</Button>}>
@@ -206,7 +206,7 @@ class UserProfile extends Component {
                                                 </Divider>
                                             </Segment>
                                             <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
-                                                <Form onSubmit={this.handleSubmit}>
+                                                <Form onSubmit={this.handleSubmitTravel}>
                                                     {/* <Form.Group widths='equal'> */}
 
                                                     <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.state.options} />
@@ -217,7 +217,7 @@ class UserProfile extends Component {
                                                         placeholder='Title'
                                                         name='title'
                                                         value={this.state.newTravel.title}
-                                                        onChange={this.handleChange}
+                                                        onChange={this.handleChangeTravel}
                                                     />
 
                                                     <Form.Field required
@@ -225,7 +225,7 @@ class UserProfile extends Component {
                                                         control={TextArea}
                                                         label='Travelogue'
                                                         value={this.state.newTravel.blog}
-                                                        onChange={this.handleChange}
+                                                        onChange={this.handleChangeTravel}
                                                         placeholder='Start writing...'
                                                     />
 
@@ -246,64 +246,108 @@ class UserProfile extends Component {
                                         <List.Item>
                                             <List.Content floated='right'>
 
+
+
                                                 {this.props.currentUser ?
-                                                    <Icon
-                                                        className='Edit'
-                                                        name='edit outline'
-                                                        onClick={(e) => { this.editTravelogue(e) }} /> : null}
+                                                  <Modal as={Form}
+                                                  open={this.state.modal}
+                                                  onClose={() => this.setState({ modal: false })}
+                                                  style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
+                                                  trigger={
+                                                  <Icon
+                                                      onClick={() => this.setState({ modal: true })}
+                                                      floated='right'
+                                                      name ='edit outline'
+                                                      />
+                                                      }>
+                                                  <Grid columns='equal'>
+                  
+                                                      <Grid.Row stretched >
+                  
+                                                          <Grid.Column width={3}>
+                                                          </Grid.Column>
+                                                          <Grid.Column width={13} >
+                                                              <Segment >
+                                                                  <Divider horizontal>
+                                                                      <Header as='h3'>
+                                                                          {this.props.name.split(' ')[0]}, what do you want to write?
+                                                                      </Header>
+                                                                  </Divider>
+                                                              </Segment>
+                                                              <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
+                                                                  <Form onSubmit={this.handleSubmitTravel}>
+                                                                      {/* <Form.Group widths='equal'> */}
+                  
+                                                                      <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.state.options} />
+                                                                      <br />
+                                                                      <br />
+                                                                      <Form.Input required fluid
+                                                                          label='Title'
+                                                                          placeholder='Title'
+                                                                          name='title'
+                                                                          value={this.state.newTravel.title}
+                                                                        //   onChange={this.handleChangeTravel}
+                                                                      />
+                  
+                                                                      <Form.Field required
+                                                                          name='blog'
+                                                                          control={TextArea}
+                                                                          label='Travelogue'
+                                                                          value={this.state.newTravel.blog}
+                                                                        //   onChange={this.handleChangeTravel}
+                                                                          placeholder='Start writing...'
+                                                                      />
+                  
+                                                                      <Form.Field control={Button}>Submit</Form.Field>
+                                                                  </Form>
+                                                              </Segment>
+                                                          </Grid.Column>
+                                                      </Grid.Row>
+                                                  </Grid>
+                  
+                                              </Modal> : null}
+
+
 
 
                                                 {this.props.currentUser ?
                                                     <Modal
                                                         style={{ position: 'relative', paddingTop: '100px' }}
                                                         basic size='small'
-
                                                         trigger={<Icon
                                                             className='Delete'
-
-                                                            name='delete' />}
-
-                                                    >
+                                                            name='delete' />}>
                                                         <Header content='Delete Post' />
                                                         <Modal.Content>
                                                             <p>
                                                                 Are you sure you want to delete this post?
                                                             </p>
                                                         </Modal.Content>
-
                                                         <Modal.Actions>
                                                             <Button
                                                                 onClick={(e) => this.removeTravelogue(e, logs.id)}
                                                                 color='green' inverted>
                                                                 <Icon name='checkmark' /> Yes
-                                                  </Button>
+                                                            </Button>
                                                         </Modal.Actions>
-                                                    </Modal>
-                                                    : null}
+                                                    </Modal> : null}
                                             </List.Content>
+                                            
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
 
                                             <Modal style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }} trigger={
                                                 <List.Content>
-
                                                     {logs.title.split('').length > 45 ?
                                                         <List.Header className='Title'>{logs.title.substring(0, 45) + '...'}</List.Header> :
                                                         <List.Header className='Title'>{logs.title}</List.Header>}
-
                                                     {logs.blog.split('').length > 45 ? <List.Content>{logs.blog.substring(0, 45) + '...'} </List.Content> : <List.Content> {logs.blog} </List.Content>}
                                                 </List.Content>}>
                                                 <Grid columns='equal'>
-
                                                     <Grid.Row stretched >
-
                                                         <Grid.Column width={3}>
-
-
-
                                                         </Grid.Column>
                                                         <Grid.Column width={13} >
                                                             <Segment >
-
                                                                 <Divider horizontal>
                                                                     <Header as='h3'>
                                                                         {logs.title}
