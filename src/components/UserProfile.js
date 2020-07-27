@@ -80,11 +80,20 @@ class UserProfile extends Component {
         console.log('updating')
     }
 
+    testDropDown = (e) => {
+        console.log('dropdown', e.target.value)
+    }
+
 
     handleSubmit = (e) => {
+        // debugger
         e.preventDefault()
         let { title, blog } = this.state.newTravel
-        // let {monument_id, travelogue_id} = this.state.favoriteID
+        let dropdownArr = e._targetInst.child.memoizedProps.options.map(obj => obj.key)
+        // debugger
+        // [0].key
+        // let dropdownID = dropdownArr.map(i => i.key)
+        // let id = this.state.favoriteMons.find(mon => mon.monument_id === dropdownID)
         fetch('http://localhost:3000/travelogues', {
             method: 'POST',
             headers: {
@@ -94,22 +103,21 @@ class UserProfile extends Component {
             body: JSON.stringify({
                 title: title,
                 blog: blog,
-                user_id: this.props.currentUser
+                user_id: this.props.currentUser,
+                mon_travels: [dropdownArr]
             })
         }).then(resp => resp.json())
             .then(data => 
-                this.setState({travelogues: [...this.state.travelogues, data], modal: false, newTravel: {title: '', blog: ''}}))
+                console.log(data))
+                // this.setState({travelogues: [...this.state.travelogues, data], modal: false, options: [], newTravel: {title: '', blog: ''}}))
         
     }
 
 
 
     handleChange = (e) => {
-     
-
         let name = e.target.name
         let value = e.target.value
-        
         this.setState({newTravel: {...this.state.newTravel, [name]: value}})
         // this.setState({ newTravel: {...this.state.newTravel}, [name]: value })
     }
@@ -199,7 +207,7 @@ class UserProfile extends Component {
                                             <Segment >
                                                 <Divider horizontal>
                                                     <Header as='h3'>
-                                                        {this.props.name.split(' ')[0]}, what do you want to write?
+                                                        {this.props.name.split(' ')[0]}, what do you want to write about?
                                                     </Header>
                                                 </Divider>
                                             </Segment>

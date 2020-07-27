@@ -86,7 +86,7 @@ export default class MonumentContainer extends Component {
         } else {
             results = <span>Results: {containerMon.length}</span>;
         }
-        console.log('results', results)
+    
         if (this.props.monuments.length > 0) {
             return (
 
