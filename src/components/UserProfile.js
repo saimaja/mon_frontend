@@ -21,7 +21,7 @@ class UserProfile extends Component {
         interests: '',
         options: [
             {
-                key: 0, text: '', value: ''
+                key: 0, text: '', value: 0
             }
         ]
     }
@@ -37,7 +37,7 @@ class UserProfile extends Component {
                     about: data.about,
                     user_location: data.location,
                     interests: data.interests,
-                    options: data.monuments.map(fav => { return { key: fav.id, text: fav.name, value: fav.name } })
+                    options: data.monuments.map(fav => { return { key: fav.id, text: fav.name, value: fav.id } })
                 })
             })
     }
@@ -80,20 +80,16 @@ class UserProfile extends Component {
         console.log('updating')
     }
 
-    testDropDown = (e) => {
-        console.log('dropdown', e.target.value)
+    dropDownChange = (e, {value}) => {
+        console.log(value)
+        this.setState({tags: value})
     }
 
 
     handleSubmit = (e) => {
-        // debugger
         e.preventDefault()
         let { title, blog } = this.state.newTravel
-        let dropdownArr = e._targetInst.child.memoizedProps.options.map(obj => obj.key)
-        // debugger
-        // [0].key
-        // let dropdownID = dropdownArr.map(i => i.key)
-        // let id = this.state.favoriteMons.find(mon => mon.monument_id === dropdownID)
+    
         fetch('http://localhost:3000/travelogues', {
             method: 'POST',
             headers: {
@@ -104,12 +100,11 @@ class UserProfile extends Component {
                 title: title,
                 blog: blog,
                 user_id: this.props.currentUser,
-                mon_travels: [dropdownArr]
+                monument_ids: this.state.tags
             })
         }).then(resp => resp.json())
             .then(data => 
-                console.log(data))
-                // this.setState({travelogues: [...this.state.travelogues, data], modal: false, options: [], newTravel: {title: '', blog: ''}}))
+                this.setState({travelogues: [...this.state.travelogues, data], modal: false, options: [], newTravel: {title: '', blog: ''}}))
         
     }
 
@@ -215,7 +210,7 @@ class UserProfile extends Component {
                                                 <Form onSubmit={this.handleSubmit}>
                                                     {/* <Form.Group widths='equal'> */}
 
-                                                    <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.state.options} />
+                                                    <Dropdown onChange={this.dropDownChange} placeholder='Tag Monuments' fluid multiple selection options={this.state.options} />
                                                     <br />
                                                     <br />
                                                     <Form.Input required fluid
