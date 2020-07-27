@@ -163,6 +163,7 @@ export default class App extends Component {
               <MonumentContainer
                 currentUser={this.state.currentUser}
                 monuments={this.filter()}
+                filter={this.state.filter}
                 search={this.state.searchField} />
           } />
 

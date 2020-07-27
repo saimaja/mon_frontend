@@ -8,9 +8,14 @@ import user from '../images/user.png'
 class UserProfile extends Component {
 
     state = {
+        newTravel: {
+            title: '',
+            blog: ''
+        },
         travelogues: [],
         favoriteMons: [],
         favoriteID: [],
+        modal: false,
         bio: '',
         user_location: '',
         interests: '',
@@ -78,7 +83,7 @@ class UserProfile extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        let { title, blog, user_id } = this.state.travelogues
+        let { title, blog } = this.state.newTravel
         // let {monument_id, travelogue_id} = this.state.favoriteID
         fetch('http://localhost:3000/travelogues', {
             method: 'POST',
@@ -89,16 +94,24 @@ class UserProfile extends Component {
             body: JSON.stringify({
                 title: title,
                 blog: blog,
-                user_id: user_id
+                user_id: this.props.currentUser
             })
         }).then(resp => resp.json())
-            .then(data => console.log(data))
+            .then(data => 
+                this.setState({travelogues: [...this.state.travelogues, data], modal: false, newTravel: {title: '', blog: ''}}))
+        
     }
 
+
+
     handleChange = (e) => {
+     
+
         let name = e.target.name
         let value = e.target.value
-        this.setState({ [name]: value })
+        
+        this.setState({newTravel: {...this.state.newTravel, [name]: value}})
+        // this.setState({ newTravel: {...this.state.newTravel}, [name]: value })
     }
 
     render() {
@@ -170,8 +183,11 @@ class UserProfile extends Component {
                         <Header as='h5' attached='top' style={{ maxHeight: 50 }}>
                             Travelogues
                             <Modal as={Form}
+                                open={this.state.modal}
+                                onClose={() => this.setState({modal: false})}
                                 style={{ position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
                                 trigger={<Button
+                                onClick={() => this.setState({modal: true})}
                                     size='mini'
                                     floated='right'
                                     basic>Create</Button>}>
@@ -200,16 +216,16 @@ class UserProfile extends Component {
                                                         label='Title'
                                                         placeholder='Title'
                                                         name='title'
-                                                        value={this.state.travelogues.title}
-                                                    // onChange={this.handleChange}
+                                                        value={this.state.newTravel.title}
+                                                        onChange={this.handleChange}
                                                     />
 
                                                     <Form.Field required
-                                                        name='travelogue'
+                                                        name='blog'
                                                         control={TextArea}
                                                         label='Travelogue'
-                                                        value={this.state.travelogues.title}
-                                                        // onChange={this.handleChange}
+                                                        value={this.state.newTravel.blog}
+                                                        onChange={this.handleChange}
                                                         placeholder='Start writing...'
                                                     />
 

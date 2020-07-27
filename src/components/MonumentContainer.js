@@ -78,13 +78,23 @@ export default class MonumentContainer extends Component {
         const indexOfFirstMonument = indexOfLastMonument - this.state.monumentsPerPage;
         const currentMonuments = containerMon.slice(indexOfFirstMonument, indexOfLastMonument)
 
+        let results
+       if (this.props.filter === 'removed') {
+        results = <span>Monuments that have been removed: {containerMon.length}</span>;
+       }else if (this.props.filter === 'renamed') {
+        results = <span>Monuments that have been renamed: {containerMon.length}</span>;
+       } else {
+        results = <span>All Monuments: {containerMon.length}</span>;
+       }
+       console.log('results', results)
         if (this.props.monuments.length > 0) {
             return (
 
                 <Container>
                     <Divider hidden />
                     <br />
-                    <span>Results: {containerMon.length}</span>
+                   
+                    {results}
 
                     <Grid className='card-padding' relaxed columns={4} divided>
                         {currentMonuments.map(monument =>
