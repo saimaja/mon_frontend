@@ -50,3 +50,7 @@
 .ui.header > .center {
   padding-left: '200px';
 }
+
+.center-text {
+  text-align: center;
+}

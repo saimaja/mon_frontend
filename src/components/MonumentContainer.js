@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MonumentCard from './MonumentCard'
-import { Container, Divider, Grid } from 'semantic-ui-react'
+import { Container, Segment, Divider, Grid } from 'semantic-ui-react'
 import Pagination from './Pagination'
 import './component.css'
 
@@ -79,22 +79,22 @@ export default class MonumentContainer extends Component {
         const currentMonuments = containerMon.slice(indexOfFirstMonument, indexOfLastMonument)
 
         let results
-       if (this.props.filter === 'removed') {
-        results = <span>Monuments that have been removed: {containerMon.length}</span>;
-       }else if (this.props.filter === 'renamed') {
-        results = <span>Monuments that have been renamed: {containerMon.length}</span>;
-       } else {
-        results = <span>All Monuments: {containerMon.length}</span>;
-       }
-       console.log('results', results)
+        if (this.props.filter === 'removed') {
+            results = <span>Monuments Removed: {containerMon.length}</span>;
+        } else if (this.props.filter === 'renamed') {
+            results = <span>Monuments Renamed: {containerMon.length}</span>;
+        } else {
+            results = <span>Results: {containerMon.length}</span>;
+        }
+        console.log('results', results)
         if (this.props.monuments.length > 0) {
             return (
 
                 <Container>
                     <Divider hidden />
                     <br />
-                   
-                    {results}
+                    <Segment secondary raised compact style={{margin: 'auto', marginBottom: '25px', marginTop: '-10px'}}>{results}</Segment>
+                    
 
                     <Grid className='card-padding' relaxed columns={4} divided>
                         {currentMonuments.map(monument =>
@@ -118,7 +118,9 @@ export default class MonumentContainer extends Component {
 
                 </Container>
             )
-        }
+        } else {
+            return <div className='center-text'>No results found</div>
+        } 
 
     }
 }
