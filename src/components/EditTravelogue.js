@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Dropdown, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
+import { Dropdown, TextArea, Form, Button, Grid, Segment, Divider, Header } from 'semantic-ui-react'
 import './component.css'
 
 
 export default class EditTravelogue extends Component {
+
+
     render() {
         return (
             <Grid columns='equal'>
@@ -16,13 +18,13 @@ export default class EditTravelogue extends Component {
                         <Segment >
                             <Divider horizontal>
                                 <Header as='h3'>
-                                    {this.props.name.split(' ')[0]}, what do you want to write about?
+                                    {this.props.name.split(' ')[0]}, what do you want to edit?
                                 </Header>
                             </Divider>
                         </Segment>
                         <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
                             <Form onSubmit={this.props.editTravelogue}>
-                           
+
 
                                 <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.props.options} />
                                 <br />

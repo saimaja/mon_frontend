@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
+import EditModal from './EditModal'
 import { Dropdown, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
 import logo from '../images/fadedmon.png'
 import './component.css'
@@ -13,9 +14,11 @@ class UserProfile extends Component {
             blog: ''
         },
         travelogues: [],
+        tags: [],
         favoriteMons: [],
         favoriteID: [],
-        modal: false,
+        createModal: false,
+        deleteModal: false,
         bio: '',
         user_location: '',
         interests: '',
@@ -72,7 +75,7 @@ class UserProfile extends Component {
         }).then(resp => resp.json())
             .then(data => {
                 let filteredArr = this.state.travelogues.filter(trav => trav.id !== data.id)
-                this.setState({ travelogues: filteredArr })
+                this.setState({ travelogues: filteredArr, deleteModal: false })
             })
     }
 
@@ -80,16 +83,16 @@ class UserProfile extends Component {
         console.log('updating')
     }
 
-    dropDownChange = (e, {value}) => {
+    dropDownChange = (e, { value }) => {
         console.log(value)
-        this.setState({tags: value})
+        this.setState({ tags: value })
     }
 
 
     handleSubmit = (e) => {
         e.preventDefault()
         let { title, blog } = this.state.newTravel
-    
+
         fetch('http://localhost:3000/travelogues', {
             method: 'POST',
             headers: {
@@ -103,18 +106,16 @@ class UserProfile extends Component {
                 monument_ids: this.state.tags
             })
         }).then(resp => resp.json())
-            .then(data => 
-                this.setState({travelogues: [...this.state.travelogues, data], modal: false, options: [], newTravel: {title: '', blog: ''}}))
-        
-    }
+            .then(data =>
+                this.setState({ travelogues: [...this.state.travelogues, data], createModal: false, options: [], tags: [], newTravel: { title: '', blog: '' } }))
 
+    }
 
 
     handleChange = (e) => {
         let name = e.target.name
         let value = e.target.value
-        this.setState({newTravel: {...this.state.newTravel, [name]: value}})
-        // this.setState({ newTravel: {...this.state.newTravel}, [name]: value })
+        this.setState({ newTravel: { ...this.state.newTravel, [name]: value } })
     }
 
     render() {
@@ -122,9 +123,9 @@ class UserProfile extends Component {
         return (
 
             <Grid columns='equal'>
-                <Grid.Row style={{marginTop: '20px'}} stretched >
+                <Grid.Row style={{ marginTop: '20px' }} stretched >
                     <Grid.Column width={8} >
-                        <Segment style={{marginLeft: '50px'}}>
+                        <Segment style={{ marginLeft: '50px' }}>
                             {this.props.currentUser ?
                                 <Button icon='edit outline' floated='right' /> : null}
                             <Image src={user} size='small' circular />
@@ -184,11 +185,11 @@ class UserProfile extends Component {
                         <Header as='h5' attached='top' style={{ maxHeight: 50 }}>
                             Travelogues
                             <Modal as={Form}
-                                open={this.state.modal}
-                                onClose={() => this.setState({modal: false})}
+                                open={this.state.createModal}
+                                onClose={() => this.setState({ createModal: false })}
                                 style={{ overflow: 'auto', position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
                                 trigger={<Button
-                                onClick={() => this.setState({modal: true})}
+                                    onClick={() => this.setState({ createModal: true })}
                                     size='mini'
                                     floated='right'
                                     basic>Create</Button>}>
@@ -208,7 +209,7 @@ class UserProfile extends Component {
                                             </Segment>
                                             <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
                                                 <Form onSubmit={this.handleSubmit}>
-                                                    {/* <Form.Group widths='equal'> */}
+
 
                                                     <Dropdown onChange={this.dropDownChange} placeholder='Tag Monuments' fluid multiple selection options={this.state.options} />
                                                     <br />
@@ -248,10 +249,15 @@ class UserProfile extends Component {
                                             <List.Content floated='right'>
 
                                                 {this.props.currentUser ?
-                                                    <Icon
-                                                        className='Edit'
-                                                        name='edit outline'
-                                                        onClick={(e) => { this.editTravelogue(e) }} /> : null}
+                                                    <EditModal
+                                                        travelogueID={logs.id}
+                                                        name={this.props.name}
+                                                        handleChange={this.handleChange}
+                                                        handleSubmit={this.handleSubmit}
+                                                        options={this.state.options}
+                                                        newTravel={this.state.newTravel}
+                                                        editTravelogue={this.editTravelogue}
+                                                    /> : null}
 
 
                                                 {this.props.currentUser ?
@@ -262,18 +268,18 @@ class UserProfile extends Component {
                                                         trigger={<Icon
                                                             className='Delete'
 
-                                                            name='delete' />}
+                                                            name='delete' />}>
 
-                                                    >
                                                         <Header content='Delete Post' />
                                                         <Modal.Content>
                                                             <p>
                                                                 Are you sure you want to delete this post?
                                                             </p>
                                                         </Modal.Content>
-
+                                                    
                                                         <Modal.Actions>
                                                             <Button
+
                                                                 onClick={(e) => this.removeTravelogue(e, logs.id)}
                                                                 color='green' inverted>
                                                                 <Icon name='checkmark' /> Yes
@@ -281,6 +287,7 @@ class UserProfile extends Component {
                                                         </Modal.Actions>
                                                     </Modal>
                                                     : null}
+
                                             </List.Content>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
 
