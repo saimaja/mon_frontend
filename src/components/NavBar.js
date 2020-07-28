@@ -27,17 +27,19 @@ class NavBar extends Component {
             <img src={logo} alt='logo'/>
           </Menu.Item>
 
-          <Menu.Item
-            name='about'
-            active={this.state.activeItem === 'messages'}
-            onClick={() => this.props.history.push('/about')}
-          />
           {this.props.currentUser ?
             <Menu.Item
               name={this.props.name}
               active={this.state.activeItem === 'profile'}
               onClick={() => this.props.history.push(`/users/${this.props.currentUser}`)}
             /> : null}
+
+          <Menu.Item
+            name='about'
+            active={this.state.activeItem === 'messages'}
+            onClick={() => this.props.history.push('/about')}
+          />
+          
 
             <Menu.Item
               name='map'

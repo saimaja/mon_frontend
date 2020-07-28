@@ -79,10 +79,6 @@ class UserProfile extends Component {
             })
     }
 
-    editTravelogue = (e, id) => {
-        console.log('updating')
-    }
-
     dropDownChange = (e, { value }) => {
         console.log(value)
         this.setState({ tags: value })
@@ -119,7 +115,7 @@ class UserProfile extends Component {
     }
 
     render() {
-
+console.log('tags', this.state.tags)
         return (
 
             <Grid columns='equal'>
@@ -320,7 +316,11 @@ class UserProfile extends Component {
                                                                 </Divider>
                                                             </Segment>
                                                             <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
+                                                               
                                                                 <span style={{ color: 'black' }}>{logs.blog}</span>
+                                                            </Segment>
+                                                            <Segment>
+                                                                Monuments tagged: {logs.mon_travels}
                                                             </Segment>
                                                         </Grid.Column>
                                                     </Grid.Row>

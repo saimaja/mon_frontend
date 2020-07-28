@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
+import { Button, Image, List, Grid, Segment, Divider, Header, Table } from 'semantic-ui-react'
 import './component.css'
 import mon from '../images/fadedmon.png'
 
@@ -27,11 +27,9 @@ class MonumentDetail extends Component {
 
         return (
             <Grid columns='equal'>
-                <Grid.Row stretched >
-                    <Grid.Column width={3}>
-                    </Grid.Column>
-                    <Grid.Column width={10} >
-                        <Segment >
+                <Grid.Row style={{marginTop: '20px'}} stretched >
+                    <Grid.Column width={7} >
+                        <Segment style={{ marginLeft: '50px' }} >
                             {this.props.admin ?
                                 <Button icon='edit outline' floated='right' /> : null}
                             <Image src={mon} size='small' circular />
@@ -77,8 +75,10 @@ class MonumentDetail extends Component {
                                 </Table.Body>
                             </Table>
                         </Segment>
-                        <Header as='h5' attached='top'>
-                            Blogs about this monument
+                        </Grid.Column>
+                        <Grid.Column>
+                        <Header as='h5' attached='top' style={{ maxHeight: 50 }}>
+                            Travelogues about this monument
                     </Header>
                         <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
                             {this.state.travelogues.length === 0 ?
@@ -87,9 +87,7 @@ class MonumentDetail extends Component {
                                     {this.state.travelogues.map(logs =>
                                         <List.Item>
                                             <List.Content floated='right'>
-                                                <Icon
-
-                                                />
+                   
                                             </List.Content>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
                                             <List.Content>
@@ -98,13 +96,13 @@ class MonumentDetail extends Component {
                                                         <List.Header className='Title'>{logs.title.substring(0, 45) + '...'}</List.Header> :
                                                         <List.Header className='Title'>{logs.title}</List.Header>}
                                                 </Link>
-                                                {logs.blog.split('').length > 100 ? <List.Content>{logs.blog.substring(0, 100) + '...'} </List.Content> : <List.Content> {logs.blog} </List.Content>}
+                                                by <Link to={`/users/${logs.user_id}`}>{this.props.name}</Link>
+                                                {logs.blog.split('').length > 70 ? <List.Content>{logs.blog.substring(0, 70) + '...'} </List.Content> : <List.Content> {logs.blog} </List.Content>}
                                             </List.Content>
                                         </List.Item>)}
                                 </List>}
                         </Segment>
-                    </Grid.Column>
-                    <Grid.Column>
+                   
 
 
                     </Grid.Column>

@@ -54,3 +54,19 @@
 .center-text {
   text-align: center;
 }
+
+
+.image-component {
+  /* The image used */
+
+  /* Full height */ 
+  /* height: 75vh;
+  width: 100%; */
+  
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
