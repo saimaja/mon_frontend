@@ -78,11 +78,11 @@ class MonumentDetail extends Component {
                         </Grid.Column>
                         <Grid.Column>
                         <Header as='h5' attached='top' style={{ maxHeight: 50 }}>
-                            Travelogues about this monument
+                            Blogs about this monument
                     </Header>
                         <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
                             {this.state.travelogues.length === 0 ?
-                                <List><List.Content><List.Header><b>There aren't any blogs about this monument yet</b></List.Header></List.Content></List> :
+                                <List><List.Content><List.Header><b>There aren't any blogs ... yet</b></List.Header></List.Content></List> :
                                 <List celled divided verticalAlign='middle'>
                                     {this.state.travelogues.map(logs =>
                                         <List.Item>

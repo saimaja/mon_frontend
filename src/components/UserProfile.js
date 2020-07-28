@@ -102,8 +102,8 @@ class UserProfile extends Component {
                 monument_ids: this.state.tags
             })
         }).then(resp => resp.json())
-            .then(data =>
-                this.setState({ travelogues: [...this.state.travelogues, data], createModal: false, options: [], tags: [], newTravel: { title: '', blog: '' } }))
+            .then(data => {console.log(data)
+                this.setState({ travelogues: [...this.state.travelogues, data], createModal: false, options: [], newTravel: { title: '', blog: '' } })})
 
     }
 
@@ -115,7 +115,7 @@ class UserProfile extends Component {
     }
 
     render() {
-console.log('tags', this.state.tags)
+    //   debugger
         return (
 
             <Grid columns='equal'>
@@ -179,7 +179,7 @@ console.log('tags', this.state.tags)
                         </Segment>
 
                         <Header as='h5' attached='top' style={{ maxHeight: 50 }}>
-                            Travelogues
+                            Blogs
                             <Modal as={Form}
                                 open={this.state.createModal}
                                 onClose={() => this.setState({ createModal: false })}
@@ -238,7 +238,7 @@ console.log('tags', this.state.tags)
                         </Header>
                         <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
                             {this.state.travelogues.length === 0 ?
-                                <List><List.Content><List.Header><b>You have no blogs yet</b></List.Header></List.Content></List> :
+                                <List><List.Content><List.Header><b>You have no blogs. Start writing!</b></List.Header></List.Content></List> :
                                 <List celled divided verticalAlign='middle'>
                                     {this.state.travelogues.map(logs =>
                                         <List.Item>
@@ -269,7 +269,7 @@ console.log('tags', this.state.tags)
                                                         <Header content='Delete Post' />
                                                         <Modal.Content>
                                                             <p>
-                                                                Are you sure you want to delete this post?
+                                                                Are you sure you want to delete this blog?
                                                             </p>
                                                         </Modal.Content>
                                                     
@@ -319,8 +319,10 @@ console.log('tags', this.state.tags)
                                                                
                                                                 <span style={{ color: 'black' }}>{logs.blog}</span>
                                                             </Segment>
+                                                            
+                                                          
                                                             <Segment>
-                                                                Monuments tagged: {logs.mon_travels}
+                                                                Monuments tagged: {logs.mon_travels.map(mon => mon.monument_id)}
                                                             </Segment>
                                                         </Grid.Column>
                                                     </Grid.Row>

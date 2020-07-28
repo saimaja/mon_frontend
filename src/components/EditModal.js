@@ -15,11 +15,11 @@ export default class EditModal extends Component {
 
     }
 
-    handleSubmit = (e, id) => {
+    handleSubmit = (e) => {
         e.preventDefault()
-        let { title, blog } = this.state.newTravel
+        let { title, blog } = this.state.editTravel
 
-        fetch(`http://localhost:3000/travelogues/${id}`, {
+        fetch(`http://localhost:3000/travelogues/${this.props.travelogueID}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,14 +33,14 @@ export default class EditModal extends Component {
             })
         }).then(resp => resp.json())
             .then(data =>
-                this.setState({ travelogues: [...this.state.travelogues, data], createModal: false, options: [], tags: [], newTravel: { title: '', blog: '' } }))
+                this.setState({ travelogues: [...this.state.travelogues, data], createModal: false, options: [], tags: [], editTravel: { title: '', blog: '' } }))
 
     }
 
     handleChange = (e) => {
         let name = e.target.name
         let value = e.target.value
-        this.setState({ newTravel: { ...this.state.newTravel, [name]: value } })
+        this.setState({ editTravel: { ...this.state.editTravel, [name]: value } })
     }
 
     render() {
