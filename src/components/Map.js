@@ -34,36 +34,37 @@ export default class Map extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.monuments.length !== prevProps.monuments.length){
-        this.fetchMonuments(this.fetchMap)
-        // this.fetchMap()
+        if (this.props.monuments.length !== prevProps.monuments.length) {
+            this.fetchMonuments(this.fetchMap)
+            // this.fetchMap()
         }
     }
 
-    fetchMonuments = (cb = () => {}) => {
+    fetchMonuments = (cb = () => { }) => {
         // fetch('http://localhost:3000/monuments')
         //     .then(resp => resp.json())
         //     .then(monuments => {
-                let mapMon = this.props.monuments.map(mon => {
-                    return {
-                        type: 'Feature',
-                        geometry: {
-                            type: 'Point',
-                            coordinates: [mon.longitude, mon.latitude]
-                        },
-                        properties: {
-                            title: mon.name,
-                            description: mon.honorees
+        let mapMon = this.props.monuments.map(mon => {
+            return {
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [mon.longitude, mon.latitude]
+                },
+                properties: {
+                    title: mon.name,
+                    description: mon.honorees
 
-                        }
-                    }
-                })
-                this.setState({ 
-                    // ...this.state, monuments: monuments, 
-                    geojson: { ...this.state.geojson, features: mapMon } },
-                    cb)
-            // }
-            // )
+                }
+            }
+        })
+        this.setState({
+            // ...this.state, monuments: monuments, 
+            geojson: { ...this.state.geojson, features: mapMon }
+        },
+            cb)
+        // }
+        // )
     }
 
     fetchMap = () => {
@@ -88,10 +89,13 @@ export default class Map extends Component {
     }
 
     render() {
+
         return (
+
             <div>
                 <div ref={el => this.mapContainer = el} className="mapContainer" />
             </div>
+
         )
     }
 }

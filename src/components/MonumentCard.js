@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Button } from 'semantic-ui-react'
-// import {Card} from 'react-bootstrap' 
 import { withRouter } from 'react-router-dom'
-// import logo from '../images/card.png'
 import './component.css'
 
 

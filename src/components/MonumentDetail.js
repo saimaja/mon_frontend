@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
-import { Button, Image, List, Grid, Segment, Divider, Header, Table } from 'semantic-ui-react'
+import { Image, List, Grid, Segment, Divider, Header, Table } from 'semantic-ui-react'
 import './component.css'
 import mon from '../images/fadedmon.png'
 
@@ -28,15 +28,29 @@ class MonumentDetail extends Component {
         return (
             <Grid columns='equal'>
                 <Grid.Row style={{marginTop: '20px'}} stretched >
-                    <Grid.Column width={7} >
+                    <Grid.Column width={8} >
+                        
                         <Segment style={{ marginLeft: '50px' }} >
-                            {this.props.admin ?
-                                <Button icon='edit outline' floated='right' /> : null}
+                          {/* {this.props.isAdded ? 
+                                <Button
+                                onClick={(e) => {this.props.removeMon(e, this.props.monument_id)}}
+                                 icon='add' floated='right' /> :
+                                 <Button
+                                onClick={(e) => {this.props.addMon(e, this.props.monument_id)}}
+                                icon='remove' floated='right' /> }  */}
+                            
+                            
                             <Image src={mon} size='small' circular />
                             <Divider horizontal>
-                                <Header as='h3'>
-                                    {monument.name}
-                                </Header>
+                                {monument.name.split(' ').length < 5 ? 
+                                <Header as='h3' >
+                                  <span> {monument.name}</span> 
+                                </Header> :
+                                <Header as='h5' >
+                                <span> {monument.name}</span> 
+                            </Header> }
+                              
+
                             </Divider>
 
                             <Table definition>
@@ -75,6 +89,7 @@ class MonumentDetail extends Component {
                                 </Table.Body>
                             </Table>
                         </Segment>
+                      
                         </Grid.Column>
                         <Grid.Column>
                         <Header as='h5' attached='top' style={{ maxHeight: 50 }}>

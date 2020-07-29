@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MonumentCard from './MonumentCard'
-import { Container, Segment, Divider, Grid } from 'semantic-ui-react'
+import { Container, Divider, Grid } from 'semantic-ui-react'
 import Pagination from './Pagination'
 import './component.css'
 
@@ -77,25 +77,13 @@ export default class MonumentContainer extends Component {
         const indexOfLastMonument = this.state.currentPage * this.state.monumentsPerPage;
         const indexOfFirstMonument = indexOfLastMonument - this.state.monumentsPerPage;
         const currentMonuments = containerMon.slice(indexOfFirstMonument, indexOfLastMonument)
-
-        let results
-        if (this.props.filter === 'removed') {
-            results = <span>Monuments Removed: {containerMon.length}</span>;
-        } else if (this.props.filter === 'renamed') {
-            results = <span>Monuments Renamed: {containerMon.length}</span>;
-        } else {
-            results = <span>Results: {containerMon.length}</span>;
-        }
     
         if (this.props.monuments.length > 0) {
             return (
 
                 <Container>
                     <Divider hidden />
-                    <br />
-                    <Segment secondary raised compact style={{margin: 'auto', marginBottom: '25px', marginTop: '-20px'}}>{results}</Segment>
-                    
-
+                    <br />  
                     <Grid className='card-padding' relaxed columns={4} divided>
                         {currentMonuments.map(monument =>
                             <Grid.Column>
@@ -124,3 +112,4 @@ export default class MonumentContainer extends Component {
 
     }
 }
+

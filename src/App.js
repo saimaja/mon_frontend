@@ -128,7 +128,8 @@ export default class App extends Component {
           <Route exact path='/map' render={() =>
             this.state.currentUser ?
               <Map 
-              // currentUser={this.state.currentUser}
+           
+                filter={this.state.filter}
                 monuments={this.filter()}
                 // search={this.state.searchField}
                  />
@@ -142,6 +143,8 @@ export default class App extends Component {
           currentUser={this.state.currentUser}
           name={this.state.name}
           changeFilter={this.changeFilter}
+          filter={this.state.filter}
+          monuments={this.filter()}
 
         />
 
