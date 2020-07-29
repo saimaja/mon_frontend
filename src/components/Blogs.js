@@ -55,7 +55,7 @@ class Blogs extends Component {
                            
                         </Segment>
                         {this.state.travelogues.map(log =>
-                        <Segment style={{ marginLeft: '150px', height: '90px' }}>
+                        <Segment style={{ marginLeft: '150px', height: '100px' }}>
                         <List>
                         
                                         <List.Item>
