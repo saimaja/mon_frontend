@@ -18,7 +18,7 @@ export default class About extends Component {
                             <br/>
                             <br/>
                            <span>This is a site where users can visualize and critically reflect on the current landscape of confederate monuments in the United States.
-                               The data comes from the Southern Poverty Law Center's <a href='https://www.splcenter.org/20190201/whose-heritage-public-symbols-confederacy' target='_blank'>Whose Heritage Project</a>, which 
+                               The data comes from the Southern Poverty Law Center's <a href='https://www.splcenter.org/20190201/whose-heritage-public-symbols-confederacy' target='_blank' rel="noopener noreferrer" >Whose Heritage Project</a>, which 
                                is vetted and updated on a daily basis.
                                <br/>
                            </span>

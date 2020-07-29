@@ -24,7 +24,7 @@ export default class Login extends Component {
                 display: 'center',
                 
               }}>
-               <img class='image-component' alt= {logo} src={logo} style={{justifySelf: 'center'}} />
+               <img className='image-component' alt= {logo} src={logo} style={{justifySelf: 'center'}} />
               
                     <Form 
                         onSubmit={(e) => {

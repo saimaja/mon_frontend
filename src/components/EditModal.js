@@ -11,16 +11,24 @@ export default class EditModal extends Component {
             title: '', 
             blog: ''
         }, 
-        tags: []
+        editTags: []
 
     }
 
-    handleSubmit = (e) => {
+    componentDidMount(){
+        // let log = this.props.travelogues.find(log => log.id === this.props.selectedTravel.id)
+        let log = this.props.selectedTravel
+        // let mt = this.props.travelogues.map(t => t.mon_travels)
+        // let tagged = this.props.favMons.find(mon => mon.id === mt.monument_id)
+        this.setState({editTravel: {title: log.title, blog: log.blog}})
+    }
+
+    handleEditSubmit = (e) => {
         e.preventDefault()
         let { title, blog } = this.state.editTravel
 
-        fetch(`http://localhost:3000/travelogues/${this.props.travelogueID}`, {
-            method: 'PUT',
+        fetch(`http://localhost:3000/travelogues/${this.props.selectedTravel.id}`, {
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 Accepts: 'application/json'
@@ -28,44 +36,58 @@ export default class EditModal extends Component {
             body: JSON.stringify({
                 title: title,
                 blog: blog,
-                user_id: this.props.currentUser,
-                monument_ids: this.props.tags
+                monument_ids: this.state.editTags
             })
         }).then(resp => resp.json())
-            .then(data =>
-                this.setState({ travelogues: [...this.state.travelogues, data], createModal: false, options: [], tags: [], editTravel: { title: '', blog: '' } }))
+            .then(data => {
+                // debugger
+                console.log(data)
+                this.props.editTravelogue(data)
+                this.setState({ editModal: false, editTags: [], options: [], editTravel: { title: '', blog: '' } })
+            })
 
     }
 
-    handleChange = (e) => {
+    dropDownEditChange = (e, {value}) => {
+        console.log('value', value)
+        // this.setState({editTags: value})
+    }
+
+    handleEditChange = (e) => {
+        // console.log('edit blog', e.target.value)
         let name = e.target.name
         let value = e.target.value
         this.setState({ editTravel: { ...this.state.editTravel, [name]: value } })
     }
 
-    render() {
 
+
+    render() {
+        
+     
         return (
             <Modal as={Form}
 
-                open={this.state.editModal === this.props.travelogueID}
+                open={this.state.editModal === this.props.selectedTravel.id}
                 onClose={() => this.setState({ editModal: null })}
                 style={{ overflow: 'auto', position: 'relative', paddingTop: '25px', paddingRight: '115px', backgroundColor: '#c8d3d4' }}
                 trigger={<Icon
                     onClick={() => {
-                        console.log('is this working')
-                        this.setState({ editModal: this.props.travelogueID })
+                        // console.log('is this working')
+                        this.setState({ editModal: this.props.selectedTravel.id})
                     }}
                     className='Edit'
                     name='edit outline' />}>
                 <EditTravelogue
-
+                    selectedTravel={this.props.selectedTravel}
                     name={this.props.name}
-                    // handleChange={this.props.handleChange}
-                    // handleSubmit={this.props.handleSubmit}
+                    editTravel={this.state.editTravel}
+                    handleEditChange={this.handleEditChange}
+                    handleEditSubmit={this.handleEditSubmit}
+                    dropDownEditChange={this.dropDownEditChange}
                     options={this.props.options}
-                    newTravel={this.props.newTravel}
-                    editTravelogue={this.props.editTravelogue}
+                    travelogues={this.props.travelogues}
+                  
 
                 />
             </Modal>

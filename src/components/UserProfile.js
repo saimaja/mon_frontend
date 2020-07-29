@@ -80,7 +80,7 @@ class UserProfile extends Component {
     }
 
     dropDownChange = (e, { value }) => {
-        console.log(value)
+        // console.log(value)
         this.setState({ tags: value })
     }
 
@@ -103,7 +103,7 @@ class UserProfile extends Component {
             })
         }).then(resp => resp.json())
             .then(data => {console.log(data)
-                this.setState({ travelogues: [...this.state.travelogues, data], createModal: false, options: [], newTravel: { title: '', blog: '' } })})
+                this.setState({ travelogues: [...this.state.travelogues, data], options: [], createModal: false, newTravel: { title: '', blog: '' } })})
 
     }
 
@@ -114,9 +114,27 @@ class UserProfile extends Component {
         this.setState({ newTravel: { ...this.state.newTravel, [name]: value } })
     }
 
+    editTravelogue = (data) => {
+        console.log('editing')
+        let editArr = this.state.travelogues.map(trav => trav.id === data.id ? data : trav)
+        this.setState({travelogues: editArr})
+    }
+
     render() {
-    //   debugger
-        return (
+   
+    // let mt = this.state.travelogues.map(t => t.mon_travels)
+    // let arrayOfNames = mt.map(mon => mon?.map(m => {
+    //     let monumentID = m.monument_id
+    //     let name
+    //     this.state.favoriteMons.forEach(fav => {
+    //         if (monumentID === fav.id) {
+    //             name = fav.name
+    //         }
+    //     })
+    //     return name
+    // }))
+
+    return (
 
             <Grid columns='equal'>
                 <Grid.Row style={{ marginTop: '20px' }} stretched >
@@ -240,19 +258,17 @@ class UserProfile extends Component {
                             {this.state.travelogues.length === 0 ?
                                 <List><List.Content><List.Header><b>You have no blogs. Start writing!</b></List.Header></List.Content></List> :
                                 <List celled divided verticalAlign='middle'>
-                                    {this.state.travelogues.map(logs =>
+                                    {this.state.travelogues.map((logs, index) =>
                                         <List.Item>
                                             <List.Content floated='right'>
 
                                                 {this.props.currentUser ?
                                                     <EditModal
-                                                        travelogueID={logs.id}
+                                                        selectedTravel={logs}
+                                                        tags={this.state.tags}
                                                         name={this.props.name}
-                                                        handleChange={this.handleChange}
-                                                        handleSubmit={this.handleSubmit}
-                                                        options={this.state.options}
-                                                        newTravel={this.state.newTravel}
                                                         editTravelogue={this.editTravelogue}
+                                                     
                                                     /> : null}
 
 
@@ -321,9 +337,13 @@ class UserProfile extends Component {
                                                             </Segment>
                                                             
                                                           
-                                                            <Segment>
-                                                                Monuments tagged: {logs.mon_travels.map(mon => mon.monument_id)}
-                                                            </Segment>
+                                                            {/* <Segment>
+                                                                Monuments tagged: 
+                                                                 {arrayOfNames[index].map(name => 
+                                                                    <span>{name}</span>
+                                                                    )}
+                                                                
+                                                            </Segment> */}
                                                         </Grid.Column>
                                                     </Grid.Row>
                                                 </Grid>

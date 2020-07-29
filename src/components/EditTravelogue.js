@@ -5,8 +5,10 @@ import './component.css'
 
 export default class EditTravelogue extends Component {
 
+    
 
     render() {
+        // let log = this.props.travelogues.find(log => log.id === this.props.travelogueID)
         return (
             <Grid columns='equal'>
 
@@ -23,26 +25,26 @@ export default class EditTravelogue extends Component {
                             </Divider>
                         </Segment>
                         <Segment attached style={{ overflow: 'auto', maxHeight: 500 }}>
-                            <Form onSubmit={this.props.editTravelogue}>
+                            <Form onSubmit={this.props.handleEditSubmit}>
 
 
-                                <Dropdown placeholder='Tag Monuments' fluid multiple selection options={this.props.options} />
+                                <Dropdown onChange={this.props.dropDownEditChange} placeholder='Tag Monuments' fluid multiple selection options={this.props.options} />
                                 <br />
                                 <br />
                                 <Form.Input required fluid
                                     label='Title'
                                     placeholder='Title'
                                     name='title'
-                                    value={this.props.newTravel.title}
-                                    onChange={this.props.handleChange}
+                                    value={this.props.editTravel.title}
+                                    onChange={this.props.handleEditChange}
                                 />
 
                                 <Form.Field required
                                     name='blog'
                                     control={TextArea}
                                     label='Travelogue'
-                                    value={this.props.newTravel.blog}
-                                    onChange={this.props.handleChange}
+                                    value={this.props.editTravel.blog}
+                                    onChange={this.props.handleEditChange}
                                     placeholder='Start writing...'
                                 />
 
