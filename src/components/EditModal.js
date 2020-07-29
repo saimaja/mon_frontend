@@ -20,7 +20,7 @@ export default class EditModal extends Component {
         let log = this.props.selectedTravel
         // let mt = this.props.travelogues.map(t => t.mon_travels)
         // let tagged = this.props.favMons.find(mon => mon.id === mt.monument_id)
-        this.setState({editTravel: {title: log.title, blog: log.blog}})
+        this.setState({editTravel: {title: log.title, blog: log.blog}, editTags: this.props.options})
     }
 
     handleEditSubmit = (e) => {
@@ -43,14 +43,14 @@ export default class EditModal extends Component {
                 // debugger
                 console.log(data)
                 this.props.editTravelogue(data)
-                this.setState({ editModal: false, editTags: [], options: [], editTravel: { title: '', blog: '' } })
+                this.setState({ editModal: false })
             })
 
     }
 
     dropDownEditChange = (e, {value}) => {
         console.log('value', value)
-        // this.setState({editTags: value})
+        this.setState({editTags: value})
     }
 
     handleEditChange = (e) => {
@@ -63,7 +63,7 @@ export default class EditModal extends Component {
 
 
     render() {
-        
+        // debugger
      
         return (
             <Modal as={Form}
@@ -86,7 +86,7 @@ export default class EditModal extends Component {
                     handleEditSubmit={this.handleEditSubmit}
                     dropDownEditChange={this.dropDownEditChange}
                     options={this.props.options}
-                    travelogues={this.props.travelogues}
+                    // travelogues={this.props.travelogues}
                   
 
                 />

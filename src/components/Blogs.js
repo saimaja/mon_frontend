@@ -38,7 +38,7 @@ class Blogs extends Component {
 
     render() {
 
-        let date = (this.state.travelogues.map(travel => new Date(travel.created_at).toString()))
+        // let date = (this.state.travelogues.map(travel => new Date(travel.created_at).toString()))
 
 
         return (

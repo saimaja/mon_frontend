@@ -103,7 +103,7 @@ class UserProfile extends Component {
             })
         }).then(resp => resp.json())
             .then(data => {console.log(data)
-                this.setState({ travelogues: [data, ...this.state.travelogues], options: [], createModal: false, newTravel: { title: '', blog: '' } })})
+                this.setState({ travelogues: [...this.state.travelogues, data], options: [], createModal: false, newTravel: { title: '', blog: '' } })})
 
     }
 
@@ -273,6 +273,7 @@ class UserProfile extends Component {
                                                         tags={this.state.tags}
                                                         name={this.props.name}
                                                         editTravelogue={this.editTravelogue}
+                                                        options={this.state.options}
                                                      
                                                     /> : null}
 
