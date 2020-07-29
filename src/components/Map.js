@@ -89,9 +89,8 @@ export default class Map extends Component {
     }
 
     render() {
-
         return (
-
+            
             <div>
                 <div ref={el => this.mapContainer = el} className="mapContainer" />
             </div>

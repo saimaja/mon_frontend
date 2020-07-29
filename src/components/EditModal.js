@@ -8,19 +8,19 @@ export default class EditModal extends Component {
     state = {
         editModal: null,
         editTravel: {
-            title: '', 
+            title: '',
             blog: ''
-        }, 
+        },
         editTags: []
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         // let log = this.props.travelogues.find(log => log.id === this.props.selectedTravel.id)
         let log = this.props.selectedTravel
         // let mt = this.props.travelogues.map(t => t.mon_travels)
         // let tagged = this.props.favMons.find(mon => mon.id === mt.monument_id)
-        this.setState({editTravel: {title: log.title, blog: log.blog}, editTags: this.props.options})
+        this.setState({ editTravel: { title: log.title, blog: log.blog }, editTags: this.props.options })
     }
 
     handleEditSubmit = (e) => {
@@ -48,9 +48,9 @@ export default class EditModal extends Component {
 
     }
 
-    dropDownEditChange = (e, {value}) => {
+    dropDownEditChange = (e, { value }) => {
         console.log('value', value)
-        this.setState({editTags: value})
+        this.setState({ editTags: value })
     }
 
     handleEditChange = (e) => {
@@ -64,7 +64,7 @@ export default class EditModal extends Component {
 
     render() {
         // debugger
-     
+
         return (
             <Modal as={Form}
 
@@ -74,7 +74,7 @@ export default class EditModal extends Component {
                 trigger={<Icon
                     onClick={() => {
                         // console.log('is this working')
-                        this.setState({ editModal: this.props.selectedTravel.id})
+                        this.setState({ editModal: this.props.selectedTravel.id })
                     }}
                     className='Edit'
                     name='edit outline' />}>

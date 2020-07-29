@@ -102,8 +102,10 @@ class UserProfile extends Component {
                 monument_ids: this.state.tags
             })
         }).then(resp => resp.json())
-            .then(data => {console.log(data)
-                this.setState({ travelogues: [...this.state.travelogues, data], options: [], createModal: false, newTravel: { title: '', blog: '' } })})
+            .then(data => {
+                console.log(data)
+                this.setState({ travelogues: [...this.state.travelogues, data], options: [], createModal: false, newTravel: { title: '', blog: '' } })
+            })
 
     }
 
@@ -117,29 +119,29 @@ class UserProfile extends Component {
     editTravelogue = (data) => {
         console.log('editing')
         let editArr = this.state.travelogues.map(trav => trav.id === data.id ? data : trav)
-        this.setState({travelogues: editArr})
+        this.setState({ travelogues: editArr })
     }
 
     render() {
-   
-    let mt = this.state.travelogues.map(t => t.mon_travels)
-   
-   
-    let mID = mt.map(mon => mon.map(m =>  m.monument_id))
-    let arrayOfNames = mt.map(mon => mon.map(m => {
-        let monumentID = m.monument_id
-        let name
-        this.state.favoriteMons.forEach(fav => {
-            if (monumentID === fav.id) {
-                name = fav.name
-            }
-        })
-     
-        return name
-       
-    }))
 
-    return (
+        let mt = this.state.travelogues.map(t => t.mon_travels)
+
+
+        let mID = mt.map(mon => mon.map(m => m.monument_id))
+        let arrayOfNames = mt.map(mon => mon.map(m => {
+            let monumentID = m.monument_id
+            let name
+            this.state.favoriteMons.forEach(fav => {
+                if (monumentID === fav.id) {
+                    name = fav.name
+                }
+            })
+
+            return name
+
+        }))
+
+        return (
 
             <Grid columns='equal'>
                 <Grid.Row style={{ marginTop: '20px' }} stretched >
@@ -274,7 +276,7 @@ class UserProfile extends Component {
                                                         name={this.props.name}
                                                         editTravelogue={this.editTravelogue}
                                                         options={this.state.options}
-                                                     
+
                                                     /> : null}
 
 
@@ -294,7 +296,7 @@ class UserProfile extends Component {
                                                                 Are you sure you want to delete this blog?
                                                             </p>
                                                         </Modal.Content>
-                                                    
+
                                                         <Modal.Actions>
                                                             <Button
 
@@ -338,19 +340,19 @@ class UserProfile extends Component {
                                                                 </Divider>
                                                             </Segment>
                                                             <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
-                                                               
+
                                                                 <span style={{ color: 'black' }}>{logs.blog}</span>
                                                             </Segment>
-                                                            
+
 
                                                             {arrayOfNames.length > 0 ?
-                                                            <Segment>
-                                                                 {arrayOfNames[index].map(name => 
-                                                                    <Label as='a' image>
-                                                                        <img src={logo} alt={logo}/>
-                                                                        <Link to={`/monuments/${mID}`}>{name}</Link>
-                                                                    </Label> )} 
-                                                                 </Segment> : null}
+                                                                <Segment>
+                                                                    {arrayOfNames[index].map(name =>
+                                                                        <Label as='a' image>
+                                                                            <img src={logo} alt={logo} />
+                                                                            <Link to={`/monuments/${mID}`}>{name}</Link>
+                                                                        </Label>)}
+                                                                </Segment> : null}
                                                         </Grid.Column>
                                                     </Grid.Row>
                                                 </Grid>

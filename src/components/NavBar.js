@@ -94,10 +94,12 @@ class NavBar extends Component {
                 /> : 'login'}
             </Menu.Menu>
           </Menu>
-          {this.props.location.pathname === '/map'  ?
-          <Segment secondary raised compact style={{ margin: 'auto', marginBottom: '25px', marginTop: '-10px' }}>{results}</Segment>
-          : <span></span>}
+
+          {this.props.location.pathname === '/map' ?
+            <Segment secondary raised compact style={{ margin: 'auto', marginBottom: '25px', marginTop: '-10px' }}>{results}</Segment>
+            : <span></span>}
         </div>
+
       )
     }
   }

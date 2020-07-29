@@ -5,7 +5,7 @@ import './component.css'
 
 export default class EditTravelogue extends Component {
 
-    
+
 
     render() {
         // let log = this.props.travelogues.find(log => log.id === this.props.travelogueID)

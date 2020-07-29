@@ -86,14 +86,14 @@ export default class MonumentContainer extends Component {
         } else {
             results = <span>Results: {containerMon.length}</span>;
         }
-    
+
         if (this.props.monuments.length > 0) {
             return (
 
                 <Container>
                     <Divider hidden />
-                    <br />  
-          <Segment secondary raised compact style={{ margin: 'auto', marginBottom: '25px', marginTop: '-42px' }}>{results}</Segment>
+                    <br />
+                    <Segment secondary raised compact style={{ margin: 'auto', marginBottom: '25px', marginTop: '-42px' }}>{results}</Segment>
                     <Grid className='card-padding' relaxed columns={4} divided>
                         {currentMonuments.map(monument =>
                             <Grid.Column>
@@ -118,7 +118,7 @@ export default class MonumentContainer extends Component {
             )
         } else {
             return <div className='center-text'>No results found</div>
-        } 
+        }
 
     }
 }

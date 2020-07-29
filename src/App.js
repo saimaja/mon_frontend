@@ -127,12 +127,9 @@ export default class App extends Component {
         <div>
           <Route exact path='/map' render={() =>
             this.state.currentUser ?
-              <Map 
-           
-                filter={this.state.filter}
+              <Map
                 monuments={this.filter()}
-                // search={this.state.searchField}
-                 />
+              />
               : <Redirect to='/login' />} />
         </div>
 
@@ -203,7 +200,7 @@ export default class App extends Component {
                 monuments={this.state.monuments} />
               : <Redirect to='/login' />} />
 
-           
+
           <Route exact path='/monuments/:id' render={() =>
             this.state.currentUser ?
               <MonumentDetail

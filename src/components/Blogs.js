@@ -8,7 +8,7 @@ class Blogs extends Component {
 
     state = {
         travelogues: [],
-        users: [], 
+        users: [],
         author: ''
     }
 
@@ -23,14 +23,14 @@ class Blogs extends Component {
     fetchUsers = () => {
         fetch('http://localhost:3000/users')
             .then(resp => resp.json())
-            .then(data => 
-                this.setState({users: data})
-                )
+            .then(data =>
+                this.setState({ users: data })
+            )
     }
 
     author = () => {
         let author = this.state.travelogues.map(travel => travel.user_id === this.state.users.find(user => user.id))
-        this.setState({author: author})
+        this.setState({ author: author })
     }
 
 
@@ -52,29 +52,29 @@ class Blogs extends Component {
                                     Blogs
                             </Header>
                             </Divider>
-                           
+
                         </Segment>
                         {this.state.travelogues.map(log =>
-                        <Segment style={{ marginLeft: '150px', height: '100px' }}>
-                        <List>
-                        
-                                        <List.Item>
-                                            <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
-                                            <List.Content>
-                                                <Link to={`/travelogues/${log.id}`}>
-                                                    {log.title.split('').length > 45 ?
-                                                        <List.Header className='Title'>{log.title.substring(0, 45) + '...'}</List.Header> :
-                                                        <List.Header className='Title'>{log.title}</List.Header>}
-                                                </Link>
-                                                {log.blog}
-                                                <br/>
-                                                <span style={{color: 'grey'}}>Posted on: {new Date(log.created_at).toString()}</span>
-                                            </List.Content>
-                                        </List.Item>
-                                        </List>
-                        
+                            <Segment style={{ marginLeft: '150px', height: '100px' }}>
+                                <List>
 
-                        </Segment>)}
+                                    <List.Item>
+                                        <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
+                                        <List.Content>
+                                            <Link to={`/travelogues/${log.id}`}>
+                                                {log.title.split('').length > 45 ?
+                                                    <List.Header className='Title'>{log.title.substring(0, 45) + '...'}</List.Header> :
+                                                    <List.Header className='Title'>{log.title}</List.Header>}
+                                            </Link>
+                                            {log.blog}
+                                            <br />
+                                            <span style={{ color: 'grey' }}>Posted on: {new Date(log.created_at).toString()}</span>
+                                        </List.Content>
+                                    </List.Item>
+                                </List>
+
+
+                            </Segment>)}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

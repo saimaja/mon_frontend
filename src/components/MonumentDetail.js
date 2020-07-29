@@ -27,29 +27,29 @@ class MonumentDetail extends Component {
 
         return (
             <Grid columns='equal'>
-                <Grid.Row style={{marginTop: '20px'}} stretched >
+                <Grid.Row style={{ marginTop: '20px' }} stretched >
                     <Grid.Column width={8} >
-                        
+
                         <Segment style={{ marginLeft: '50px' }} >
-                          {/* {this.props.isAdded ? 
+                            {/* {this.props.isAdded ? 
                                 <Button
                                 onClick={(e) => {this.props.removeMon(e, this.props.monument_id)}}
                                  icon='add' floated='right' /> :
                                  <Button
                                 onClick={(e) => {this.props.addMon(e, this.props.monument_id)}}
                                 icon='remove' floated='right' /> }  */}
-                            
-                            
+
+
                             <Image src={mon} size='small' circular />
                             <Divider horizontal>
-                                {monument.name.split(' ').length < 5 ? 
-                                <Header as='h3' >
-                                  <span> {monument.name}</span> 
-                                </Header> :
-                                <Header as='h5' >
-                                <span> {monument.name}</span> 
-                            </Header> }
-                              
+                                {monument.name.split(' ').length < 5 ?
+                                    <Header as='h3' >
+                                        <span> {monument.name}</span>
+                                    </Header> :
+                                    <Header as='h5' >
+                                        <span> {monument.name}</span>
+                                    </Header>}
+
 
                             </Divider>
 
@@ -89,9 +89,9 @@ class MonumentDetail extends Component {
                                 </Table.Body>
                             </Table>
                         </Segment>
-                      
-                        </Grid.Column>
-                        <Grid.Column>
+
+                    </Grid.Column>
+                    <Grid.Column>
                         <Header as='h5' attached='top' style={{ maxHeight: 50 }}>
                             Blogs about this monument
                     </Header>
@@ -102,7 +102,7 @@ class MonumentDetail extends Component {
                                     {this.state.travelogues.map(logs =>
                                         <List.Item>
                                             <List.Content floated='right'>
-                   
+
                                             </List.Content>
                                             <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
                                             <List.Content>
@@ -117,9 +117,6 @@ class MonumentDetail extends Component {
                                         </List.Item>)}
                                 </List>}
                         </Segment>
-                   
-
-
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
