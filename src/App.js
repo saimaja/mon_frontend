@@ -41,6 +41,20 @@ export default class App extends Component {
         this.setState({ monuments: monuments })
       }
       )
+
+    /*
+      let doneFetching = false
+      while (doneFetching !== true) {
+        fetch(`http://localhost:3000/monuments?page=#{pageNo}`)
+          .then(resp => resp.json())
+          .then(data => {
+              doneFetching = data.done
+              this.setState({
+                monuments: [...this.state.monuments, ...data.monuments]
+              })
+          })
+      }
+    */
   }
 
   changeSearchField = (e) => {
@@ -113,9 +127,11 @@ export default class App extends Component {
         <div>
           <Route exact path='/map' render={() =>
             this.state.currentUser ?
-              <Map currentUser={this.state.currentUser}
-                monuments={this.state.monuments}
-                search={this.state.searchField} />
+              <Map 
+              // currentUser={this.state.currentUser}
+                monuments={this.filter()}
+                // search={this.state.searchField}
+                 />
               : <Redirect to='/login' />} />
         </div>
 

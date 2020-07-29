@@ -7,7 +7,7 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic2FpbWFqYSIsImEiOiJja2NwZ3A3MXcwZ3Z2MnNsZTE1O
 export default class Map extends Component {
 
     state = {
-        monuments: [],
+        // monuments: [],
         map_long: -108,
         map_lat: 40,
         zoom: 3.2,
@@ -30,18 +30,21 @@ export default class Map extends Component {
     }
 
     componentDidMount() {
-        this.fetchMonuments()
+        this.fetchMonuments(this.fetchMap)
     }
 
-    componentDidUpdate() {
-      this.fetchMap()
+    componentDidUpdate(prevProps) {
+        if(this.props.monuments.length !== prevProps.monuments.length){
+        this.fetchMonuments(this.fetchMap)
+        // this.fetchMap()
+        }
     }
-    
-    fetchMonuments = () => {
-        fetch('http://localhost:3000/monuments')
-            .then(resp => resp.json())
-            .then(monuments => {
-                let mapMon = monuments.map(mon => {
+
+    fetchMonuments = (cb = () => {}) => {
+        // fetch('http://localhost:3000/monuments')
+        //     .then(resp => resp.json())
+        //     .then(monuments => {
+                let mapMon = this.props.monuments.map(mon => {
                     return {
                         type: 'Feature',
                         geometry: {
@@ -55,9 +58,12 @@ export default class Map extends Component {
                         }
                     }
                 })
-                this.setState({ ...this.state, monuments: monuments, geojson: { ...this.state.geojson, features: mapMon } })
-            }
-            )
+                this.setState({ 
+                    // ...this.state, monuments: monuments, 
+                    geojson: { ...this.state.geojson, features: mapMon } },
+                    cb)
+            // }
+            // )
     }
 
     fetchMap = () => {
@@ -83,8 +89,8 @@ export default class Map extends Component {
 
     render() {
         return (
-            <div> 
-           <div ref={el => this.mapContainer = el} className="mapContainer" />
+            <div>
+                <div ref={el => this.mapContainer = el} className="mapContainer" />
             </div>
         )
     }

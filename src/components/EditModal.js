@@ -86,9 +86,6 @@ export default class EditModal extends Component {
                     handleEditSubmit={this.handleEditSubmit}
                     dropDownEditChange={this.dropDownEditChange}
                     options={this.props.options}
-                    // travelogues={this.props.travelogues}
-                  
-
                 />
             </Modal>
         )
