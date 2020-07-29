@@ -59,9 +59,15 @@ class NavBar extends Component {
 
 
             <Menu.Item
-              name='map'
+              name='map view'
               active={this.state.activeItem === 'map'}
               onClick={() => this.props.history.push('/map')}
+            />
+
+            <Menu.Item
+              name='list view'
+              active={this.state.activeItem === 'list'}
+              onClick={() => this.props.history.push('/monuments')}
             />
 
             <Menu.Menu position='right'>
@@ -88,7 +94,7 @@ class NavBar extends Component {
                 /> : 'login'}
             </Menu.Menu>
           </Menu>
-          {this.props.location.pathname === '/map' || this.props.location.pathname === '/monuments' ?
+          {this.props.location.pathname === '/map'  ?
           <Segment secondary raised compact style={{ margin: 'auto', marginBottom: '25px', marginTop: '-10px' }}>{results}</Segment>
           : <span></span>}
         </div>
