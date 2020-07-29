@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import EditModal from './EditModal'
-import { Dropdown, TextArea, Form, Modal, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
+import { Dropdown, TextArea, Form, Modal, Label, Button, Image, List, Grid, Segment, Icon, Divider, Header, Table } from 'semantic-ui-react'
 import logo from '../images/fadedmon.png'
 import './component.css'
 import user from '../images/user.png'
@@ -103,7 +103,7 @@ class UserProfile extends Component {
             })
         }).then(resp => resp.json())
             .then(data => {console.log(data)
-                this.setState({ travelogues: [...this.state.travelogues, data], options: [], createModal: false, newTravel: { title: '', blog: '' } })})
+                this.setState({ travelogues: [data, ...this.state.travelogues], options: [], createModal: false, newTravel: { title: '', blog: '' } })})
 
     }
 
@@ -122,17 +122,22 @@ class UserProfile extends Component {
 
     render() {
    
-    // let mt = this.state.travelogues.map(t => t.mon_travels)
-    // let arrayOfNames = mt.map(mon => mon?.map(m => {
-    //     let monumentID = m.monument_id
-    //     let name
-    //     this.state.favoriteMons.forEach(fav => {
-    //         if (monumentID === fav.id) {
-    //             name = fav.name
-    //         }
-    //     })
-    //     return name
-    // }))
+    let mt = this.state.travelogues.map(t => t.mon_travels)
+   
+   
+    let mID = mt.map(mon => mon.map(m =>  m.monument_id))
+    let arrayOfNames = mt.map(mon => mon.map(m => {
+        let monumentID = m.monument_id
+        let name
+        this.state.favoriteMons.forEach(fav => {
+            if (monumentID === fav.id) {
+                name = fav.name
+            }
+        })
+     
+        return name
+       
+    }))
 
     return (
 
@@ -336,14 +341,15 @@ class UserProfile extends Component {
                                                                 <span style={{ color: 'black' }}>{logs.blog}</span>
                                                             </Segment>
                                                             
-                                                          
-                                                            {/* <Segment>
-                                                                Monuments tagged: 
+
+                                                            {arrayOfNames.length > 0 ?
+                                                            <Segment>
                                                                  {arrayOfNames[index].map(name => 
-                                                                    <span>{name}</span>
-                                                                    )}
-                                                                
-                                                            </Segment> */}
+                                                                    <Label as='a' image>
+                                                                        <img src={logo} alt={logo}/>
+                                                                        <Link to={`/monuments/${mID}`}>{name}</Link>
+                                                                    </Label> )} 
+                                                                 </Segment> : null}
                                                         </Grid.Column>
                                                     </Grid.Row>
                                                 </Grid>

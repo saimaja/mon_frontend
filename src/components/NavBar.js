@@ -36,14 +36,20 @@ class NavBar extends Component {
 
           <Menu.Item
             name='about'
-            active={this.state.activeItem === 'messages'}
+            active={this.state.activeItem === 'about'}
             onClick={() => this.props.history.push('/about')}
+          />
+
+          <Menu.Item
+            name='blogs'
+            active={this.state.activeItem === 'blogs'}
+            onClick={() => this.props.history.push('/blogs')}
           />
           
 
             <Menu.Item
               name='map'
-              active={this.state.activeItem === 'profile'}
+              active={this.state.activeItem === 'map'}
               onClick={() => this.props.history.push('/map')}
             />
           

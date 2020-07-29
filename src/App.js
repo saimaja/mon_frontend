@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import MonumentContainer from './components/MonumentContainer'
-// import MonumentDetail from './components/MonumentDetail'
+import Blogs from './components/Blogs'
 import NavBar from './components/NavBar'
 import Login from './components/Login'
 import Map from './components/Map'
@@ -9,7 +9,6 @@ import About from './components/About'
 import Register from './components/Register'
 import MonumentDetail from './components/MonumentDetail'
 import Travelogue from './components/Travelogue'
-// import Dashboard from './components/Dashboard'
 import UserProfile from './components/UserProfile'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Loader } from 'semantic-ui-react'
@@ -150,6 +149,10 @@ export default class App extends Component {
 
         <Route exact path='/about' render={() =>
           this.state.currentUser ? <About /> : <Redirect to='/login' />
+        } />
+
+        <Route exact path='/blogs' render={() =>
+          this.state.currentUser ? <Blogs /> : <Redirect to='/login' />
         } />
 
         <Switch>
