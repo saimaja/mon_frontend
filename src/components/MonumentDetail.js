@@ -22,6 +22,8 @@ class MonumentDetail extends Component {
 
 
     render() {
+
+        debugger
         let monument_id = this.props.match.params.id
         let monument = this.props.monuments.find(mon => mon.id === parseInt(monument_id))
 

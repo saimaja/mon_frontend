@@ -40,7 +40,7 @@ class Travelogue extends Component {
                             <Divider horizontal>
                                 <Header as='h3'>
                                     {this.state.travelogue.title}
-                            <Link to= {`/users/${this.state.user_id}`}> <Header.Subheader>by {this.state.user.name}</Header.Subheader></Link>
+                            <Link to= {`/users/${this.state.user.id}`}> <Header.Subheader>by {this.state.user.name}</Header.Subheader></Link>
                                 </Header>
                             </Divider>
                         </Segment>

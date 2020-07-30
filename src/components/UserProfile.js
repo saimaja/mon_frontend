@@ -14,6 +14,7 @@ class UserProfile extends Component {
             blog: ''
         },
         travelogues: [],
+        name: '',
         tags: [],
         favoriteMons: [],
         favoriteID: [],
@@ -30,10 +31,12 @@ class UserProfile extends Component {
     }
 
     componentDidMount() {
-        fetch(`http://localhost:3000/users/${this.props.currentUser}`)
+        let id = parseInt(this.props.match.params.id)
+        fetch(`http://localhost:3000/users/${id}`)
             .then(resp => resp.json())
             .then(data => {
                 this.setState({
+                    name: data.name,
                     favoriteMons: data.monuments,
                     travelogues: data.travelogues,
                     favoriteID: data.favorites,
@@ -152,7 +155,7 @@ class UserProfile extends Component {
                             <Image src={user} size='small' circular />
                             <Divider horizontal>
                                 <Header as='h3'>
-                                    {this.props.name}
+                                    {this.state.name}
                                 </Header>
                             </Divider>
                             <Table definition>

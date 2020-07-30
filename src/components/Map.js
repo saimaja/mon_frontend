@@ -84,7 +84,7 @@ export default class Map extends Component {
             new mapboxgl.Marker(el)
                 .setLngLat(marker.geometry.coordinates)
                 .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
-                    .setHTML('<h3><a href="' + marker.properties.URL + '">' + marker.properties.title + '</a></h3><p>' + marker.properties.description + '</p>'))
+                .setHTML('<h3><a href="' + marker.properties.URL + '">' + marker.properties.title + '</a></h3><p>' + marker.properties.description + '</p>'))
                 .addTo(map);
         });
     }

@@ -201,7 +201,7 @@ export default class App extends Component {
               : <Redirect to='/login' />} />
 
 
-          <Route exact path='/monuments/:id' render={() =>
+          <Route exact path='/monuments/:id' render={() => 
             this.state.currentUser ?
               <MonumentDetail
                 currentUser={this.state.currentUser}
