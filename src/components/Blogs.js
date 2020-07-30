@@ -8,8 +8,7 @@ class Blogs extends Component {
 
     state = {
         travelogues: [],
-        users: [],
-        author: ''
+        users: []
     }
 
     componentDidMount() {
@@ -28,18 +27,32 @@ class Blogs extends Component {
             )
     }
 
-    author = () => {
-        let author = this.state.travelogues.map(travel => travel.user_id === this.state.users.find(user => user.id))
-        this.setState({ author: author })
-    }
+    // author = () => {
+    //     let author
+    //     let travel_id = this.state.travelogues.map(travel => travel.user_id) 
+    //     let user_id = this.state.users.find(user => user.id)
+    //     if (travel_id === user_id) {
+    //         author = this.state.users.
+    //     }
+    //     this.setState({ author: author })
+    // }
 
 
 
 
     render() {
+        // debugger
+        // let author = this.state.travelogues.map(trav => {
+        //     let travelID = trav.user_id
+        //     let name
+        //     this.state.users.map(user => {
+        //         if (travelID === user.id) {
+        //             name = user.name
+        //         }
+        //     })
 
-        // let date = (this.state.travelogues.map(travel => new Date(travel.created_at).toString()))
-
+        //     return name
+        // })
 
         return (
             <Grid columns='equal'>
@@ -54,27 +67,29 @@ class Blogs extends Component {
                             </Divider>
 
                         </Segment>
+                       
                         {this.state.travelogues.map(log =>
-                            <Segment style={{ marginLeft: '150px', height: '100px' }}>
+                         <Link to={`/travelogues/${log.id}`}>
+                            <Segment className='Grey' color = 'grey'style={{ marginLeft: '150px', height: '75px' }}>
                                 <List>
 
                                     <List.Item>
                                         <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
                                         <List.Content>
-                                            <Link to={`/travelogues/${log.id}`}>
+                                           
                                                 {log.title.split('').length > 45 ?
                                                     <List.Header className='Title'>{log.title.substring(0, 45) + '...'}</List.Header> :
                                                     <List.Header className='Title'>{log.title}</List.Header>}
-                                            </Link>
-                                            {log.blog}
+                                            {/* <span>by {author}</span> */}
+                                           <span style={{color: 'grey'}}>{log.blog.split('').length > 80 ? <span>{log.blog.substring(0, 80) + '...'} </span> : <span> {log.blog} </span>}</span> 
                                             <br />
-                                            <span style={{ color: 'grey' }}>Posted on: {new Date(log.created_at).toString().split(' ').splice(0, 4).join(' ')}</span>
+                                            <span style={{ color: 'white' }}>Posted on: {new Date(log.created_at).toString().split(' ').splice(0, 4).join(' ')}</span>
                                         </List.Content>
                                     </List.Item>
                                 </List>
 
 
-                            </Segment>)}
+                            </Segment><br/></Link>)}
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

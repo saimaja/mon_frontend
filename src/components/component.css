@@ -38,6 +38,10 @@
     color: rgb(156, 154, 154) !important;
   }
 
+  .ui.grey.segment.Grey:hover {
+    background-color: grey !important;
+  }
+
   .ui.card.Change:hover {
     background-color: rgb(226, 222, 230);
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { Grid, Segment, Divider, Header } from 'semantic-ui-react'
 import './component.css'
 // import mon from '../images/fadedmon.png'
@@ -40,7 +40,7 @@ class Travelogue extends Component {
                             <Divider horizontal>
                                 <Header as='h3'>
                                     {this.state.travelogue.title}
-                                    <Header.Subheader>by {this.state.user.name}</Header.Subheader>
+                            <Link to= {`/users/${this.state.user_id}`}> <Header.Subheader>by {this.state.user.name}</Header.Subheader></Link>
                                 </Header>
                             </Divider>
                         </Segment>
@@ -48,7 +48,7 @@ class Travelogue extends Component {
                         <span style={{ color: 'grey' }}>Posted on: {new Date(this.state.travelogue.created_at).toString().split(' ').splice(0, 4).join(' ')}</span>
                             <br/>
                             <br/>
-                            <span>{this.state.travelogue.blog}</span>
+                             {this.state.travelogue.blog}       
                         </Segment>
                     </Grid.Column>
                 </Grid.Row>
