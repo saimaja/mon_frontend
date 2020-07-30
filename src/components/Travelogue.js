@@ -45,6 +45,9 @@ class Travelogue extends Component {
                             </Divider>
                         </Segment>
                         <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
+                        <span style={{ color: 'grey' }}>Posted on: {new Date(this.state.travelogue.created_at).toString().split(' ').splice(0, 4).join(' ')}</span>
+                            <br/>
+                            <br/>
                             <span>{this.state.travelogue.blog}</span>
                         </Segment>
                     </Grid.Column>

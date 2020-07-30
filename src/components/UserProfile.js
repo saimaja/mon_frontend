@@ -340,7 +340,9 @@ class UserProfile extends Component {
                                                                 </Divider>
                                                             </Segment>
                                                             <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
-
+                                                                <span style={{ color: 'grey' }}>Written on {new Date(logs.created_at).toString().split(' ').splice(0, 4).join(' ')}</span>
+                                                                <br/>
+                                                                <br/>
                                                                 <span style={{ color: 'black' }}>{logs.blog}</span>
                                                             </Segment>
 

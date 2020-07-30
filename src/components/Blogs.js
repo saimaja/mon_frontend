@@ -68,7 +68,7 @@ class Blogs extends Component {
                                             </Link>
                                             {log.blog}
                                             <br />
-                                            <span style={{ color: 'grey' }}>Posted on: {new Date(log.created_at).toString()}</span>
+                                            <span style={{ color: 'grey' }}>Posted on: {new Date(log.created_at).toString().split(' ').splice(0, 4).join(' ')}</span>
                                         </List.Content>
                                     </List.Item>
                                 </List>
