@@ -20,9 +20,10 @@ class UserProfile extends Component {
         favoriteID: [],
         createModal: false,
         deleteModal: false,
-        bio: '',
+        about: '',
         user_location: '',
         interests: '',
+        photo: '',
         options: [
             {
                 key: 0, text: '', value: 0
@@ -43,6 +44,7 @@ class UserProfile extends Component {
                     about: data.about,
                     user_location: data.location,
                     interests: data.interests,
+                    photo: data.photo_url,
                     options: data.monuments.map(fav => { return { key: fav.id, text: fav.name, value: fav.id } })
                 })
             })
@@ -152,7 +154,9 @@ class UserProfile extends Component {
                         <Segment style={{ marginLeft: '50px' }}>
                             {this.props.currentUser ?
                                 <Button icon='edit outline' floated='right' /> : null}
-                            <Image src={user} size='small' circular />
+                                {this.state.photo ? 
+                            <Image src={this.state.photo} size='small' circular /> :
+                                <Image src={user} size='small' circular /> }
                             <Divider horizontal>
                                 <Header as='h3'>
                                     {this.state.name}

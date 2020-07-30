@@ -208,7 +208,8 @@ export default class App extends Component {
                 name={this.state.name}
                 admin={this.state.admin}
                 monuments={this.state.monuments} />
-              : <Redirect to='/login' />} />
+              : <Redirect to='/login' />
+              } />
 
           <Route exact path='/travelogues/:id' render={() =>
             this.state.currentUser ?
