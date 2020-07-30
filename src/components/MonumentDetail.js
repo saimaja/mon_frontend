@@ -28,7 +28,7 @@ class MonumentDetail extends Component {
         return (
             <Grid columns='equal'>
                 <Grid.Row style={{ marginTop: '20px' }} stretched >
-                    <Grid.Column width={8} >
+                    <Grid.Column width={9} >
 
                         <Segment style={{ marginLeft: '50px' }} >
                             {/* {this.props.isAdded ? 
@@ -95,7 +95,7 @@ class MonumentDetail extends Component {
                         <Header as='h5' attached='top' style={{ maxHeight: 50 }}>
                             Blogs about this monument
                     </Header>
-                        <Segment attached style={{ overflow: 'auto', maxHeight: 150 }}>
+                        <Segment attached style={{ overflow: 'auto', maxHeight: 250 }}>
                             {this.state.travelogues.length === 0 ?
                                 <List><List.Content><List.Header><b>There aren't any blogs ... yet</b></List.Header></List.Content></List> :
                                 <List celled divided verticalAlign='middle'>
@@ -104,7 +104,7 @@ class MonumentDetail extends Component {
                                             <List.Content floated='right'>
 
                                             </List.Content>
-                                            <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
+                                            {/* <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} /> */}
                                             <List.Content>
                                                 <Link to={`/travelogues/${logs.id}`}>
                                                     {logs.title.split('').length > 45 ?

@@ -80,7 +80,7 @@ class NavBar extends Component {
                   </Dropdown.Menu>
                 </Dropdown> : <span></span>}
 
-              {this.props.location.pathname === '/map' || this.props.location.pathname === '/monuments' ?
+              {this.props.location.pathname === '/monuments' ?
                 <Menu.Item>
                   <Input icon='search' type='text' placeholder='Search by Name' onChange={this.props.search} />
                 </Menu.Item> : <span></span>}
