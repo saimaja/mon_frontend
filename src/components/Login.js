@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import './component.css'
-import logo from '../images/monlanding.png'
+import logo from '../images/monlanding2.png'
 
 export default class Login extends Component {
 

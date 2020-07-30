@@ -39,11 +39,11 @@
   }
 
   .ui.grey.segment.Grey:hover {
-    background-color: grey !important;
+    background-color: #A3acb0 !important;
   }
 
   .ui.card.Change:hover {
-    background-color: rgb(226, 222, 230);
+    background-color: #eeeff1;
   }
 
   .ui.scrolling.modal.transition.visible.active > .relative {

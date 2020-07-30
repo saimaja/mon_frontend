@@ -35,9 +35,11 @@ class MonumentCard extends Component {
                     <Card.Content extra>
                         {this.props.isAdded ? 
                         <Button 
+                        color = 'olive'
                         onClick={(e) => {this.props.removeMon(e, this.props.monument.id)}}
                         basic fluid>Remove</Button> :
                          <Button 
+                        color = 'violet'
                         onClick={(e) => {this.props.addMon(e, this.props.monument.id)}}
                         basic fluid>Add</Button>}
                     

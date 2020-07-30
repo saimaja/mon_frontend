@@ -77,8 +77,8 @@ class Blogs extends Component {
                                         <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} />
                                         <List.Content>
                                            
-                                                {log.title.split('').length > 45 ?
-                                                    <List.Header className='Title'>{log.title.substring(0, 45) + '...'}</List.Header> :
+                                                {log.title.split('').length > 75 ?
+                                                    <List.Header className='Title'>{log.title.substring(0, 75) + '...'}</List.Header> :
                                                     <List.Header className='Title'>{log.title}</List.Header>}
                                             {/* <span>by {author}</span> */}
                                            <span style={{color: 'grey'}}>{log.blog.split('').length > 80 ? <span>{log.blog.substring(0, 80) + '...'} </span> : <span> {log.blog} </span>}</span> 

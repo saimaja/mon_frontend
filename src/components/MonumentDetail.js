@@ -105,14 +105,14 @@ class MonumentDetail extends Component {
 
                                             </List.Content>
                                             {/* <Image avatar src={'https://react.semantic-ui.com/images/wireframe/paragraph.png'} /> */}
-                                            <List.Content>
+                                            <List.Content >
                                                 <Link to={`/travelogues/${logs.id}`}>
-                                                    {logs.title.split('').length > 45 ?
-                                                        <List.Header className='Title'>{logs.title.substring(0, 45) + '...'}</List.Header> :
+                                                    {logs.title.split('').length > 50 ?
+                                                        <List.Header className='Title'>{logs.title.substring(0, 50) + '...'}</List.Header> :
                                                         <List.Header className='Title'>{logs.title}</List.Header>}
                                                 </Link>
-                                                by <Link to={`/users/${logs.user_id}`}>{this.props.name}</Link>
-                                                {logs.blog.split('').length > 70 ? <List.Content>{logs.blog.substring(0, 70) + '...'} </List.Content> : <List.Content> {logs.blog} </List.Content>}
+                                                {/* by <Link style={{color: 'grey'}} to={`/users/${logs.user_id}`}>{this.props.name}</Link> */}
+                                                {logs.blog.split('').length > 60 ? <List.Content>{logs.blog.substring(0, 60) + '...'} </List.Content> : <List.Content> {logs.blog} </List.Content>}
                                             </List.Content>
                                         </List.Item>)}
                                 </List>}
