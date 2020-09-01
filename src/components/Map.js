@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import mapboxgl from 'mapbox-gl'
 // import { Loader } from 'semantic-ui-react'
-require('dotenv').config()
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 
 const accessToken = process.env.REACT_APP_MAPBOX_TOKEN;

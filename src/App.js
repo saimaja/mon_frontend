@@ -12,6 +12,8 @@ import Travelogue from './components/Travelogue'
 import UserProfile from './components/UserProfile'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { Loader } from 'semantic-ui-react'
+const url = process.env.REACT_APP_MON_BACKEND || 'http://localhost:3000'
+
 
 
 
@@ -35,7 +37,7 @@ export default class App extends Component {
   }
 
   fetchMonuments = () => {
-    fetch('http://localhost:3000/monuments')
+    fetch(`${url}/monuments`)
       .then(resp => resp.json())
       .then(monuments => {
         this.setState({ monuments: monuments })
@@ -86,7 +88,7 @@ export default class App extends Component {
 
   loginUser = (e, username, password) => {
     e.preventDefault()
-    fetch('http://localhost:3000/login', {
+    fetch(`${url}/login`, {
       method: 'POST',
       headers: { 'Content-type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
