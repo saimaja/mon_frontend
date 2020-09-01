@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import mapboxgl from 'mapbox-gl'
 // import { Loader } from 'semantic-ui-react'
-import api_key from '../api_token.js'
+import api_key from '../keys/api_token'
 
 
 mapboxgl.accessToken = api_key;
