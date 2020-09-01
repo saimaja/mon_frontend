@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Grid, Segment, Header, Divider } from 'semantic-ui-react'
 
 
+
 export default class About extends Component {
     render() {
         return (
