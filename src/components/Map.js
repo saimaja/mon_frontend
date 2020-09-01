@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import mapboxgl from 'mapbox-gl'
 // import { Loader } from 'semantic-ui-react'
+require('dotenv').config()
 
 
-
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+const accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
+mapboxgl.accessToken = accessToken
 
 export default class Map extends Component {
 
