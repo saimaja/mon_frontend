@@ -1,3 +1,0 @@
-const API_TOKEN = 'pk.eyJ1Ijoic2FpbWFqYSIsImEiOiJja2NwZ3A3MXcwZ3Z2MnNsZTE1OXR0MWk1In0.EffvATu2f0N_tMT17bK7Zw';
-
-export default API_TOKEN
