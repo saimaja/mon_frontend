@@ -18,11 +18,12 @@
     "websocket-extensions": "^0.1.4"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
+    "start": "react-scripts start",
+    "devStart": "PORT=3001 react-scripts start", 
     "server": "cd ../mon_backend && rails s",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "dev": "concurrently \"npm run server\" \"npm run start\"",
+    "dev": "concurrently \"npm run server\" \"npm run devStart\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

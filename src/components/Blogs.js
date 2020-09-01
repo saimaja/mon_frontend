@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { List, Image, Grid, Segment, Header, Divider } from 'semantic-ui-react'
 import { withRouter, Link } from 'react-router-dom'
 import './component.css'
+const url = process.env.REACT_APP_MON_BACKEND || 'http://localhost:3000'
+
 
 
 class Blogs extends Component {
@@ -12,7 +14,7 @@ class Blogs extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3000/travelogues')
+        fetch(`${url}/travelogues`)
             .then(resp => resp.json())
             .then(data =>
                 this.setState({ travelogues: data })
@@ -20,7 +22,7 @@ class Blogs extends Component {
     }
 
     fetchUsers = () => {
-        fetch('http://localhost:3000/users')
+        fetch(`${url}/users`)
             .then(resp => resp.json())
             .then(data =>
                 this.setState({ users: data })

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { Grid, Segment, Divider, Header } from 'semantic-ui-react'
 import './component.css'
+const url = process.env.REACT_APP_MON_BACKEND || 'http://localhost:3000'
+
 // import mon from '../images/fadedmon.png'
 
 class Travelogue extends Component {
@@ -13,7 +15,7 @@ class Travelogue extends Component {
 
     componentDidMount() {
         let id = parseInt(this.props.match.params.id)
-        fetch(`http://localhost:3000/travelogues/${id}`)
+        fetch(`${url}/travelogues/${id}`)
             .then(resp => resp.json())
             .then(data => {
                 console.log(data)

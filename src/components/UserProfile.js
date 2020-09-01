@@ -5,6 +5,8 @@ import { Dropdown, TextArea, Form, Modal, Label, Button, Image, List, Grid, Segm
 import logo from '../images/fadedmon.png'
 import './component.css'
 import user from '../images/user.png'
+const url = process.env.REACT_APP_MON_BACKEND || 'http://localhost:3000'
+
 
 class UserProfile extends Component {
 
@@ -33,7 +35,7 @@ class UserProfile extends Component {
 
     componentDidMount() {
         let id = parseInt(this.props.match.params.id)
-        fetch(`http://localhost:3000/users/${id}`)
+        fetch(`${url}/users/${id}`)
             .then(resp => resp.json())
             .then(data => {
                 this.setState({
@@ -54,7 +56,7 @@ class UserProfile extends Component {
     removeFavorite = (e, monID) => {
         let favID = this.state.favoriteID.find(fav => fav.monument_id === monID).id
         console.log('removing')
-        fetch(`http://localhost:3000/favorites/${favID}`, {
+        fetch(`${url}/favorites/${favID}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',
@@ -71,7 +73,7 @@ class UserProfile extends Component {
 
     removeTravelogue = (e, id) => {
         // console.log('removing')
-        fetch(`http://localhost:3000/travelogues/${id}`, {
+        fetch(`${url}/travelogues/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-type': 'application/json',
@@ -94,7 +96,7 @@ class UserProfile extends Component {
         e.preventDefault()
         let { title, blog } = this.state.newTravel
 
-        fetch('http://localhost:3000/travelogues', {
+        fetch(`${url}/travelogues`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

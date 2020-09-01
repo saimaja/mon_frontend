@@ -3,6 +3,7 @@ import MonumentCard from './MonumentCard'
 import { Container, Divider, Grid, Segment } from 'semantic-ui-react'
 import Pagination from './Pagination'
 import './component.css'
+const url = process.env.REACT_APP_MON_BACKEND || 'http://localhost:3000'
 
 
 export default class MonumentContainer extends Component {
@@ -18,7 +19,7 @@ export default class MonumentContainer extends Component {
     }
 
     componentDidMount() {
-        fetch(`http://localhost:3000/users/${this.props.currentUser}`)
+        fetch(`${url}/users/${this.props.currentUser}`)
             .then(resp => resp.json())
             .then(data => {
                 this.setState({ added: data.favorites })
@@ -28,7 +29,7 @@ export default class MonumentContainer extends Component {
     addMonument = (e, id) => {
         // console.log(this.props.currentUser, id)
 
-        fetch('http://localhost:3000/favorites', {
+        fetch(`${url}/favorites`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -50,7 +51,7 @@ export default class MonumentContainer extends Component {
         if (this.state.added.find(mon => mon.monument_id === id)) {
             let removed = this.state.added.find(mon => mon.monument_id === id).id
 
-            fetch(`http://localhost:3000/favorites/${removed}`, {
+            fetch(`${url}/favorites/${removed}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-type': 'application/json',

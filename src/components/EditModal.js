@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import EditTravelogue from './EditTravelogue'
 import { Form, Modal, Icon } from 'semantic-ui-react'
 import './component.css'
+const url = process.env.REACT_APP_MON_BACKEND || 'http://localhost:3000'
+
 
 export default class EditModal extends Component {
 
@@ -27,7 +29,7 @@ export default class EditModal extends Component {
         e.preventDefault()
         let { title, blog } = this.state.editTravel
 
-        fetch(`http://localhost:3000/travelogues/${this.props.selectedTravel.id}`, {
+        fetch(`${url}/travelogues/${this.props.selectedTravel.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

@@ -3,6 +3,8 @@ import { withRouter, Link } from 'react-router-dom'
 import { Image, List, Grid, Segment, Divider, Header, Table } from 'semantic-ui-react'
 import './component.css'
 import mon from '../images/fadedmon.png'
+const url = process.env.REACT_APP_MON_BACKEND || 'http://localhost:3000'
+
 
 class MonumentDetail extends Component {
 
@@ -13,7 +15,7 @@ class MonumentDetail extends Component {
 
     componentDidMount() {
         let id = parseInt(this.props.match.params.id)
-        fetch(`http://localhost:3000/monuments/${id}`)
+        fetch(`${url}/monuments/${id}`)
             .then(resp => resp.json())
             .then(data => {
                 this.setState({ monTravelID: data.mon_travels, travelogues: data.travelogues })
