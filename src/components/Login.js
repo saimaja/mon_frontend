@@ -41,7 +41,8 @@ export default class Login extends Component {
                         </Form.Group>  
                     </Form>
                     <div style={{marginLeft: '293px'}}>
-                    Sign in or <Link to='/register'>register here.</Link>
+                    {/* Sign in or <Link to='/register'>register here.</Link> */}
+                    [Guest login: sja; Password: 123]
                     </div>
 
                    
